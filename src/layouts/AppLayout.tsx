@@ -11,7 +11,7 @@ const AppLayout = () => {
 					<NavMenu />
 				</div>
 			</header>
-			<main className='container mx-auto flex-1 p-4'>
+			<main className='container mx-auto flex-1 px-4 py-8'>
 				<Outlet />
 			</main>
 			<footer className='bg-black'>
