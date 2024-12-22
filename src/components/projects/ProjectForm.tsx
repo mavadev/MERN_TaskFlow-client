@@ -1,15 +1,10 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { ErrorMessage } from '../ErrorMessage';
-
-interface DraftProject {
-	projectName: string;
-	clientName: string;
-	description: string;
-}
+import { ProjectFormData } from '@/interfaces';
 
 interface ProjectFormProps {
-	register: UseFormRegister<DraftProject>;
-	errors: FieldErrors<DraftProject>;
+	register: UseFormRegister<ProjectFormData>;
+	errors: FieldErrors<ProjectFormData>;
 }
 
 export default function ProjectForm({ register, errors }: ProjectFormProps) {
