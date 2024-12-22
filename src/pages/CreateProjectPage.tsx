@@ -1,16 +1,52 @@
+import ProjectForm from '@/components/projects/ProjectForm';
+import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
 const CreateProjectPage = () => {
+	const initialValues = {
+		clientName: '',
+		projectName: '',
+		description: '',
+	};
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm({ defaultValues: initialValues });
+
+	const handleForm = (data: any) => {
+		console.log(data);
+	};
+
 	return (
 		<>
-			<h1 className='text-3xl font-bold'>Crear Proyecto</h1>
-			<p className='text-2xl font-light mt-2'>Rellena los datos para crear tu nuevo proyecto</p>
+			<header>
+				<h1 className='title'>Crear Proyecto</h1>
+				<p className='subtitle'>Rellena los datos para crear tu nuevo proyecto</p>
 
-			<Link
-				to='/'
-				className='bg-yellow-900 text-white py-2 px-4 rounded font-bold inline-block mt-4'>
-				Volver a Proyectos
-			</Link>
+				<nav>
+					<Link
+						to='/'
+						className='btn-primary mt-4'>
+						Volver a Proyectos
+					</Link>
+				</nav>
+
+				<form
+					noValidate
+					onSubmit={handleSubmit(handleForm)}
+					className='mt-10 bg-white shadow-lg p-10 rounded-lg w-full max-w-3xl'>
+					<ProjectForm
+						register={register}
+						errors={errors}
+					/>
+					<input
+						type='submit'
+						value='Crear Proyecto'
+						className='btn-secondary p-4 w-full'
+					/>
+				</form>
+			</header>
 		</>
 	);
 };
