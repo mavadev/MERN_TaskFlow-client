@@ -1,5 +1,6 @@
-import { projectDraftSchema, ProjectDraftData, Project, projectSchema } from '@/interfaces';
 import api from '@/lib/axios';
+import { isAxiosError } from 'axios';
+import { projectDraftSchema, ProjectDraftData, Project, projectSchema } from '@/interfaces';
 
 export async function createProject(formData: ProjectDraftData): Promise<Project> {
 	try {
@@ -16,6 +17,9 @@ export async function createProject(formData: ProjectDraftData): Promise<Project
 
 		return data;
 	} catch (error) {
+		if (isAxiosError(error) && error.response) {
+			throw new Error(error.response.data.message || error.response.data.error);
+		}
 		if (error instanceof Error) throw error;
 		throw new Error('Hubo un error al crear el proyecto');
 	}

@@ -14,7 +14,10 @@ const AppLayout = () => {
 				</div>
 			</header>
 			<main className='container mx-auto flex-1 px-4 py-8'>
-				<ToastContainer />
+				<ToastContainer
+					closeOnClick
+					draggable
+				/>
 				<Outlet />
 			</main>
 			<footer className='bg-black'>

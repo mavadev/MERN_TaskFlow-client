@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ProjectDraftData } from '@/interfaces';
 import { createProject } from '@/api/ProjectAPI';
 import ProjectForm from '@/components/projects/ProjectForm';
+import { useMutation } from '@tanstack/react-query';
 
 const CreateProjectPage = () => {
 	const navigate = useNavigate();
@@ -13,23 +14,27 @@ const CreateProjectPage = () => {
 		projectName: '',
 		description: '',
 	};
+	// Creación de datos/métodos para formulario
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
+		reset,
 	} = useForm({ defaultValues: initialValues });
 
-	const handleForm = async (data: ProjectDraftData) => {
-		try {
-			const result = await createProject(data);
-			toast.success(`Proyecto creado correctamente. ID: ${result._id}`);
-		} catch (error) {
-			toast.error((error as Error).message);
-		} finally {
+	// Petición a la API (POST)
+	const { mutate } = useMutation({
+		mutationFn: createProject,
+		onSuccess: () => {
+			toast.success('Proyecto creado correctamente');
 			navigate('/');
-		}
-	};
-
+		},
+		onError: error => {
+			toast.error(error.message);
+			reset();
+		},
+	});
+	const handleForm = (formData: ProjectDraftData) => mutate(formData);
 	return (
 		<>
 			<header>
