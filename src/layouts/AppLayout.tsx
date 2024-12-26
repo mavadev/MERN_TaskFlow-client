@@ -1,6 +1,8 @@
 import { Outlet } from 'react-router-dom';
 import { Logo } from '@/components/Logo';
 import { NavMenu } from '@/components/NavMenu';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AppLayout = () => {
 	return (
@@ -12,6 +14,7 @@ const AppLayout = () => {
 				</div>
 			</header>
 			<main className='container mx-auto flex-1 px-4 py-8'>
+				<ToastContainer />
 				<Outlet />
 			</main>
 			<footer className='bg-black'>
