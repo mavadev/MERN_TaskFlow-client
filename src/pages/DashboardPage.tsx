@@ -1,6 +1,15 @@
 import { Link } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import { getProjects } from '@/api/ProjectAPI';
 
 const DashboardPage = () => {
+	const { data, isLoading, isError, error } = useQuery({
+		queryKey: ['projects'],
+		queryFn: getProjects,
+	});
+
+	console.log({ data, isLoading, isError, error });
+
 	return (
 		<>
 			<header>
