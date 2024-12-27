@@ -13,6 +13,8 @@ const DashboardPage = () => {
 		queryFn: getProjects,
 	});
 
+	if (isLoading) return <h2>Cargando...</h2>;
+
 	return (
 		<>
 			<header>

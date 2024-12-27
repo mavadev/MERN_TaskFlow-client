@@ -1,12 +1,12 @@
+import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 
 import { Project, ProjectDraftData } from '@/interfaces';
 import { getProjectById, updateProjectById } from '@/api/ProjectAPI';
 import ProjectForm from '@/components/projects/ProjectForm';
-import { useEffect } from 'react';
 
 const EditProjectPage = () => {
 	const params = useParams();
@@ -45,9 +45,13 @@ const EditProjectPage = () => {
 	}, [data, reset]);
 
 	// Petición a la API (PUT)
+	const queryClient = useQueryClient();
 	const { mutate } = useMutation({
 		mutationFn: updateProjectById,
 		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['editProject', projectId] });
+			queryClient.invalidateQueries({ queryKey: ['projects'] });
+
 			toast.success('Proyecto creado correctamente');
 			navigate('/');
 		},
