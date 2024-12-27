@@ -48,3 +48,20 @@ export async function getProjects(): Promise<Project[]> {
 		throw new Error('Hubo un error al crear el proyecto');
 	}
 }
+
+export async function getProjectById(projectId: Project['_id']): Promise<Project> {
+	try {
+		const { data } = await api.get(`/projects/${projectId}`);
+
+		const result = projectTasksSchema.safeParse(data);
+		if (!result.success) throw new Error('Error en los datos de respuesta');
+
+		return data;
+	} catch (error) {
+		if (isAxiosError(error) && error.response) {
+			throw new Error(error.response.data.error);
+		}
+		if (error instanceof Error) throw error;
+		throw new Error('Hubo un error al crear el proyecto');
+	}
+}

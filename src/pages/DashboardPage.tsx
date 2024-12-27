@@ -76,7 +76,7 @@ const DashboardPage = () => {
 										</MenuItem>
 										<MenuItem>
 											<Link
-												to={``}
+												to={`/projects/edit/${project._id}`}
 												className='block px-3 py-2 text-sm leading-6 text-gray-900 w-full hover:bg-gray-50'>
 												Editar Proyecto
 											</Link>
