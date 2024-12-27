@@ -1,41 +1,65 @@
+import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
-import { useQuery } from '@tanstack/react-query';
-import { Link, Navigate, useParams } from 'react-router-dom';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 
-import { ProjectDraftData } from '@/interfaces';
-import { getProjectById } from '@/api/ProjectAPI';
+import { Project, ProjectDraftData } from '@/interfaces';
+import { getProjectById, updateProjectById } from '@/api/ProjectAPI';
 import ProjectForm from '@/components/projects/ProjectForm';
+import { useEffect } from 'react';
 
 const EditProjectPage = () => {
+	const params = useParams();
+	const navigate = useNavigate();
+	const projectId = params.projectId as Project['_id'];
+
 	// Obtener Proyecto
-	const { projectId } = useParams();
 	const { data, isLoading, isError } = useQuery({
 		queryKey: ['editProject', projectId],
-		queryFn: () => getProjectById(projectId!),
+		queryFn: () => getProjectById(projectId),
 	});
 
-	// Validación de datos
-	if (isLoading) return <h1>'Cargando...'</h1>;
-	if (isError) return <Navigate to='/404' />;
-	if (!data) return <h2>Data no valida</h2>;
-
-	// Datos de Formulario
+	// Configuración de Formulario
 	const {
+		reset,
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm({
 		defaultValues: {
-			clientName: data.clientName,
-			projectName: data.projectName,
-			description: data.description,
+			clientName: '',
+			projectName: '',
+			description: '',
 		},
 	});
 
+	// Actualizar cuando los datos estén listos
+	useEffect(() => {
+		if (data) {
+			reset({
+				clientName: data.clientName,
+				projectName: data.projectName,
+				description: data.description,
+			});
+		}
+	}, [data, reset]);
+
 	// Petición a la API (PUT)
-	const handleForm = (formData: ProjectDraftData) => {
-		console.log(formData);
-	};
+	const { mutate } = useMutation({
+		mutationFn: updateProjectById,
+		onSuccess: () => {
+			toast.success('Proyecto creado correctamente');
+			navigate('/');
+		},
+		onError: error => {
+			toast.error(error.message);
+		},
+	});
+	const handleForm = (formData: ProjectDraftData) => mutate({ projectId, formData });
+
+	// Condiciones de renderizado
+	if (isLoading) return <h2>Cargando...</h2>;
+	if (isError || !data) return <Navigate to='/404' />;
 
 	return (
 		<>
@@ -56,8 +80,8 @@ const EditProjectPage = () => {
 					onSubmit={handleSubmit(handleForm)}
 					className='mt-10 bg-white shadow-lg p-10 rounded-lg w-full max-w-3xl'>
 					<ProjectForm
-						register={register}
 						errors={errors}
+						register={register}
 					/>
 					<input
 						type='submit'

@@ -1,11 +1,11 @@
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
+import { useMutation } from '@tanstack/react-query';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { ProjectDraftData } from '@/interfaces';
 import { createProject } from '@/api/ProjectAPI';
 import ProjectForm from '@/components/projects/ProjectForm';
-import { useMutation } from '@tanstack/react-query';
 
 const CreateProjectPage = () => {
 	const navigate = useNavigate();
@@ -19,7 +19,6 @@ const CreateProjectPage = () => {
 		register,
 		handleSubmit,
 		formState: { errors },
-		reset,
 	} = useForm({ defaultValues: initialValues });
 
 	// Petición a la API (POST)
@@ -31,7 +30,6 @@ const CreateProjectPage = () => {
 		},
 		onError: error => {
 			toast.error(error.message);
-			reset();
 		},
 	});
 	const handleForm = (formData: ProjectDraftData) => mutate(formData);
