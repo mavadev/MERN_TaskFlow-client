@@ -21,3 +21,10 @@
 .subtitle {
 	@apply text-2xl font-light mt-2;
 }
+
+.Toastify__toast-icon > svg {
+	fill: #ffa500 !important;
+}
+.Toastify__progress-bar--success {
+	background-color: #ffa500 !important;
+}

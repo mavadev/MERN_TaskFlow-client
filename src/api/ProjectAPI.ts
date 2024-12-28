@@ -49,7 +49,7 @@ export async function getProjects(): Promise<Project[]> {
 	}
 }
 
-export async function getProjectById(projectId: Project['_id']): Promise<Project> {
+export async function getProject(projectId: Project['_id']): Promise<Project> {
 	try {
 		const { data } = await api.get(`/projects/${projectId}`);
 
@@ -71,7 +71,7 @@ interface UpdateProjectProps {
 	formData: ProjectDraftData;
 }
 
-export async function updateProjectById({ projectId, formData }: UpdateProjectProps): Promise<Project> {
+export async function updateProject({ projectId, formData }: UpdateProjectProps) {
 	try {
 		// Validación de datos
 		const dataResult = projectDraftSchema.safeParse(formData);
@@ -84,6 +84,17 @@ export async function updateProjectById({ projectId, formData }: UpdateProjectPr
 			throw new Error(error.response.data.error);
 		}
 		if (error instanceof Error) throw error;
+		throw new Error('Hubo un error al crear el proyecto');
+	}
+}
+
+export async function deleteProject(projectId: Project['_id']) {
+	try {
+		await api.delete(`/projects/${projectId}`);
+	} catch (error) {
+		if (isAxiosError(error) && error.response) {
+			throw new Error(error.response.data.error);
+		}
 		throw new Error('Hubo un error al crear el proyecto');
 	}
 }

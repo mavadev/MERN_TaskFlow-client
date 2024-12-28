@@ -5,7 +5,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 
 import { Project, ProjectDraftData } from '@/interfaces';
-import { getProjectById, updateProjectById } from '@/api/ProjectAPI';
+import { getProject, updateProject } from '@/api/ProjectAPI';
 import ProjectForm from '@/components/projects/ProjectForm';
 
 const EditProjectPage = () => {
@@ -16,7 +16,7 @@ const EditProjectPage = () => {
 	// Obtener Proyecto
 	const { data, isLoading, isError } = useQuery({
 		queryKey: ['editProject', projectId],
-		queryFn: () => getProjectById(projectId),
+		queryFn: () => getProject(projectId),
 	});
 
 	// Configuración de Formulario
@@ -47,7 +47,7 @@ const EditProjectPage = () => {
 	// Petición a la API (PUT)
 	const queryClient = useQueryClient();
 	const { mutate } = useMutation({
-		mutationFn: updateProjectById,
+		mutationFn: updateProject,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['editProject', projectId] });
 			queryClient.invalidateQueries({ queryKey: ['projects'] });
