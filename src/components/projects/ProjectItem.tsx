@@ -27,13 +27,11 @@ export const ProjectItem = ({ project }: ProjectProps) => {
 	});
 
 	return (
-		<li
-			key={project._id}
-			className='flex justify-between items-start gap-x-6 p-8 shadow rounded-md border-gray-100 bg-white'>
+		<li className='flex justify-between items-start gap-x-6 p-8 shadow rounded-md border-gray-100 bg-white'>
 			<div className='flex flex-col'>
 				<p className='text-sm text-gray-400 mb-1'>Cliente: {project.clientName}</p>
 				<Link
-					to={``}
+					to={`/projects/${project._id}`}
 					className='text-gray-600 hover:text-gray-900 text-xl font-bold transition-colors'>
 					{project.projectName}
 				</Link>
@@ -60,14 +58,14 @@ export const ProjectItem = ({ project }: ProjectProps) => {
 					<MenuItems className='absolute right-0 z-10 mt-2 w-48 origin-top-right rounded bg-white shadow-lg ring-1 ring-gray-900/5 focus:outline-none text-center'>
 						<MenuItem>
 							<Link
-								to={``}
+								to={`/projects/${project._id}`}
 								className='block px-3 py-2 text-sm leading-6 text-gray-900 w-full hover:bg-gray-50'>
 								Ver Proyecto
 							</Link>
 						</MenuItem>
 						<MenuItem>
 							<Link
-								to={`/projects/edit/${project._id}`}
+								to={`/projects/${project._id}/edit`}
 								className='block px-3 py-2 text-sm leading-6 text-gray-900 w-full hover:bg-gray-50'>
 								Editar Proyecto
 							</Link>

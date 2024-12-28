@@ -3,7 +3,7 @@ import { Link, Navigate } from 'react-router-dom';
 import { DocumentTextIcon } from '@heroicons/react/24/outline';
 
 import { getProjects } from '@/api/ProjectAPI';
-import { ProjectItem } from '@/components/ProjectItem';
+import { ProjectItem } from '@/components/projects/ProjectItem';
 
 const DashboardPage = () => {
 	const { data, isLoading, isError } = useQuery({
@@ -34,7 +34,10 @@ const DashboardPage = () => {
 					role='list'
 					className='my-10 grid grid-cols-1 md:grid-cols-2 gap-5'>
 					{data.map(project => (
-						<ProjectItem project={project} />
+						<ProjectItem
+							key={project._id}
+							project={project}
+						/>
 					))}
 				</ul>
 			) : (

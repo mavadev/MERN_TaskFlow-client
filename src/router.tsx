@@ -3,6 +3,7 @@ import AppLayout from '@/layouts/AppLayout';
 import DashboardPage from '@/pages/DashboardPage';
 import CreateProjectPage from '@/pages/CreateProjectPage';
 import EditProjectPage from '@/pages/EditProjectPage';
+import ProjectDetailsPage from './pages/ProjectDetailsPage';
 
 export default function AppRouter() {
 	return (
@@ -21,8 +22,12 @@ export default function AppRouter() {
 						element={<CreateProjectPage />}
 					/>
 					<Route
-						path='/projects/edit/:projectId'
+						path='/projects/:projectId/edit'
 						element={<EditProjectPage />}
+					/>
+					<Route
+						path='/projects/:projectId'
+						element={<ProjectDetailsPage />}
 					/>
 				</Route>
 			</Routes>
