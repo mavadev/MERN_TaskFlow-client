@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Bars3Icon } from '@heroicons/react/20/solid';
 import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
 
-export const NavMenu = () => {
+export const UserMenu = () => {
 	return (
 		<Popover className='md:relative'>
 			<PopoverButton className='leading-6 p-1 rounded bg-yellow-600'>

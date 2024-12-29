@@ -38,7 +38,7 @@ export default function AddTaskModal({ projectId }: { projectId: Project['_id'] 
 			toast.error(error.message);
 		},
 	});
-	const handleForm = (formData: TaskDraftData) => mutate({ projectId, formData });
+	const handleCreateTask = (formData: TaskDraftData) => mutate({ projectId, formData });
 
 	return (
 		<Transition
@@ -78,7 +78,7 @@ export default function AddTaskModal({ projectId }: { projectId: Project['_id'] 
 								<form
 									noValidate
 									className='space-y-5'
-									onSubmit={handleSubmit(handleForm)}>
+									onSubmit={handleSubmit(handleCreateTask)}>
 									<TaskForm
 										errors={errors}
 										register={register}

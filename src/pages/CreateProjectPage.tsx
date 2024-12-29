@@ -32,7 +32,7 @@ const CreateProjectPage = () => {
 			toast.error(error.message);
 		},
 	});
-	const handleForm = (formData: ProjectDraftData) => mutate(formData);
+	const handleForm = (formData: ProjectDraftData) => mutate({ formData });
 	return (
 		<>
 			<header>

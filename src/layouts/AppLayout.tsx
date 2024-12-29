@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
-import { Logo } from '@/components/Logo';
-import { NavMenu } from '@/components/NavMenu';
+import { Logo } from '@/components/LogoApp';
+import { UserMenu } from '@/components/UserMenu';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -10,7 +10,7 @@ const AppLayout = () => {
 			<header className='bg-gray-200'>
 				<div className='container mx-auto flex flex-row justify-between items-center px-4 py-8'>
 					<Logo />
-					<NavMenu />
+					<UserMenu />
 				</div>
 			</header>
 			<main className='container mx-auto flex-1 px-4 py-8'>

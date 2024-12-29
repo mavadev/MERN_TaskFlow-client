@@ -16,7 +16,7 @@ const EditProjectPage = () => {
 	// Obtener Proyecto
 	const { data, isLoading, isError } = useQuery({
 		queryKey: ['editProject', projectId],
-		queryFn: () => getProject(projectId),
+		queryFn: () => getProject({ projectId }),
 	});
 
 	// Configuración de Formulario

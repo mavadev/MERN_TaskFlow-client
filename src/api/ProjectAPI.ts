@@ -14,7 +14,7 @@ interface ProjectProps {
 	formData: ProjectDraftData;
 }
 
-export async function createProject(formData: Pick<ProjectProps, 'formData'>): Promise<ProjectTasks> {
+export async function createProject({ formData }: Pick<ProjectProps, 'formData'>): Promise<ProjectTasks> {
 	try {
 		// Validación de datos
 		const dataResult = projectDraftSchema.safeParse(formData);
@@ -54,7 +54,7 @@ export async function getProjects(): Promise<Project[]> {
 	}
 }
 
-export async function getProject(projectId: Pick<ProjectProps, 'projectId'>): Promise<Project> {
+export async function getProject({ projectId }: Pick<ProjectProps, 'projectId'>): Promise<ProjectTasks> {
 	try {
 		const { data } = await api.get(`/projects/${projectId}`);
 
@@ -88,7 +88,7 @@ export async function updateProject({ projectId, formData }: ProjectProps) {
 	}
 }
 
-export async function deleteProject(projectId: Pick<ProjectProps, 'projectId'>) {
+export async function deleteProject({ projectId }: Pick<ProjectProps, 'projectId'>) {
 	try {
 		await api.delete(`/projects/${projectId}`);
 	} catch (error) {
