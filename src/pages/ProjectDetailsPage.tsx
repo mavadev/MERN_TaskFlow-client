@@ -20,14 +20,13 @@ const ProjectDetailsPage = () => {
 
 	return (
 		<>
-			<header className='mb-5'>
-				<h2 className='uppercase font-bold text-gray-500'>Proyecto</h2>
+			<header className='mb-6'>
+				<h2 className='uppercase font-bold text-gray-600'>Proyecto</h2>
 				<h1 className='uppercase font-bold text-3xl'>{data.projectName}</h1>
-				<p className='text-xl mt-3 '>
-					<span className='font-bold text-gray-800'>Cliente:</span> {data.clientName}
-				</p>
+
+				<p className='text-xl mt-3 text-gray-700'>Cliente: {data.clientName}</p>
 			</header>
-			<main className='space-y-1'>
+			<main>
 				<p className='text-xl text-gray-900'>{data.description}</p>
 				<nav>
 					<button

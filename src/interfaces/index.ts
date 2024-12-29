@@ -10,6 +10,9 @@ export const taskSchema = z.object({
 });
 export interface Task extends z.infer<typeof taskSchema> {}
 
+export const taskDraftSchema = taskSchema.pick({ name: true, description: true });
+export interface TaskDraftData extends z.infer<typeof taskDraftSchema> {}
+
 // PROJECTS
 export const projectTasksSchema = z.object({
 	_id: z.string(),
@@ -30,5 +33,5 @@ export const projectSchema = z.object({
 export const projectsSchema = z.array(projectSchema);
 export interface Project extends z.infer<typeof projectSchema> {}
 
-export const projectDraftSchema = projectSchema.omit({ _id: true, tasks: true });
+export const projectDraftSchema = projectSchema.pick({ projectName: true, clientName: true, description: true });
 export interface ProjectDraftData extends z.infer<typeof projectDraftSchema> {}

@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
-import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
-import { Bars3Icon } from '@heroicons/react/20/solid';
 import { Link } from 'react-router-dom';
+import { Bars3Icon } from '@heroicons/react/20/solid';
+import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
 
 export const NavMenu = () => {
 	return (

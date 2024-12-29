@@ -22,6 +22,18 @@
 	@apply text-2xl font-light mt-2;
 }
 
+/* Formulario */
+.form--project {
+	@apply mt-10 bg-white shadow-lg p-10 rounded-lg w-full max-w-3xl;
+}
+.label-form {
+	@apply font-bold text-gray-900 text-xl mb-3;
+}
+.input-form {
+	@apply w-full p-3 border border-gray-200;
+}
+
+/* Toastify Notification */
 .Toastify__toast-icon > svg {
 	fill: #ffa500 !important;
 }

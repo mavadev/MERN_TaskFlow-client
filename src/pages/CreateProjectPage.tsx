@@ -49,8 +49,8 @@ const CreateProjectPage = () => {
 
 				<form
 					noValidate
-					onSubmit={handleSubmit(handleForm)}
-					className='mt-10 bg-white shadow-lg p-10 rounded-lg w-full max-w-3xl'>
+					className='form--project'
+					onSubmit={handleSubmit(handleForm)}>
 					<ProjectForm
 						register={register}
 						errors={errors}
