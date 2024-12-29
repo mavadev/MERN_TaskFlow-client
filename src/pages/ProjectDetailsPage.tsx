@@ -38,7 +38,7 @@ const ProjectDetailsPage = () => {
 				</nav>
 			</main>
 
-			<AddTaskModal />
+			<AddTaskModal projectId={projectId} />
 		</>
 	);
 };

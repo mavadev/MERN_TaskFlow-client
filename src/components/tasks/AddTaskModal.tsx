@@ -1,12 +1,15 @@
 import { Fragment } from 'react';
+import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
+import { useMutation } from '@tanstack/react-query';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
 
-import { TaskDraftData } from '@/interfaces';
+import { Project, TaskDraftData } from '@/interfaces';
+import { createTask } from '@/api/TaskAPI';
 import TaskForm from './TaskForm';
 
-export default function AddTaskModal() {
+export default function AddTaskModal({ projectId }: { projectId: Project['_id'] }) {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const newTask = !!new URLSearchParams(location.search).get('newTask');
@@ -17,14 +20,25 @@ export default function AddTaskModal() {
 	};
 
 	const {
+		reset,
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm({ defaultValues: initialValues });
 
 	// Petición API - POST
-
-	const handleForm = (taskData: TaskDraftData) => console.log(taskData);
+	const { mutate } = useMutation({
+		mutationFn: createTask,
+		onSuccess: () => {
+			toast.success('Proyecto creado correctamente');
+			navigate(location.pathname);
+			reset();
+		},
+		onError: error => {
+			toast.error(error.message);
+		},
+	});
+	const handleForm = (formData: TaskDraftData) => mutate({ projectId, formData });
 
 	return (
 		<Transition

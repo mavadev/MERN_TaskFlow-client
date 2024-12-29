@@ -9,7 +9,12 @@ import {
 	Project,
 } from '@/interfaces';
 
-export async function createProject(formData: ProjectDraftData): Promise<ProjectTasks> {
+interface ProjectProps {
+	projectId: Project['_id'];
+	formData: ProjectDraftData;
+}
+
+export async function createProject(formData: Pick<ProjectProps, 'formData'>): Promise<ProjectTasks> {
 	try {
 		// Validación de datos
 		const dataResult = projectDraftSchema.safeParse(formData);
@@ -49,7 +54,7 @@ export async function getProjects(): Promise<Project[]> {
 	}
 }
 
-export async function getProject(projectId: Project['_id']): Promise<Project> {
+export async function getProject(projectId: Pick<ProjectProps, 'projectId'>): Promise<Project> {
 	try {
 		const { data } = await api.get(`/projects/${projectId}`);
 
@@ -66,12 +71,7 @@ export async function getProject(projectId: Project['_id']): Promise<Project> {
 	}
 }
 
-interface UpdateProjectProps {
-	projectId: Project['_id'];
-	formData: ProjectDraftData;
-}
-
-export async function updateProject({ projectId, formData }: UpdateProjectProps) {
+export async function updateProject({ projectId, formData }: ProjectProps) {
 	try {
 		// Validación de datos
 		const dataResult = projectDraftSchema.safeParse(formData);
@@ -88,7 +88,7 @@ export async function updateProject({ projectId, formData }: UpdateProjectProps)
 	}
 }
 
-export async function deleteProject(projectId: Project['_id']) {
+export async function deleteProject(projectId: Pick<ProjectProps, 'projectId'>) {
 	try {
 		await api.delete(`/projects/${projectId}`);
 	} catch (error) {
