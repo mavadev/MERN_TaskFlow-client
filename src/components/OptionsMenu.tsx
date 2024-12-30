@@ -22,7 +22,7 @@ export const OptionsMenu = ({ children }: PropsWithChildren) => {
 				leave='transition ease-in duration-75'
 				leaveFrom='transform opacity-100 scale-100'
 				leaveTo='transform opacity-0 scale-95'>
-				<MenuItems className='absolute right-0 z-10 mt-2 w-44 origin-top-right rounded bg-white shadow-lg ring-1 ring-gray-900/5 focus:outline-none text-center'>
+				<MenuItems className='absolute right-0 z-10 mt-2 w-44 origin-top-right rounded bg-white shadow-lg ring-1 ring-gray-900/5 focus:outline-none text-center select-none'>
 					{children}
 				</MenuItems>
 			</Transition>

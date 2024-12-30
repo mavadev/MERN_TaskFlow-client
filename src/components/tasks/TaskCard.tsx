@@ -20,7 +20,7 @@ export const TaskCard = ({ task }: { task: Task }) => {
 				<MenuItem>
 					<button
 						type='button'
-						className='block px-3 py-2 text-sm leading-6 text-gray-900 w-full hover:bg-gray-50'>
+						className='block px-3 py-2 text-sm font-medium leading-6 text-gray-700 w-full hover:bg-gray-50'>
 						Ver Tarea
 					</button>
 				</MenuItem>
@@ -28,14 +28,14 @@ export const TaskCard = ({ task }: { task: Task }) => {
 					<button
 						type='button'
 						onClick={() => navigate(location.pathname + `?editTask=${task._id}`)}
-						className='block px-3 py-2 text-sm leading-6 text-gray-900 w-full hover:bg-gray-50'>
+						className='block px-3 py-2 text-sm font-medium leading-6 text-gray-700 w-full hover:bg-gray-50'>
 						Editar Tarea
 					</button>
 				</MenuItem>
 				<MenuItem>
 					<button
 						type='button'
-						className='block px-3 py-2 text-sm leading-6 text-red-500 w-full hover:bg-gray-50'>
+						className='block px-3 py-2 text-sm font-medium leading-6 text-red-500 w-full hover:bg-gray-50'>
 						Eliminar Tarea
 					</button>
 				</MenuItem>

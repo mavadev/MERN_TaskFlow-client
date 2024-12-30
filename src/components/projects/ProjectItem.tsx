@@ -26,7 +26,7 @@ export const ProjectItem = ({ project }: ProjectProps) => {
 	});
 
 	return (
-		<li className='flex justify-between items-start gap-x-6 p-8 shadow rounded-md border-gray-100 bg-white'>
+		<li className='flex justify-between items-start gap-x-6 p-8 shadow rounded-md border-gray-100 bg-white border-l-8 border-l-amber-500'>
 			<div className='flex flex-col'>
 				<p className='text-sm text-gray-400 mb-1'>Cliente: {project.clientName}</p>
 				<Link
@@ -34,20 +34,20 @@ export const ProjectItem = ({ project }: ProjectProps) => {
 					className='text-gray-600 hover:text-gray-900 text-xl font-bold transition-colors'>
 					{project.projectName}
 				</Link>
-				<p className='text-sm text-gray-400 mt-3 line-clamp-2'>{project.description}</p>
+				<p className='text-gray-700 mt-3 line-clamp-2'>{project.description}</p>
 			</div>
 			<OptionsMenu>
 				<MenuItem>
 					<Link
 						to={`/projects/${project._id}`}
-						className='block px-3 py-2 text-sm leading-6 text-gray-900 w-full hover:bg-gray-50'>
+						className='block px-3 py-2 text-sm font-medium leading-6 text-gray-700 w-full hover:bg-gray-50'>
 						Ver Proyecto
 					</Link>
 				</MenuItem>
 				<MenuItem>
 					<Link
 						to={`/projects/${project._id}/edit`}
-						className='block px-3 py-2 text-sm leading-6 text-gray-900 w-full hover:bg-gray-50'>
+						className='block px-3 py-2 text-sm font-medium leading-6 text-gray-700 w-full hover:bg-gray-50'>
 						Editar Proyecto
 					</Link>
 				</MenuItem>
@@ -55,7 +55,7 @@ export const ProjectItem = ({ project }: ProjectProps) => {
 					<button
 						type='button'
 						onClick={() => handleDelete({ projectId: project._id })}
-						className='block px-3 py-2 text-sm leading-6 text-red-600 w-full hover:bg-gray-50'>
+						className='block px-3 py-2 text-sm font-medium leading-6 text-red-600 w-full hover:bg-gray-50'>
 						Eliminar Proyecto
 					</button>
 				</MenuItem>
