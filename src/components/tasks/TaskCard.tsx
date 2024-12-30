@@ -4,11 +4,11 @@ import { Task } from '@/interfaces';
 
 export const TaskCard = ({ task }: { task: Task }) => {
 	return (
-		<li className='p-4 bg-white border-slate-800 flex justify-between gap-3 rounded'>
+		<li className='p-4 bg-white border border-slate-200 flex justify-between gap-3 rounded'>
 			<div className='flex flex-col gap-y-2'>
 				<button
 					type='button'
-					className='font-bold text-gray-700 text-left'>
+					className='font-bold text-gray-700 text-left line-clamp-2 text-balance text-sm'>
 					{task.name}
 				</button>
 				<p className='text-sm text-slate-500 line-clamp-2'>{task.description}</p>
@@ -28,7 +28,6 @@ export const TaskCard = ({ task }: { task: Task }) => {
 						Editar Tarea
 					</button>
 				</MenuItem>
-
 				<MenuItem>
 					<button
 						type='button'

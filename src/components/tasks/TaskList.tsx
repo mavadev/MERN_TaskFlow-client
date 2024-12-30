@@ -41,17 +41,17 @@ export const TaskList = ({ tasks }: TaskListProps) => {
 	}, [groupedTasks]);
 
 	return (
-		<main className='my-10'>
-			<section className='flex gap-3 overflow-auto pb-32'>
+		<main className='my-10 overflow-auto'>
+			<section className='flex gap-3 pb-32 w-max'>
 				{tasksWithItems.map(([status, statusTasks]) => (
 					<article
 						key={status}
-						className='flex flex-col gap-3'>
+						className='flex flex-col gap-3 w-60 md:w-80'>
 						<TaskStatus
 							key={status}
 							status={status}
 						/>
-						<ul className='min-w-[250px] space-y-2'>
+						<ul className='w-full space-y-2'>
 							{statusTasks.map(task => (
 								<TaskCard
 									task={task}
@@ -61,7 +61,7 @@ export const TaskList = ({ tasks }: TaskListProps) => {
 						</ul>
 					</article>
 				))}
-				<article className='flex flex-col justify-end gap-2'>
+				<article className='flex flex-col gap-2 w-40'>
 					{tasksWithoutItems.map(([status]) => (
 						<TaskStatus
 							key={status}

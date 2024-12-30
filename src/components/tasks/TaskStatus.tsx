@@ -16,8 +16,7 @@ const statusStyles: { [key: string]: string } = {
 
 export const TaskStatus = ({ status }: { status: string }) => {
 	return (
-		<h3
-			className={`min-w-[200px] max-w-[250px] select-none capitalize font-bold p-3 rounded-t border-b-8 ${statusStyles[status]}`}>
+		<h3 className={`w-full select-none capitalize font-bold p-3 rounded-t border-b-8 ${statusStyles[status]}`}>
 			{statusTranslate[status]}
 		</h3>
 	);

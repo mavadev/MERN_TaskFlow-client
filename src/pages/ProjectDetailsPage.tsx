@@ -23,13 +23,13 @@ const ProjectDetailsPage = () => {
 		<>
 			<header>
 				<h2 className='uppercase font-bold text-gray-600'>Proyecto</h2>
-				<h1 className='uppercase font-bold text-3xl'>{data.projectName}</h1>
-				<p className='text-xl mt-1 mb-5 text-gray-700'>Cliente: {data.clientName}</p>
-				<p className='text-xl text-gray-900 text-balance'>{data.description}</p>
+				<h1 className='font-bold text-2xl capitalize'>{data.projectName}</h1>
+				<p className='text-lg mt-1 mb-3 text-gray-900 text-balance'>{data.description}</p>
+				<p className='text-sm text-gray-700'>Cliente: {data.clientName}</p>
 				<nav>
 					<button
 						type='button'
-						className='btn-primary mt-4 select-none'
+						className='btn-primary mt-3 select-none'
 						onClick={() => navigate(location.pathname + '?newTask=true')}>
 						Añadir Tarea
 					</button>
