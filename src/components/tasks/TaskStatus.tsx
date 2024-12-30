@@ -1,4 +1,4 @@
-const statusTranslate: { [key: string]: string } = {
+export const statusTranslate: { [key: string]: string } = {
 	pending: 'Pendiente',
 	onHold: 'En espera',
 	inProgress: 'En progreso',
@@ -6,7 +6,7 @@ const statusTranslate: { [key: string]: string } = {
 	completed: 'Completado',
 };
 
-const statusStyles: { [key: string]: string } = {
+export const statusStyles: { [key: string]: string } = {
 	pending: 'bg-slate-200 border-slate-500 text-gray-600',
 	onHold: 'bg-red-200 border-red-500 text-red-600',
 	inProgress: 'bg-blue-200 border-blue-500 text-blue-600',
@@ -16,7 +16,8 @@ const statusStyles: { [key: string]: string } = {
 
 export const TaskStatus = ({ status }: { status: string }) => {
 	return (
-		<h3 className={`w-full select-none capitalize font-bold p-3 rounded-t border-b-8 ${statusStyles[status]}`}>
+		<h3
+			className={`w-full select-none capitalize font-bold p-3 rounded-t border-b-8 ${statusStyles[status]} opacity-80`}>
 			{statusTranslate[status]}
 		</h3>
 	);

@@ -1,13 +1,15 @@
-import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { TaskDraftData } from '@/interfaces';
+import { FieldErrors, FieldValues, Path, UseFormRegister } from 'react-hook-form';
 import { ErrorMessage } from '../ErrorMessage';
 
-type TaskFormProps = {
-	errors: FieldErrors<TaskDraftData>;
-	register: UseFormRegister<TaskDraftData>;
+type TaskFormProps<T extends FieldValues & { name: string; description: string }> = {
+	errors: FieldErrors<T>;
+	register: UseFormRegister<T>;
 };
 
-export default function TaskForm({ errors, register }: TaskFormProps) {
+export default function TaskForm<T extends FieldValues & { name: string; description: string }>({
+	errors,
+	register,
+}: TaskFormProps<T>) {
 	return (
 		<>
 			<div className='flex flex-col'>
@@ -21,11 +23,9 @@ export default function TaskForm({ errors, register }: TaskFormProps) {
 					type='text'
 					className='input-form'
 					placeholder='Nombre de la tarea'
-					{...register('name', {
-						required: 'El nombre de la tarea es obligatorio',
-					})}
+					{...register('name' as Path<T>, { required: 'El nombre de la tarea es obligatorio' })}
 				/>
-				{errors.name?.message && <ErrorMessage error={errors.name.message} />}
+				{errors.name?.message && <ErrorMessage error={String(errors.name.message)} />}
 			</div>
 
 			<div className='flex flex-col '>
@@ -38,11 +38,11 @@ export default function TaskForm({ errors, register }: TaskFormProps) {
 					id='description'
 					className='input-form'
 					placeholder='Descripción de la tarea'
-					{...register('description', {
+					{...register('description' as Path<T>, {
 						required: 'La descripción de la tarea es obligatoria',
 					})}
 				/>
-				{errors.description?.message && <ErrorMessage error={errors.description.message} />}
+				{errors.description?.message && <ErrorMessage error={String(errors.description.message)} />}
 			</div>
 		</>
 	);

@@ -46,7 +46,7 @@ export const TaskList = ({ tasks }: TaskListProps) => {
 				{tasksWithItems.map(([status, statusTasks]) => (
 					<article
 						key={status}
-						className='flex flex-col gap-3 w-60 md:w-80'>
+						className='flex flex-col gap-3 w-60 md:w-60'>
 						<TaskStatus
 							key={status}
 							status={status}
@@ -61,14 +61,18 @@ export const TaskList = ({ tasks }: TaskListProps) => {
 						</ul>
 					</article>
 				))}
-				<article className='flex flex-col gap-2 w-40'>
-					{tasksWithoutItems.map(([status]) => (
-						<TaskStatus
-							key={status}
-							status={status}
-						/>
-					))}
-				</article>
+				{tasksWithoutItems.length ? (
+					<article className='flex flex-col gap-2 w-40'>
+						{tasksWithoutItems.map(([status]) => (
+							<TaskStatus
+								key={status}
+								status={status}
+							/>
+						))}
+					</article>
+				) : (
+					<></>
+				)}
 			</section>
 		</main>
 	);

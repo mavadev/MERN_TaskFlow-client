@@ -1,8 +1,11 @@
 import { z } from 'zod';
+import { statusTranslate } from '@/components/tasks/TaskStatus';
 
 /* TASKS */
 
 const taskStatusSchema = z.enum(['pending', 'onHold', 'inProgress', 'underReview', 'completed']);
+export const statusKeys = taskStatusSchema.options;
+export const statusKeyValuePairs = statusKeys.map(key => [key, statusTranslate[key]]);
 
 export const taskSchema = z.object({
 	_id: z.string(),
@@ -13,8 +16,11 @@ export const taskSchema = z.object({
 });
 export interface Task extends z.infer<typeof taskSchema> {}
 
-export const taskDraftSchema = taskSchema.pick({ name: true, description: true });
-export interface TaskDraftData extends z.infer<typeof taskDraftSchema> {}
+export const taskCreateSchema = taskSchema.pick({ name: true, description: true });
+export interface TaskCreateData extends z.infer<typeof taskCreateSchema> {}
+
+export const taskEditSchema = taskSchema.pick({ name: true, description: true, status: true });
+export interface TaskEditData extends z.infer<typeof taskEditSchema> {}
 
 /* PROJECTS */
 
