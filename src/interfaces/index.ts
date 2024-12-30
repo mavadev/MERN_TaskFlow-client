@@ -1,11 +1,7 @@
 import { z } from 'zod';
-import { statusTranslate } from '@/components/tasks/TaskStatus';
 
 /* TASKS */
-
 const taskStatusSchema = z.enum(['pending', 'onHold', 'inProgress', 'underReview', 'completed']);
-export const statusKeys = taskStatusSchema.options;
-export const statusKeyValuePairs = statusKeys.map(key => [key, statusTranslate[key]]);
 
 export const taskSchema = z.object({
 	_id: z.string(),

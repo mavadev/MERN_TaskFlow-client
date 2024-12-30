@@ -3,8 +3,8 @@ import { Navigate, useNavigate, useParams } from 'react-router-dom';
 
 import type { Project } from '@/interfaces';
 import { getProject } from '@/api/ProjectAPI';
-import AddTaskModal from '@/components/tasks/modal/AddTaskModal';
 import { TaskList } from '@/components/tasks/TaskList';
+import AddTaskModal from '@/components/tasks/modal/AddTaskModal';
 import EditTaskModal from '@/components/tasks/modal/EditTaskModal';
 
 const ProjectDetailsPage = () => {

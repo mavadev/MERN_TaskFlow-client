@@ -1,12 +1,12 @@
-import { FieldErrors, FieldValues, Path, UseFormRegister } from 'react-hook-form';
-import { ErrorMessage } from '../ErrorMessage';
+import { FieldErrors, Path, UseFormRegister } from 'react-hook-form';
+import { ErrorMessage } from '@/components/ErrorMessage';
 
-type TaskFormProps<T extends FieldValues & { name: string; description: string }> = {
+type TaskFormProps<T extends { name: string; description: string }> = {
 	errors: FieldErrors<T>;
 	register: UseFormRegister<T>;
 };
 
-export default function TaskForm<T extends FieldValues & { name: string; description: string }>({
+export default function TaskForm<T extends { name: string; description: string }>({
 	errors,
 	register,
 }: TaskFormProps<T>) {

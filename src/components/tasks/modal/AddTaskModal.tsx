@@ -4,34 +4,35 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { DialogPanel, DialogTitle } from '@headlessui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { Project, TaskCreateData } from '@/interfaces';
+import type { Project, TaskCreateData } from '@/interfaces';
 import { createTask } from '@/api/TaskAPI';
 import { TaskModal } from './TaskModal';
-import TaskForm from '../TaskForm';
+import TaskForm from './TaskForm';
 
 export default function AddTaskModal({ projectId }: { projectId: Project['_id'] }) {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const newTask = !!new URLSearchParams(location.search).get('newTask');
 
-	const initialValues: TaskCreateData = {
-		name: '',
-		description: '',
-	};
-
 	const {
 		reset,
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm({ defaultValues: initialValues });
+	} = useForm<TaskCreateData>({
+		defaultValues: {
+			name: '',
+			description: '',
+		},
+	});
 
 	// Petición API - POST
+	const queryClient = useQueryClient();
 	const { mutate } = useMutation({
 		mutationFn: createTask,
 		onSuccess: () => {
-			useQueryClient().invalidateQueries({ queryKey: ['project', projectId] });
-			toast.success('Proyecto creado correctamente');
+			queryClient.invalidateQueries({ queryKey: ['project', projectId] });
+			toast.success('Tarea añadida correctamente');
 			navigate(location.pathname);
 			reset();
 		},

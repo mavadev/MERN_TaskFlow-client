@@ -1,10 +1,27 @@
-import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { MenuItem } from '@headlessui/react';
+import { useNavigate } from 'react-router-dom';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+
 import { OptionsMenu } from '../OptionsMenu';
-import { Task } from '@/interfaces';
+import { deleteTask } from '@/api/TaskAPI';
+import type { Task } from '@/interfaces';
 
 export const TaskCard = ({ task }: { task: Task }) => {
 	const navigate = useNavigate();
+
+	const queryClient = useQueryClient();
+	const { mutate } = useMutation({
+		mutationFn: deleteTask,
+		onSuccess: message => {
+			queryClient.invalidateQueries({ queryKey: ['project', task.project] });
+			toast.success(message);
+		},
+		onError: error => {
+			toast.error(error.message);
+		},
+	});
+	const handleDeleteTask = () => mutate({ projectId: task.project, taskId: task._id });
 
 	return (
 		<li className='p-4 bg-white border border-slate-200 flex justify-between gap-3 rounded'>
@@ -35,6 +52,7 @@ export const TaskCard = ({ task }: { task: Task }) => {
 				<MenuItem>
 					<button
 						type='button'
+						onClick={handleDeleteTask}
 						className='block px-3 py-2 text-sm font-medium leading-6 text-red-500 w-full hover:bg-gray-50'>
 						Eliminar Tarea
 					</button>

@@ -1,10 +1,4 @@
-export const statusTranslate: { [key: string]: string } = {
-	pending: 'Pendiente',
-	onHold: 'En espera',
-	inProgress: 'En progreso',
-	underReview: 'En revisión',
-	completed: 'Completado',
-};
+import { statusTranslate } from '@/locales/es';
 
 export const statusStyles: { [key: string]: string } = {
 	pending: 'bg-slate-200 border-slate-500 text-gray-600',

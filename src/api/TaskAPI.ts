@@ -68,3 +68,16 @@ export async function editTask({ projectId, taskId, formData }: TaskProps) {
 		throw new Error('Hubo un error al crear el proyecto');
 	}
 }
+
+export async function deleteTask({ projectId, taskId }: Pick<TaskProps, 'projectId' | 'taskId'>) {
+	try {
+		const { data } = await api.delete(`/projects/${projectId}/tasks/${taskId}`);
+		return data.message;
+	} catch (error) {
+		if (isAxiosError(error) && error.response) {
+			throw new Error(error.response.data.error);
+		}
+		if (error instanceof Error) throw error;
+		throw new Error('Hubo un error al crear el proyecto');
+	}
+}

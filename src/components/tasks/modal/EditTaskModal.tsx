@@ -5,11 +5,12 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { DialogPanel, DialogTitle } from '@headlessui/react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { Project, statusKeyValuePairs, TaskEditData } from '@/interfaces';
+import type { Project, TaskEditData } from '@/interfaces';
 import { ErrorMessage } from '@/components/ErrorMessage';
 import { getTask, editTask } from '@/api/TaskAPI';
+import { statusTranslate } from '@/locales/es';
 import { TaskModal } from './TaskModal';
-import TaskForm from '../TaskForm';
+import TaskForm from './TaskForm';
 
 export default function EditTaskModal({ projectId }: { projectId: Project['_id'] }) {
 	const navigate = useNavigate();
@@ -17,25 +18,28 @@ export default function EditTaskModal({ projectId }: { projectId: Project['_id']
 	const taskId = new URLSearchParams(location.search).get('editTask')!;
 
 	// OBTENER TAREA POR ID
-	const { data } = useQuery({
+	const { data, isError } = useQuery({
+		retry: false,
+		enabled: !!taskId,
 		queryKey: ['editTask', taskId],
 		queryFn: () => getTask({ projectId, taskId }),
-		enabled: !!taskId,
 	});
 
-	// DATOS DE FORMULARIO
-	const initialValues: TaskEditData = {
-		name: '',
-		description: '',
-		status: 'pending',
-	};
+	// CONFIGURACIÓN DE FORMULARIO
 	const {
 		reset,
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm({ defaultValues: initialValues });
+	} = useForm<TaskEditData>({
+		defaultValues: {
+			name: '',
+			description: '',
+			status: 'pending',
+		},
+	});
 
+	// DATOS DE FORMULARIO
 	useEffect(() => {
 		if (data) {
 			reset({
@@ -44,18 +48,20 @@ export default function EditTaskModal({ projectId }: { projectId: Project['_id']
 				status: data.status,
 			});
 		}
-		if (taskId && !data) {
+		if (isError) {
 			toast.error('Hubo un error al obtener la tarea');
 			navigate(location.pathname);
 		}
-	}, [data]);
+	}, [data, isError]);
 
+	// EDITAR TAREA
 	const queryClient = useQueryClient();
 	const { mutate } = useMutation({
 		mutationFn: editTask,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['project', projectId] });
-			toast.success('Proyecto actualizado correctamente');
+			queryClient.invalidateQueries({ queryKey: ['editTask', taskId] });
+			toast.success('Tarea actualizada correctamente');
 			navigate(location.pathname);
 			reset();
 		},
@@ -97,7 +103,7 @@ export default function EditTaskModal({ projectId }: { projectId: Project['_id']
 							defaultValue={data?.status}
 							className='input-form select-none'
 							{...register('status', { required: 'El estado de la tarea es obligatoria' })}>
-							{statusKeyValuePairs.map(([status, translate]) => (
+							{Object.entries(statusTranslate).map(([status, translate]) => (
 								<option
 									key={status}
 									value={status}>
