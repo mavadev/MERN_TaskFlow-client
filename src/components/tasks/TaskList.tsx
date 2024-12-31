@@ -29,12 +29,12 @@ export const TaskList = ({ tasks }: TaskListProps) => {
 	);
 
 	return (
-		<main className='my-10 overflow-auto'>
-			<section className='flex gap-3 pb-32 w-max'>
+		<main className='overflow-auto'>
+			<section className='flex gap-3 w-max'>
 				{Object.entries(groupedTasks).map(([status, statusTasks]) => (
 					<article
 						key={status}
-						className='flex flex-col gap-3 w-60 md:w-60'>
+						className='flex flex-col gap-3 w-60 md:w-60 pb-32'>
 						<TaskStatus
 							key={status}
 							status={status}

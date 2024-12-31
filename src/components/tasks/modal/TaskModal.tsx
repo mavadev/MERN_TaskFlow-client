@@ -1,5 +1,5 @@
 import { Fragment, PropsWithChildren } from 'react';
-import { Dialog, Transition, TransitionChild } from '@headlessui/react';
+import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react';
 
 interface TaskModalProps extends PropsWithChildren {
 	show: boolean;
@@ -33,7 +33,9 @@ export const TaskModal = ({ children, show, handleOnClose }: TaskModalProps) => 
 							leave='ease-in duration-200'
 							leaveFrom='opacity-100 scale-100'
 							leaveTo='opacity-0 scale-95'>
-							{children}
+							<DialogPanel className='w-11/12 max-w-3xl transform overflow-hidden rounded-lg bg-white transition-all p-10 md:px-14 space-y-5'>
+								{children}
+							</DialogPanel>
 						</TransitionChild>
 					</div>
 				</TransitionChild>

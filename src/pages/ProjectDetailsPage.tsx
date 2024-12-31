@@ -6,10 +6,10 @@ import { getProject } from '@/api/ProjectAPI';
 import { TaskList } from '@/components/tasks/TaskList';
 import AddTaskModal from '@/components/tasks/modal/AddTaskModal';
 import EditTaskModal from '@/components/tasks/modal/EditTaskModal';
+import ViewTaskModal from '@/components/tasks/modal/ViewTaskModal';
 
 const ProjectDetailsPage = () => {
 	const params = useParams();
-	const navigate = useNavigate();
 	const projectId = params.projectId as Project['_id'];
 
 	const { data, isLoading, isError } = useQuery({
@@ -22,23 +22,19 @@ const ProjectDetailsPage = () => {
 
 	return (
 		<>
-			<header>
-				<h2 className='uppercase font-bold text-gray-600 text-sm'>Proyecto</h2>
-				<h1 className='font-bold text-2xl'>{data.projectName}</h1>
-				<p className='text-lg mt-1 mb-3 text-gray-900 text-balance'>{data.description}</p>
+			<header className='flex flex-col gap-3 mb-5'>
+				<div>
+					<h2 className='uppercase font-bold text-gray-600'>Proyecto</h2>
+					<h1 className='font-bold text-2xl md:text-3xl'>{data.projectName}</h1>
+				</div>
+				<p className='text-lg text-gray-900 text-balance'>{data.description}</p>
 				<p className='text-sm text-gray-600'>Cliente: {data.clientName}</p>
-				<nav>
-					<button
-						type='button'
-						className='btn-primary mt-3 select-none'
-						onClick={() => navigate(location.pathname + '?newTask=true')}>
-						Añadir Tarea
-					</button>
-				</nav>
 			</header>
 			<TaskList tasks={data.tasks} />
-			<AddTaskModal projectId={projectId} />
-			<EditTaskModal projectId={projectId} />
+
+			<AddTaskModal />
+			<EditTaskModal />
+			<ViewTaskModal />
 		</>
 	);
 };

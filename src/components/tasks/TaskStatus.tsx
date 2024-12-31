@@ -1,6 +1,8 @@
 import { statusTranslate } from '@/locales/es';
+import { PlusCircleIcon } from '@heroicons/react/24/solid';
+import { useNavigate } from 'react-router-dom';
 
-export const statusStyles: { [key: string]: string } = {
+const statusStyles: { [key: string]: string } = {
 	pending: 'bg-slate-200 border-slate-500 text-gray-600',
 	onHold: 'bg-red-200 border-red-500 text-red-600',
 	inProgress: 'bg-blue-200 border-blue-500 text-blue-600',
@@ -9,10 +11,16 @@ export const statusStyles: { [key: string]: string } = {
 };
 
 export const TaskStatus = ({ status }: { status: string }) => {
+	const navigate = useNavigate();
+	const handleNavigate = () => navigate(location.pathname + `?newTask=true&status=${status}`);
+
 	return (
-		<h3
-			className={`w-full select-none capitalize font-bold p-3 rounded-t border-b-8 ${statusStyles[status]} opacity-80`}>
-			{statusTranslate[status]}
-		</h3>
+		<div
+			className={`flex items-center justify-between w-full select-none p-3 rounded-t border-b-8 ${statusStyles[status]} opacity-80`}>
+			<h3 className='capitalize font-bold'>{statusTranslate[status]}</h3>
+			<button onClick={handleNavigate}>
+				<PlusCircleIcon width={25} />
+			</button>
+		</div>
 	);
 };

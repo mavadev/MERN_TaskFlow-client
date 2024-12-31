@@ -1,34 +1,23 @@
-import {
-	Project,
-	Task,
-	TaskCreateData,
-	taskCreateSchema,
-	TaskEditData,
-	taskEditSchema,
-	taskSchema,
-} from '@/interfaces';
-import { isAxiosError } from 'axios';
+import { Project, Task, TaskDraftData, taskDraftSchema, taskSchema } from '@/interfaces';
 import api from '@/lib/axios';
+import { responseError } from './errors';
 
 interface TaskProps {
 	projectId: Project['_id'];
-	formData: TaskCreateData | TaskEditData;
+	formData: TaskDraftData;
 	taskId: Task['_id'];
+	status: Task['status'];
 }
 
 export async function createTask({ projectId, formData }: Pick<TaskProps, 'projectId' | 'formData'>) {
 	try {
-		const { success, data: taskData } = taskCreateSchema.safeParse(formData);
+		const { success, data: taskData } = taskDraftSchema.safeParse(formData);
 		if (!success) throw new Error('Error en los datos de entrada');
 
 		const { data: task } = await api.post(`/projects/${projectId}/tasks`, taskData);
 		return task;
 	} catch (error) {
-		if (isAxiosError(error) && error.response) {
-			throw new Error(error.response.data.error);
-		}
-		if (error instanceof Error) throw error;
-		throw new Error('Hubo un error al crear el proyecto');
+		throw new Error(responseError(error as Error));
 	}
 }
 
@@ -41,17 +30,13 @@ export async function getTask({ projectId, taskId }: Pick<TaskProps, 'projectId'
 
 		return task;
 	} catch (error) {
-		if (isAxiosError(error) && error.response) {
-			throw new Error(error.response.data.error);
-		}
-		if (error instanceof Error) throw error;
-		throw new Error('Hubo un error al crear el proyecto');
+		throw new Error(responseError(error as Error));
 	}
 }
 
-export async function editTask({ projectId, taskId, formData }: TaskProps) {
+export async function editTask({ projectId, taskId, formData }: Pick<TaskProps, 'projectId' | 'taskId' | 'formData'>) {
 	try {
-		const { success: successData, data: taskData } = taskEditSchema.safeParse(formData);
+		const { success: successData, data: taskData } = taskDraftSchema.safeParse(formData);
 		if (!successData) throw new Error('Error en los datos de entrada');
 
 		const { data } = await api.put(`/projects/${projectId}/tasks/${taskId}`, taskData);
@@ -61,11 +46,7 @@ export async function editTask({ projectId, taskId, formData }: TaskProps) {
 
 		return taskUpdated;
 	} catch (error) {
-		if (isAxiosError(error) && error.response) {
-			throw new Error(error.response.data.error);
-		}
-		if (error instanceof Error) throw error;
-		throw new Error('Hubo un error al crear el proyecto');
+		throw new Error(responseError(error as Error));
 	}
 }
 
@@ -74,10 +55,15 @@ export async function deleteTask({ projectId, taskId }: Pick<TaskProps, 'project
 		const { data } = await api.delete(`/projects/${projectId}/tasks/${taskId}`);
 		return data.message;
 	} catch (error) {
-		if (isAxiosError(error) && error.response) {
-			throw new Error(error.response.data.error);
-		}
-		if (error instanceof Error) throw error;
-		throw new Error('Hubo un error al crear el proyecto');
+		throw new Error(responseError(error as Error));
+	}
+}
+
+export async function updateStatus({ projectId, taskId, status }: Pick<TaskProps, 'projectId' | 'taskId' | 'status'>) {
+	try {
+		const { data: task } = await api.patch(`/projects/${projectId}/tasks/${taskId}/status`, { status });
+		return task;
+	} catch (error) {
+		throw new Error(responseError(error as Error));
 	}
 }

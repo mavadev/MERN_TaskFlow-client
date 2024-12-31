@@ -30,20 +30,23 @@ const DashboardPage = () => {
 			</header>
 
 			{data?.length ? (
-				<ul
-					role='list'
-					className='my-10 grid grid-cols-1 md:grid-cols-2 gap-5'>
-					{data.map(project => (
-						<ProjectItem
-							key={project._id}
-							project={project}
-						/>
-					))}
-				</ul>
+				<>
+					<h3 className='text-right mb-5 text-xl text-black'>Proyectos: {data.length}</h3>
+					<ul
+						role='list'
+						className='mb-10 grid grid-cols-1 md:grid-cols-2 gap-5'>
+						{data.map(project => (
+							<ProjectItem
+								key={project._id}
+								project={project}
+							/>
+						))}
+					</ul>
+				</>
 			) : (
-				<div className='flex flex-col items-center text-2xl gap-3'>
-					<DocumentTextIcon width={70} />
-					<h2>No tienes ningún proyecto</h2>
+				<div className='flex flex-col items-center text-2xl gap-3 my-10'>
+					<DocumentTextIcon width={50} />
+					<h2>No tienes proyectos</h2>
 				</div>
 			)}
 		</>

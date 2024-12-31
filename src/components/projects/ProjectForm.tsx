@@ -13,7 +13,7 @@ export default function ProjectForm({ register, errors }: ProjectFormProps) {
 			<div className='mb-5 space-y-3'>
 				<label
 					htmlFor='projectName'
-					className='font-bold text-gray-900 text-xl'>
+					className='font-bold text-gray-700 text-lg'>
 					Proyecto:
 				</label>
 				<input
@@ -32,8 +32,8 @@ export default function ProjectForm({ register, errors }: ProjectFormProps) {
 			<div className='mb-5 space-y-3'>
 				<label
 					htmlFor='clientName'
-					className='font-bold text-gray-900 text-xl'>
-					Cliente:
+					className='font-bold text-gray-700 text-lg'>
+					Cliente del Proyecto:
 				</label>
 				<input
 					type='text'
@@ -51,7 +51,7 @@ export default function ProjectForm({ register, errors }: ProjectFormProps) {
 			<div className='mb-5 space-y-3'>
 				<label
 					htmlFor='description'
-					className='font-bold text-gray-900 text-xl'>
+					className='font-bold text-gray-700 text-lg'>
 					Descripción:
 				</label>
 				<textarea

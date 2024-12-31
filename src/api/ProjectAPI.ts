@@ -1,5 +1,4 @@
 import api from '@/lib/axios';
-import { isAxiosError } from 'axios';
 import {
 	projectDraftSchema,
 	ProjectDraftData,
@@ -8,6 +7,7 @@ import {
 	projectsSchema,
 	Project,
 } from '@/interfaces';
+import { responseError } from './errors';
 
 interface ProjectProps {
 	projectId: Project['_id'];
@@ -27,13 +27,9 @@ export async function createProject({ formData }: Pick<ProjectProps, 'formData'>
 		const result = projectTasksSchema.safeParse(data);
 		if (!result.success) throw new Error('Error en los datos de respuesta');
 
-		return data;
+		return result.data;
 	} catch (error) {
-		if (isAxiosError(error) && error.response) {
-			throw new Error(error.response.data.error);
-		}
-		if (error instanceof Error) throw error;
-		throw new Error('Hubo un error al crear el proyecto');
+		throw new Error(responseError(error as Error));
 	}
 }
 
@@ -46,11 +42,7 @@ export async function getProjects(): Promise<Project[]> {
 
 		return data;
 	} catch (error) {
-		if (isAxiosError(error) && error.response) {
-			throw new Error(error.response.data.error);
-		}
-		if (error instanceof Error) throw error;
-		throw new Error('Hubo un error al crear el proyecto');
+		throw new Error(responseError(error as Error));
 	}
 }
 
@@ -63,11 +55,7 @@ export async function getProject({ projectId }: Pick<ProjectProps, 'projectId'>)
 
 		return data;
 	} catch (error) {
-		if (isAxiosError(error) && error.response) {
-			throw new Error(error.response.data.error);
-		}
-		if (error instanceof Error) throw error;
-		throw new Error('Hubo un error al crear el proyecto');
+		throw new Error(responseError(error as Error));
 	}
 }
 
@@ -80,11 +68,7 @@ export async function updateProject({ projectId, formData }: ProjectProps) {
 		const { data } = await api.put(`/projects/${projectId}`, dataResult.data);
 		return data;
 	} catch (error) {
-		if (isAxiosError(error) && error.response) {
-			throw new Error(error.response.data.error);
-		}
-		if (error instanceof Error) throw error;
-		throw new Error('Hubo un error al crear el proyecto');
+		throw new Error(responseError(error as Error));
 	}
 }
 
@@ -92,9 +76,6 @@ export async function deleteProject({ projectId }: Pick<ProjectProps, 'projectId
 	try {
 		await api.delete(`/projects/${projectId}`);
 	} catch (error) {
-		if (isAxiosError(error) && error.response) {
-			throw new Error(error.response.data.error);
-		}
-		throw new Error('Hubo un error al crear el proyecto');
+		throw new Error(responseError(error as Error));
 	}
 }

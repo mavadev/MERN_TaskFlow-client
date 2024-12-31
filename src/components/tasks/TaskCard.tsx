@@ -28,15 +28,16 @@ export const TaskCard = ({ task }: { task: Task }) => {
 			<div className='flex flex-col gap-y-2'>
 				<button
 					type='button'
-					className='font-bold text-gray-700 text-left line-clamp-2 text-balance text-sm'>
+					className='font-bold text-gray-700 text-left line-clamp-2 text-balance md:text-sm'>
 					{task.name}
 				</button>
-				<p className='text-sm text-slate-500 line-clamp-2'>{task.description}</p>
+				<p className='md:text-sm text-slate-500 line-clamp-2'>{task.description}</p>
 			</div>
 			<OptionsMenu>
 				<MenuItem>
 					<button
 						type='button'
+						onClick={() => navigate(location.pathname + `?viewTask=${task._id}`)}
 						className='block px-3 py-2 text-sm font-medium leading-6 text-gray-700 w-full hover:bg-gray-50'>
 						Ver Tarea
 					</button>
@@ -53,7 +54,7 @@ export const TaskCard = ({ task }: { task: Task }) => {
 					<button
 						type='button'
 						onClick={handleDeleteTask}
-						className='block px-3 py-2 text-sm font-medium leading-6 text-red-500 w-full hover:bg-gray-50'>
+						className='block px-3 py-2 text-sm font-medium leading-6 bg-red-500 w-full hover:bg-red-600 text-white'>
 						Eliminar Tarea
 					</button>
 				</MenuItem>

@@ -7,7 +7,7 @@
 }
 
 .btn-primary {
-	@apply btn bg-yellow-600 hover:bg-yellow-700 py-2 px-4;
+	@apply btn bg-primary-500 hover:bg-primary-700 py-2 px-4;
 }
 
 .btn-secondary {
@@ -27,7 +27,7 @@
 	@apply mt-10 bg-white shadow-lg p-10 rounded-lg w-full max-w-3xl;
 }
 .label-form {
-	@apply font-bold text-gray-900 text-xl mb-3;
+	@apply font-bold text-gray-700 text-lg mb-3;
 }
 .input-form {
 	@apply w-full p-3 border border-gray-200;

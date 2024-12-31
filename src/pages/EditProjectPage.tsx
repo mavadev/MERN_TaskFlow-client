@@ -15,7 +15,7 @@ const EditProjectPage = () => {
 
 	// Obtener Proyecto
 	const { data, isLoading, isError } = useQuery({
-		queryKey: ['editProject', projectId],
+		queryKey: ['project--edit', projectId],
 		queryFn: () => getProject({ projectId }),
 	});
 
@@ -49,7 +49,7 @@ const EditProjectPage = () => {
 	const { mutate } = useMutation({
 		mutationFn: updateProject,
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ['editProject', projectId] });
+			queryClient.invalidateQueries({ queryKey: ['project--edit', projectId] });
 			queryClient.invalidateQueries({ queryKey: ['projects'] });
 
 			toast.success('Proyecto creado correctamente');

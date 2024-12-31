@@ -1,19 +1,21 @@
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { DialogPanel, DialogTitle } from '@headlessui/react';
+import { DialogTitle } from '@headlessui/react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import type { Project, TaskEditData } from '@/interfaces';
-import { ErrorMessage } from '@/components/ErrorMessage';
+import type { Project, TaskDraftData } from '@/interfaces';
 import { getTask, editTask } from '@/api/TaskAPI';
-import { statusTranslate } from '@/locales/es';
 import { TaskModal } from './TaskModal';
 import TaskForm from './TaskForm';
 
-export default function EditTaskModal({ projectId }: { projectId: Project['_id'] }) {
+export default function EditTaskModal() {
 	const navigate = useNavigate();
+
+	const params = useParams();
+	const projectId = params.projectId as Project['_id'];
+
 	const location = useLocation();
 	const taskId = new URLSearchParams(location.search).get('editTask')!;
 
@@ -21,7 +23,7 @@ export default function EditTaskModal({ projectId }: { projectId: Project['_id']
 	const { data, isError } = useQuery({
 		retry: false,
 		enabled: !!taskId,
-		queryKey: ['editTask', taskId],
+		queryKey: ['task--edit', taskId],
 		queryFn: () => getTask({ projectId, taskId }),
 	});
 
@@ -31,7 +33,7 @@ export default function EditTaskModal({ projectId }: { projectId: Project['_id']
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<TaskEditData>({
+	} = useForm<TaskDraftData>({
 		defaultValues: {
 			name: '',
 			description: '',
@@ -60,7 +62,7 @@ export default function EditTaskModal({ projectId }: { projectId: Project['_id']
 		mutationFn: editTask,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['project', projectId] });
-			queryClient.invalidateQueries({ queryKey: ['editTask', taskId] });
+			queryClient.invalidateQueries({ queryKey: ['task--edit', taskId] });
 			toast.success('Tarea actualizada correctamente');
 			navigate(location.pathname);
 			reset();
@@ -69,57 +71,34 @@ export default function EditTaskModal({ projectId }: { projectId: Project['_id']
 			toast.error(error.message);
 		},
 	});
-	const handleEditTask = (formData: TaskEditData) => mutate({ projectId, taskId, formData });
+	const handleEditTask = (formData: TaskDraftData) => mutate({ projectId, taskId, formData });
 
 	return (
 		<TaskModal
 			show={!!taskId}
 			handleOnClose={() => navigate(location.pathname)}>
-			<DialogPanel className='w-11/12 max-w-3xl transform overflow-hidden rounded-lg bg-white transition-all p-10 md:px-14 space-y-5'>
-				<DialogTitle
-					as='h3'
-					className='font-bold text-3xl my-4'>
-					Editar Tarea
-				</DialogTitle>
-				<p className='text-xl '>
-					Edita el formulario y actualiza <span className='text-yellow-600 font-bold'>la tarea</span>
-				</p>
-				<form
-					noValidate
-					className='space-y-5'
-					onSubmit={handleSubmit(handleEditTask)}>
-					<TaskForm
-						errors={errors}
-						register={register}
-					/>
-					<div className='flex flex-col'>
-						<label
-							htmlFor='status'
-							className='label-form'>
-							Estado
-						</label>
-						<select
-							id='status'
-							defaultValue={data?.status}
-							className='input-form select-none'
-							{...register('status', { required: 'El estado de la tarea es obligatoria' })}>
-							{Object.entries(statusTranslate).map(([status, translate]) => (
-								<option
-									key={status}
-									value={status}>
-									{translate}
-								</option>
-							))}
-						</select>
-						{errors.status?.message && <ErrorMessage error={errors.status.message} />}
-					</div>
-					<input
-						type='submit'
-						value='Editar Tarea'
-						className='btn-secondary p-4 w-full'
-					/>
-				</form>
-			</DialogPanel>
+			<DialogTitle
+				as='h3'
+				className='font-bold text-3xl my-4'>
+				Editar Tarea
+			</DialogTitle>
+			<p className='text-xl'>
+				Edita el formulario y actualiza <span className='text-yellow-600 font-bold'>la tarea</span>
+			</p>
+			<form
+				noValidate
+				className='space-y-5'
+				onSubmit={handleSubmit(handleEditTask)}>
+				<TaskForm
+					errors={errors}
+					register={register}
+				/>
+				<input
+					type='submit'
+					value='Editar Tarea'
+					className='btn-secondary p-4 w-full'
+				/>
+			</form>
 		</TaskModal>
 	);
 }

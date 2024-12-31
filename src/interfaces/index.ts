@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 /* TASKS */
 const taskStatusSchema = z.enum(['pending', 'onHold', 'inProgress', 'underReview', 'completed']);
+export type TaskStatus = z.infer<typeof taskStatusSchema>;
 
 export const taskSchema = z.object({
 	_id: z.string(),
@@ -12,11 +13,8 @@ export const taskSchema = z.object({
 });
 export interface Task extends z.infer<typeof taskSchema> {}
 
-export const taskCreateSchema = taskSchema.pick({ name: true, description: true });
-export interface TaskCreateData extends z.infer<typeof taskCreateSchema> {}
-
-export const taskEditSchema = taskSchema.pick({ name: true, description: true, status: true });
-export interface TaskEditData extends z.infer<typeof taskEditSchema> {}
+export const taskDraftSchema = taskSchema.pick({ name: true, description: true, status: true });
+export interface TaskDraftData extends z.infer<typeof taskDraftSchema> {}
 
 /* PROJECTS */
 

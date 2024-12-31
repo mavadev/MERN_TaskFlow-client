@@ -1,9 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
 import AppLayout from '@/layouts/AppLayout';
-import DashboardPage from '@/pages/DashboardPage';
-import CreateProjectPage from '@/pages/CreateProjectPage';
-import EditProjectPage from '@/pages/EditProjectPage';
-import ProjectDetailsPage from './pages/ProjectDetailsPage';
+import { CreateProjectPage, DashboardPage, EditProjectPage, ProjectDetailsPage } from './pages';
 
 export default function AppRouter() {
 	return (
