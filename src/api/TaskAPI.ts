@@ -1,4 +1,4 @@
-import { Project, Task, TaskDraftData, taskDraftSchema, taskSchema } from '@/interfaces';
+import { Project, responseSchema, Task, TaskDraftData, taskDraftSchema } from '@/interfaces';
 import api from '@/lib/axios';
 import { responseError } from './errors';
 
@@ -9,60 +9,72 @@ interface TaskProps {
 	status: Task['status'];
 }
 
-export async function createTask({ projectId, formData }: Pick<TaskProps, 'projectId' | 'formData'>) {
+export async function createTask({ projectId, formData }: Pick<TaskProps, 'projectId' | 'formData'>): Promise<string> {
 	try {
-		const { success, data: taskData } = taskDraftSchema.safeParse(formData);
-		if (!success) throw new Error('Error en los datos de entrada');
+		const resultData = taskDraftSchema.safeParse(formData);
+		if (!resultData.success) throw new Error('Error en los datos de entrada');
 
-		const { data: task } = await api.post(`/projects/${projectId}/tasks`, taskData);
-		return task;
-	} catch (error) {
-		throw new Error(responseError(error as Error));
-	}
-}
+		const response = await api.post(`/projects/${projectId}/tasks`, resultData.data);
 
-export async function getTask({ projectId, taskId }: Pick<TaskProps, 'projectId' | 'taskId'>) {
-	try {
-		const { data } = await api.get(`/projects/${projectId}/tasks/${taskId}`);
-
-		const { success, data: task } = taskSchema.safeParse(data);
+		const { success, data } = responseSchema.safeParse(response.data);
 		if (!success) throw new Error('Error en los datos de salida');
 
-		return task;
-	} catch (error) {
-		throw new Error(responseError(error as Error));
-	}
-}
-
-export async function editTask({ projectId, taskId, formData }: Pick<TaskProps, 'projectId' | 'taskId' | 'formData'>) {
-	try {
-		const { success: successData, data: taskData } = taskDraftSchema.safeParse(formData);
-		if (!successData) throw new Error('Error en los datos de entrada');
-
-		const { data } = await api.put(`/projects/${projectId}/tasks/${taskId}`, taskData);
-
-		const { success: successTask, data: taskUpdated } = taskSchema.safeParse(data);
-		if (!successTask) throw new Error('Error en los datos de salida');
-
-		return taskUpdated;
-	} catch (error) {
-		throw new Error(responseError(error as Error));
-	}
-}
-
-export async function deleteTask({ projectId, taskId }: Pick<TaskProps, 'projectId' | 'taskId'>) {
-	try {
-		const { data } = await api.delete(`/projects/${projectId}/tasks/${taskId}`);
 		return data.message;
 	} catch (error) {
 		throw new Error(responseError(error as Error));
 	}
 }
 
-export async function updateStatus({ projectId, taskId, status }: Pick<TaskProps, 'projectId' | 'taskId' | 'status'>) {
+export async function getTask({ projectId, taskId }: Pick<TaskProps, 'projectId' | 'taskId'>): Promise<Task> {
 	try {
-		const { data: task } = await api.patch(`/projects/${projectId}/tasks/${taskId}/status`, { status });
-		return task;
+		const response = await api.get(`/projects/${projectId}/tasks/${taskId}`);
+
+		const { success, data } = responseSchema.safeParse(response.data);
+		if (!success) throw new Error('Error en los datos de salida');
+
+		return data.data;
+	} catch (error) {
+		throw new Error(responseError(error as Error));
+	}
+}
+
+export async function editTask({ projectId, taskId, formData }: Pick<TaskProps, 'projectId' | 'taskId' | 'formData'>):Promise<string> {
+	try {
+		const resultData = taskDraftSchema.safeParse(formData);
+		if (!resultData.success) throw new Error('Error en los datos de entrada');
+
+		const response = await api.put(`/projects/${projectId}/tasks/${taskId}`, resultData.data);
+
+		const { success, data } = responseSchema.safeParse(response.data);
+		if (!success) throw new Error('Error en los datos de salida');
+
+		return data.message;
+	} catch (error) {
+		throw new Error(responseError(error as Error));
+	}
+}
+
+export async function deleteTask({ projectId, taskId }: Pick<TaskProps, 'projectId' | 'taskId'>):Promise<string> {
+	try {
+		const response = await api.delete(`/projects/${projectId}/tasks/${taskId}`);
+
+		const { success, data } = responseSchema.safeParse(response.data);
+		if (!success) throw new Error('Error en los datos de salida');
+
+		return data.message;
+	} catch (error) {
+		throw new Error(responseError(error as Error));
+	}
+}
+
+export async function updateStatus({ projectId, taskId, status }: Pick<TaskProps, 'projectId' | 'taskId' | 'status'>): Promise<string> {
+	try {
+		const response = await api.patch(`/projects/${projectId}/tasks/${taskId}/status`, { status });
+
+		const { success, data } = responseSchema.safeParse(response.data);
+		if (!success) throw new Error('Error en los datos de salida');
+
+		return data.message;
 	} catch (error) {
 		throw new Error(responseError(error as Error));
 	}

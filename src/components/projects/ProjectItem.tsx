@@ -16,9 +16,9 @@ export const ProjectItem = ({ project }: ProjectProps) => {
 
 	const { mutate: handleDelete } = useMutation({
 		mutationFn: deleteProject,
-		onSuccess: () => {
+		onSuccess: message => {
 			queryClient.invalidateQueries({ queryKey: ['projects'] });
-			toast.success('Proyecto eliminado correctamente');
+			toast.success(message);
 		},
 		onError: error => {
 			toast.error(error.message);

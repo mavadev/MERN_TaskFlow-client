@@ -1,5 +1,11 @@
 import { z } from 'zod';
 
+/* RESPONSE */
+export const responseSchema = z.object({
+	message: z.string(),
+	data: z.any(),
+});
+
 /* TASKS */
 const taskStatusSchema = z.enum(['pending', 'onHold', 'inProgress', 'underReview', 'completed']);
 export type TaskStatus = z.infer<typeof taskStatusSchema>;

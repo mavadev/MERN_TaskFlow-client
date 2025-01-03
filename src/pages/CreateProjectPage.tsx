@@ -24,8 +24,8 @@ const CreateProjectPage = () => {
 	// Petición a la API (POST)
 	const { mutate } = useMutation({
 		mutationFn: createProject,
-		onSuccess: () => {
-			toast.success('Proyecto creado correctamente');
+		onSuccess: message => {
+			toast.success(message);
 			navigate('/');
 		},
 		onError: error => {

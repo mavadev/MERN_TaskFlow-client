@@ -60,10 +60,10 @@ export default function EditTaskModal() {
 	const queryClient = useQueryClient();
 	const { mutate } = useMutation({
 		mutationFn: editTask,
-		onSuccess: () => {
+		onSuccess: message => {
+			toast.success(message);
 			queryClient.invalidateQueries({ queryKey: ['project', projectId] });
 			queryClient.invalidateQueries({ queryKey: ['task--edit', taskId] });
-			toast.success('Tarea actualizada correctamente');
 			navigate(location.pathname);
 			reset();
 		},

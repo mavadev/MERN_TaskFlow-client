@@ -48,11 +48,11 @@ const EditProjectPage = () => {
 	const queryClient = useQueryClient();
 	const { mutate } = useMutation({
 		mutationFn: updateProject,
-		onSuccess: () => {
+		onSuccess: message => {
 			queryClient.invalidateQueries({ queryKey: ['project--edit', projectId] });
 			queryClient.invalidateQueries({ queryKey: ['projects'] });
 
-			toast.success('Proyecto creado correctamente');
+			toast.success(message);
 			navigate('/');
 		},
 		onError: error => {

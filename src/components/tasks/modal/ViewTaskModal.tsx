@@ -24,18 +24,12 @@ export default function ViewTaskModal() {
 	});
 
 	const queryClient = useQueryClient();
-
 	const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		const status = e.target.value as TaskStatus;
 
 		updateStatus({ projectId, taskId, status })
-			.then(() => {
-				queryClient.invalidateQueries({ queryKey: ['project', projectId] });
-			})
-			.catch(error => {
-				console.log({ error });
-				toast.error(error.message);
-			});
+			.then(() => queryClient.invalidateQueries({ queryKey: ['project', projectId] }))
+			.catch(error => toast.error(error.message));
 	};
 	const handleClose = () => navigate(location.pathname);
 

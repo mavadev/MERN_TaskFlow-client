@@ -49,9 +49,9 @@ export default function AddTaskModal() {
 	const queryClient = useQueryClient();
 	const { mutate } = useMutation({
 		mutationFn: createTask,
-		onSuccess: () => {
+		onSuccess: message => {
+			toast.success(message);
 			queryClient.invalidateQueries({ queryKey: ['project', projectId] });
-			toast.success('Tarea añadida correctamente');
 			navigate(location.pathname);
 			reset();
 		},
