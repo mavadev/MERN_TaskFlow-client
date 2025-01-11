@@ -17,7 +17,7 @@ export default function TaskForm<T extends { name: string; description: string; 
 			<div className='flex flex-col'>
 				<label
 					htmlFor='name'
-					className='label-form'>
+					className='label-form mb-3'>
 					Nombre
 				</label>
 				<input
@@ -33,7 +33,7 @@ export default function TaskForm<T extends { name: string; description: string; 
 			<div className='flex flex-col '>
 				<label
 					htmlFor='description'
-					className='label-form'>
+					className='label-form mb-3'>
 					Descripción
 				</label>
 				<textarea
@@ -49,7 +49,7 @@ export default function TaskForm<T extends { name: string; description: string; 
 			<div className='flex flex-col'>
 				<label
 					htmlFor='status'
-					className='label-form'>
+					className='label-form mb-3'>
 					Estado de la Tarea
 				</label>
 				<select

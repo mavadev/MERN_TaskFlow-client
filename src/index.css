@@ -24,13 +24,13 @@
 
 /* Formulario */
 .form--project {
-	@apply mt-10 bg-white shadow-lg p-10 rounded-lg w-full max-w-3xl;
+	@apply mt-10 bg-white shadow-lg rounded-lg w-full max-w-2xl;
 }
 .label-form {
-	@apply font-bold text-gray-700 text-lg mb-3;
+	@apply font-bold text-black text-xl;
 }
 .input-form {
-	@apply w-full p-3 border border-gray-200;
+	@apply w-full p-3 border border-gray-400;
 }
 
 /* Toastify Notification */

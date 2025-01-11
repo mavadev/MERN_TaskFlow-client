@@ -26,7 +26,7 @@ export const ProjectItem = ({ project }: ProjectProps) => {
 	});
 
 	return (
-		<li className='flex justify-between items-center gap-x-6 rounded-md bg-card shadow hover:shadow-lg'>
+		<li className='flex justify-between items-center rounded-md bg-card border border-gray-500 shadow-xl shadow-gray-400'>
 			<Link
 				className='flex-1'
 				to={`/projects/${project._id}`}>

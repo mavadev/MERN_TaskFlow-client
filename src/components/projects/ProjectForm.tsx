@@ -13,14 +13,14 @@ export default function ProjectForm({ register, errors }: ProjectFormProps) {
 			<div className='mb-5 space-y-3'>
 				<label
 					htmlFor='projectName'
-					className='font-bold text-gray-700 text-lg'>
-					Proyecto:
+					className='label-form'>
+					Nombre del Proyecto
 				</label>
 				<input
 					type='text'
 					id='projectName'
 					placeholder='Nombre del Proyecto'
-					className='w-full p-3 border border-gray-200'
+					className='input-form'
 					{...register('projectName', {
 						required: 'El Titulo del Proyecto es obligatorio',
 					})}
@@ -32,14 +32,14 @@ export default function ProjectForm({ register, errors }: ProjectFormProps) {
 			<div className='mb-5 space-y-3'>
 				<label
 					htmlFor='clientName'
-					className='font-bold text-gray-700 text-lg'>
-					Cliente del Proyecto:
+					className='label-form'>
+					Cliente del Proyecto
 				</label>
 				<input
 					type='text'
 					id='clientName'
 					placeholder='Nombre del Cliente'
-					className='w-full p-3 border border-gray-200'
+					className='input-form'
 					{...register('clientName', {
 						required: 'El Nombre del Cliente es obligatorio',
 					})}
@@ -51,13 +51,13 @@ export default function ProjectForm({ register, errors }: ProjectFormProps) {
 			<div className='mb-5 space-y-3'>
 				<label
 					htmlFor='description'
-					className='font-bold text-gray-700 text-lg'>
-					Descripción:
+					className='label-form'>
+					Descripción
 				</label>
 				<textarea
 					id='description'
 					placeholder='Descripción del Proyecto'
-					className='w-full p-3 border border-gray-200'
+					className='input-form'
 					{...register('description', {
 						required: 'Una descripción del proyecto es obligatoria',
 					})}

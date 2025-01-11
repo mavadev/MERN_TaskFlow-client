@@ -21,13 +21,17 @@ export const TaskCard = ({ task }: { task: Task }) => {
 			toast.error(error.message);
 		},
 	});
+
+	const handleViewTask = () => navigate(location.pathname + `?viewTask=${task._id}`);
+	const handleEditTask = () => navigate(location.pathname + `?editTask=${task._id}`);
 	const handleDeleteTask = () => mutate({ projectId: task.project, taskId: task._id });
 
 	return (
-		<li className='p-4 bg-white border border-slate-200 flex justify-between gap-3 rounded'>
+		<li className='p-4 bg-white border border-slate-400 flex justify-between gap-3 rounded cursor-pointer'>
 			<div className='flex flex-col gap-y-2'>
 				<button
 					type='button'
+					onClick={handleViewTask}
 					className='font-bold text-gray-700 text-left line-clamp-2 text-balance md:text-sm'>
 					{task.name}
 				</button>
@@ -37,7 +41,7 @@ export const TaskCard = ({ task }: { task: Task }) => {
 				<MenuItem>
 					<button
 						type='button'
-						onClick={() => navigate(location.pathname + `?viewTask=${task._id}`)}
+						onClick={handleViewTask}
 						className='block px-3 py-2 text-sm font-medium leading-6 text-gray-700 w-full hover:bg-gray-50'>
 						Ver Tarea
 					</button>
@@ -45,7 +49,7 @@ export const TaskCard = ({ task }: { task: Task }) => {
 				<MenuItem>
 					<button
 						type='button'
-						onClick={() => navigate(location.pathname + `?editTask=${task._id}`)}
+						onClick={handleEditTask}
 						className='block px-3 py-2 text-sm font-medium leading-6 text-gray-700 w-full hover:bg-gray-50'>
 						Editar Tarea
 					</button>
