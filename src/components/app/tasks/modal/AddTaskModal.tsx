@@ -1,33 +1,27 @@
-import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { DialogTitle } from '@headlessui/react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import type { Project, TaskDraftData } from '@/interfaces';
-import { getTask, editTask } from '@/api/TaskAPI';
+import type { Project, TaskDraftData, TaskStatus } from '@/interfaces/app';
+import { createTask } from '@/api/TaskAPI';
 import { TaskModal } from './TaskModal';
 import TaskForm from './TaskForm';
+import { useEffect } from 'react';
 
-export default function EditTaskModal() {
+export default function AddTaskModal() {
 	const navigate = useNavigate();
 
 	const params = useParams();
 	const projectId = params.projectId as Project['_id'];
 
 	const location = useLocation();
-	const taskId = new URLSearchParams(location.search).get('editTask')!;
+	const searchParams = new URLSearchParams(location.search);
 
-	// OBTENER TAREA POR ID
-	const { data, isError } = useQuery({
-		retry: false,
-		enabled: !!taskId,
-		queryKey: ['task--edit', taskId],
-		queryFn: () => getTask({ projectId, taskId }),
-	});
+	const newTask = !!searchParams.get('newTask');
+	const statusTask = searchParams.get('status') as TaskStatus;
 
-	// CONFIGURACIÓN DE FORMULARIO
 	const {
 		reset,
 		register,
@@ -41,29 +35,23 @@ export default function EditTaskModal() {
 		},
 	});
 
-	// DATOS DE FORMULARIO
 	useEffect(() => {
-		if (data) {
+		if (statusTask) {
 			reset({
-				name: data.name,
-				description: data.description,
-				status: data.status,
+				name: '',
+				description: '',
+				status: statusTask,
 			});
 		}
-		if (isError) {
-			toast.error('Hubo un error al obtener la tarea');
-			navigate(location.pathname);
-		}
-	}, [data, isError]);
+	}, [statusTask]);
 
-	// EDITAR TAREA
+	// Petición API - POST
 	const queryClient = useQueryClient();
 	const { mutate } = useMutation({
-		mutationFn: editTask,
+		mutationFn: createTask,
 		onSuccess: message => {
 			toast.success(message);
 			queryClient.invalidateQueries({ queryKey: ['project', projectId] });
-			queryClient.invalidateQueries({ queryKey: ['task--edit', taskId] });
 			navigate(location.pathname);
 			reset();
 		},
@@ -71,31 +59,31 @@ export default function EditTaskModal() {
 			toast.error(error.message);
 		},
 	});
-	const handleEditTask = (formData: TaskDraftData) => mutate({ projectId, taskId, formData });
+	const handleCreateTask = (formData: TaskDraftData) => mutate({ projectId, formData });
 
 	return (
 		<TaskModal
-			show={!!taskId}
+			show={newTask}
 			handleOnClose={() => navigate(location.pathname)}>
 			<DialogTitle
 				as='h3'
 				className='font-bold text-3xl my-4'>
-				Editar Tarea
+				Nueva Tarea
 			</DialogTitle>
-			<p className='text-xl'>
-				Edita el formulario y actualiza <span className='text-yellow-600 font-bold'>la tarea</span>
+			<p className='text-xl '>
+				Llena el formulario y crea <span className='text-yellow-600 font-bold'>una tarea</span>
 			</p>
 			<form
 				noValidate
 				className='space-y-5'
-				onSubmit={handleSubmit(handleEditTask)}>
+				onSubmit={handleSubmit(handleCreateTask)}>
 				<TaskForm
 					errors={errors}
 					register={register}
 				/>
 				<input
 					type='submit'
-					value='Editar Tarea'
+					value='Añadir Tarea'
 					className='btn-secondary p-4 w-full'
 				/>
 			</form>

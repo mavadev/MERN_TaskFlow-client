@@ -3,7 +3,7 @@ import { Link, Navigate } from 'react-router-dom';
 import { DocumentTextIcon } from '@heroicons/react/24/outline';
 
 import { getProjects } from '@/api/ProjectAPI';
-import { ProjectItem } from '@/components/projects/ProjectItem';
+import { ProjectItem } from '@/components/app/projects/ProjectItem';
 
 const DashboardPage = () => {
 	const { data, isLoading, isError } = useQuery({

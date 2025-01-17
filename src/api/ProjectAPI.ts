@@ -1,5 +1,5 @@
 import api from '@/lib/axios';
-import { projectDraftSchema, ProjectDraftData, ProjectTasks, Project, responseSchema } from '@/interfaces';
+import { projectDraftSchema, ProjectDraftData, ProjectTasks, Project, responseSchema } from '@/interfaces/app';
 import { responseError } from './errors';
 
 interface ProjectProps {

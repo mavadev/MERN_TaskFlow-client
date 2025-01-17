@@ -3,7 +3,7 @@ import { DialogTitle } from '@headlessui/react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
 
-import type { Project, TaskStatus } from '@/interfaces';
+import type { Project, TaskStatus } from '@/interfaces/app';
 import { getTask, updateStatus } from '@/api/TaskAPI';
 import { statusTranslate } from '@/locales/es';
 import { TaskModal } from './TaskModal';

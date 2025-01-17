@@ -1,4 +1,4 @@
-import { Project, responseSchema, Task, TaskDraftData, taskDraftSchema } from '@/interfaces';
+import { Project, responseSchema, Task, TaskDraftData, taskDraftSchema } from '@/interfaces/app';
 import api from '@/lib/axios';
 import { responseError } from './errors';
 
@@ -38,7 +38,11 @@ export async function getTask({ projectId, taskId }: Pick<TaskProps, 'projectId'
 	}
 }
 
-export async function editTask({ projectId, taskId, formData }: Pick<TaskProps, 'projectId' | 'taskId' | 'formData'>):Promise<string> {
+export async function editTask({
+	projectId,
+	taskId,
+	formData,
+}: Pick<TaskProps, 'projectId' | 'taskId' | 'formData'>): Promise<string> {
 	try {
 		const resultData = taskDraftSchema.safeParse(formData);
 		if (!resultData.success) throw new Error('Error en los datos de entrada');
@@ -54,7 +58,7 @@ export async function editTask({ projectId, taskId, formData }: Pick<TaskProps, 
 	}
 }
 
-export async function deleteTask({ projectId, taskId }: Pick<TaskProps, 'projectId' | 'taskId'>):Promise<string> {
+export async function deleteTask({ projectId, taskId }: Pick<TaskProps, 'projectId' | 'taskId'>): Promise<string> {
 	try {
 		const response = await api.delete(`/projects/${projectId}/tasks/${taskId}`);
 
@@ -67,7 +71,11 @@ export async function deleteTask({ projectId, taskId }: Pick<TaskProps, 'project
 	}
 }
 
-export async function updateStatus({ projectId, taskId, status }: Pick<TaskProps, 'projectId' | 'taskId' | 'status'>): Promise<string> {
+export async function updateStatus({
+	projectId,
+	taskId,
+	status,
+}: Pick<TaskProps, 'projectId' | 'taskId' | 'status'>): Promise<string> {
 	try {
 		const response = await api.patch(`/projects/${projectId}/tasks/${taskId}/status`, { status });
 

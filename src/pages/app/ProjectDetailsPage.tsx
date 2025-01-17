@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 
-import type { Project } from '@/interfaces';
+import type { Project } from '@/interfaces/app';
 import { getProject } from '@/api/ProjectAPI';
-import { TaskList } from '@/components/tasks/TaskList';
-import AddTaskModal from '@/components/tasks/modal/AddTaskModal';
-import EditTaskModal from '@/components/tasks/modal/EditTaskModal';
-import ViewTaskModal from '@/components/tasks/modal/ViewTaskModal';
+import { TaskList } from '@/components/app/tasks/TaskList';
+import AddTaskModal from '@/components/app/tasks/modal/AddTaskModal';
+import EditTaskModal from '@/components/app/tasks/modal/EditTaskModal';
+import ViewTaskModal from '@/components/app/tasks/modal/ViewTaskModal';
 
 const ProjectDetailsPage = () => {
 	const params = useParams();

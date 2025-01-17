@@ -3,7 +3,7 @@ import { Logo } from '@/components/LogoApp';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { UserMenu } from '@/components/UserMenu';
+import { UserMenu } from '@/components/app/UserMenu';
 
 const AppLayout = () => {
 	return (

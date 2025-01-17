@@ -4,9 +4,9 @@ import { useForm } from 'react-hook-form';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 
-import type { Project, ProjectDraftData } from '@/interfaces';
+import type { Project, ProjectDraftData } from '@/interfaces/app';
 import { getProject, updateProject } from '@/api/ProjectAPI';
-import ProjectForm from '@/components/projects/ProjectForm';
+import ProjectForm from '@/components/app/projects/ProjectForm';
 
 const EditProjectPage = () => {
 	const params = useParams();

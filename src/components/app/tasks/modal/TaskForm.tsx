@@ -1,7 +1,7 @@
 import { FieldErrors, Path, UseFormRegister } from 'react-hook-form';
 import { ErrorMessage } from '@/components/ErrorMessage';
 import { statusTranslate } from '@/locales/es';
-import type { TaskStatus } from '@/interfaces';
+import type { TaskStatus } from '@/interfaces/app';
 
 type TaskFormProps<T extends { name: string; description: string; status: TaskStatus }> = {
 	errors: FieldErrors<T>;

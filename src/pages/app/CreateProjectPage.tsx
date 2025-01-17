@@ -4,8 +4,8 @@ import { useMutation } from '@tanstack/react-query';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { createProject } from '@/api/ProjectAPI';
-import type { ProjectDraftData } from '@/interfaces';
-import ProjectForm from '@/components/projects/ProjectForm';
+import type { ProjectDraftData } from '@/interfaces/app';
+import ProjectForm from '@/components/app/projects/ProjectForm';
 
 const CreateProjectPage = () => {
 	const navigate = useNavigate();
