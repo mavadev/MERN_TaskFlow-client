@@ -35,8 +35,8 @@
 
 /* Toastify Notification */
 .Toastify__toast-icon > svg {
-	fill: #ffa500 !important;
+	@apply fill-primary-600 !important;
 }
 .Toastify__progress-bar--success {
-	background-color: #ffa500 !important;
+	@apply bg-primary-800 !important;
 }

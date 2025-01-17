@@ -1,14 +1,23 @@
+import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
+
 import { ErrorMessage } from '@/components/ErrorMessage';
-import type { CreateAccount } from '@/interfaces/auth';
+import { createAccount } from '@/api/AuthAPI';
+import type { RegisterForm } from '@/interfaces/auth';
 
 const RegisterForm = () => {
-	const initialValues: CreateAccount = {
+	const navigate = useNavigate();
+	// Registro de datos iniciales del formulario
+	const initialValues: RegisterForm = {
 		name: '',
 		email: '',
 		password: '',
 		password_confirmation: '',
 	};
+
+	// Hook de formulario
 	const {
 		watch,
 		register,
@@ -16,7 +25,20 @@ const RegisterForm = () => {
 		formState: { errors },
 	} = useForm({ defaultValues: initialValues });
 
-	const handleRegister = (formData: CreateAccount) => {};
+	// Mutación para registrar la cuenta
+	const { mutate } = useMutation({
+		mutationFn: createAccount,
+		onSuccess: message => {
+			toast.success(message);
+			navigate('/auth/login');
+		},
+		onError: error => {
+			toast.error(error.message);
+		},
+	});
+
+	// Función para registrar la cuenta
+	const handleRegister = (formData: RegisterForm) => mutate(formData);
 
 	return (
 		<>
@@ -71,7 +93,7 @@ const RegisterForm = () => {
 					<label
 						htmlFor='password'
 						className='font-normal text-2xl'>
-						Password
+						Contraseña
 					</label>
 
 					<input
@@ -81,6 +103,10 @@ const RegisterForm = () => {
 						placeholder='Password de Registro'
 						{...register('password', {
 							required: 'El Password es obligatorio',
+							minLength: {
+								value: 8,
+								message: 'La contraseña debe tener al menos 8 caracteres',
+							},
 						})}
 					/>
 					{errors.password && <ErrorMessage error={errors.password.message as string}></ErrorMessage>}
@@ -90,7 +116,7 @@ const RegisterForm = () => {
 					<label
 						htmlFor='password_confirmation'
 						className='font-normal text-2xl'>
-						Confirmar Password
+						Confirmar Contraseña
 					</label>
 
 					<input
@@ -114,6 +140,16 @@ const RegisterForm = () => {
 					className='bg-primary-600 hover:bg-primary-700 w-full p-3  text-white font-black  text-xl cursor-pointer'
 				/>
 			</form>
+			<nav className='flex flex-col space-y-4'>
+				<p className='text-center text-xl'>
+					¿Ya tienes cuenta?{' '}
+					<Link
+						to='/auth/login'
+						className='text-primary-600 hover:text-primary-700 font-bold'>
+						Iniciar Sesión
+					</Link>
+				</p>
+			</nav>
 		</>
 	);
 };

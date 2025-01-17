@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@/components/ErrorMessage';
 import type { LoginForm } from '@/interfaces/auth';
+import { Link } from 'react-router-dom';
 
 const LoginForm = () => {
 	const initialValues: LoginForm = {
@@ -49,7 +50,7 @@ const LoginForm = () => {
 					<label
 						htmlFor='password'
 						className='font-normal text-2xl'>
-						Password
+						Contraseña
 					</label>
 
 					<input
@@ -67,9 +68,20 @@ const LoginForm = () => {
 				<input
 					type='submit'
 					value='Iniciar Sesión'
-					className='bg-primary-600 hover:bg-primary-700 w-full p-3  text-white font-black  text-xl cursor-pointer'
+					className='bg-primary-600 hover:bg-primary-700 w-full p-3 text-white font-bold text-xl cursor-pointer'
 				/>
 			</form>
+
+			<nav className='flex flex-col space-y-4'>
+				<p className='text-center text-xl'>
+					¿No tienes cuenta?{' '}
+					<Link
+						to='/auth/register'
+						className='text-primary-600 hover:text-primary-700 font-bold'>
+						Crear cuenta
+					</Link>
+				</p>
+			</nav>
 		</>
 	);
 };
