@@ -5,6 +5,7 @@ import AuthLayout from '@/layouts/AuthLayout';
 import { CreateProjectPage, DashboardPage, EditProjectPage, ProjectDetailsPage } from '@/pages/app';
 import LoginPage from '@/pages/auth/LoginPage';
 import RegisterPage from '@/pages/auth/RegisterPage';
+import ConfirmAccount from './pages/auth/ConfirmAccount';
 
 export default function AppRouter() {
 	return (
@@ -18,7 +19,8 @@ export default function AppRouter() {
 				</Route>
 				<Route element={<AuthLayout />}>
 					<Route path='/auth/login' element={<LoginPage />} />
-					<Route path='/auth/create' element={<RegisterPage />} />
+					<Route path='/auth/register' element={<RegisterPage />} />
+					<Route path='/auth/confirm-account' element={<ConfirmAccount />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>
