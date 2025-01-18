@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import AuthLayout from '@/layouts/AuthLayout';
-import { LoginPage, RegisterPage, ConfirmAccount, RequestCode } from '@/pages/auth';
+import { LoginPage, RegisterPage, ConfirmAccount, RequestCode, RequestNewPassword } from '@/pages/auth';
 
 import AppLayout from '@/layouts/AppLayout';
 import { CreateProjectPage, DashboardPage, EditProjectPage, ProjectDetailsPage } from '@/pages/app';
@@ -21,6 +21,7 @@ export default function AppRouter() {
 					<Route path='/auth/register' element={<RegisterPage />} />
 					<Route path='/auth/confirm-account' element={<ConfirmAccount />} />
 					<Route path='/auth/request-code' element={<RequestCode />} />
+					<Route path='/auth/request-new-password' element={<RequestNewPassword />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>

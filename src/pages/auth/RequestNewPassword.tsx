@@ -3,27 +3,25 @@ import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { requestCode } from '@/api/AuthAPI';
+import { requestNewPassword } from '@/api/AuthAPI';
 import { ErrorMessage } from '@/components/ErrorMessage';
 import type { ResendCodeForm } from '@/interfaces/auth';
 
-const RequestCode = () => {
+const RequestNewPassword = () => {
 	const navigate = useNavigate();
-	const location = useLocation();
-	const { email: emailUser } = location.state || {};
 
 	const {
 		watch,
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm({ defaultValues: { email: emailUser || '' } });
+	} = useForm({ defaultValues: { email: '' } });
 
 	const { mutate } = useMutation({
-		mutationFn: requestCode,
+		mutationFn: requestNewPassword,
 		onSuccess: message => {
-			toast.success(message);
-			navigate('/auth/confirm-account', { state: { email: watch('email') } });
+			toast.success(message + ' ' + watch('email'));
+			// navigate('/auth/reset-password', { state: { email: watch('email') } });
 		},
 		onError: error => {
 			toast.error(error.message);
@@ -34,9 +32,9 @@ const RequestCode = () => {
 
 	return (
 		<div className='max-w-md text-center'>
-			<h2 className='text-4xl font-normal'>Solicitar Código</h2>
+			<h2 className='text-4xl font-normal'>Olvidaste tu contraseña?</h2>
 			<p className='mt-5 text-xl font-light'>
-				Por favor, ingresa tu correo electrónico para recibir un nuevo código de confirmación.
+				Enviaremos un correo con indicaciones para que puedas cambiar tu contraseña.
 			</p>
 			<form
 				className='mt-10'
@@ -45,7 +43,6 @@ const RequestCode = () => {
 					id='email'
 					type='email'
 					className='input-form mb-5 text-xl font-light text-center'
-					defaultValue={emailUser}
 					placeholder='Ingrese su correo electrónico'
 					{...register('email', {
 						required: 'El correo electrónico es obligatorio',
@@ -59,11 +56,11 @@ const RequestCode = () => {
 				<input
 					type='submit'
 					className='mt-10 btn btn-secondary px-5 py-3 uppercase text-lg'
-					value='Solicitar Código'
+					value='Enviar Correo'
 				/>
 			</form>
 		</div>
 	);
 };
 
-export default RequestCode;
+export default RequestNewPassword;

@@ -82,6 +82,12 @@ const LoginPage = () => {
 							required: 'El Password es obligatorio',
 						})}
 					/>
+					<Link
+						to='/auth/request-new-password'
+						className='text-primary-600 hover:text-primary-700 font-bold text-right'>
+						¿Olvidaste tu contraseña?
+					</Link>
+
 					{errors.password && <ErrorMessage error={errors.password.message as string}></ErrorMessage>}
 				</div>
 

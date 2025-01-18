@@ -41,3 +41,13 @@ export async function login(formData: LoginForm): Promise<string> {
 		throw new Error(responseError(error as Error));
 	}
 }
+
+export async function requestNewPassword(formData: ResendCodeForm): Promise<string> {
+	try {
+		const url = '/auth/request-new-password';
+		const { data } = await api.post(url, formData);
+		return data.message;
+	} catch (error) {
+		throw new Error(responseError(error as Error));
+	}
+}
