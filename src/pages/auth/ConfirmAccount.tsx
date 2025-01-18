@@ -30,7 +30,7 @@ const ConfirmAccount = () => {
 	useEffect(() => {
 		if (!email) {
 			toast.error('No se encontró el correo');
-			navigate('/auth/new-code', { state: { email } });
+			navigate('/auth/register');
 		}
 	}, [email, navigate]);
 
@@ -59,7 +59,8 @@ const ConfirmAccount = () => {
 				<p>
 					¿No recibiste el código?{' '}
 					<Link
-						to='/auth/new-code'
+						state={{ email }}
+						to='/auth/resend-code'
 						className='font-bold text-primary-600 hover:text-primary-700 uppercase'>
 						Solicitar código
 					</Link>
