@@ -1,16 +1,26 @@
 import { toast } from 'react-toastify';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { PinInput, PinInputField } from '@chakra-ui/pin-input';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { confirmAccount } from '@/api/AuthAPI';
-import type { ConfirmAccountForm } from '@/interfaces/auth';
+import type { ConfirmUserForm } from '@/interfaces/auth';
 
 const ConfirmAccount = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
+	const [code, setCode] = useState('');
+	const pinFieldRef = useRef<HTMLInputElement>(null);
+
 	const { email } = location.state || {};
+
+	useEffect(() => {
+		if (!email) {
+			toast.error('No se encontró el correo');
+			navigate('/auth/request-code');
+		}
+	}, [email, navigate]);
 
 	const { mutate } = useMutation({
 		mutationFn: confirmAccount,
@@ -20,17 +30,12 @@ const ConfirmAccount = () => {
 		},
 		onError: error => {
 			toast.error(error.message);
+			setCode('');
+			pinFieldRef.current?.focus();
 		},
 	});
 
-	const handleComplete = (token: ConfirmAccountForm['token']) => mutate({ email, token });
-
-	useEffect(() => {
-		if (!email) {
-			toast.error('No se encontró el correo');
-			navigate('/auth/request-code');
-		}
-	}, [email, navigate]);
+	const handleComplete = (token: ConfirmUserForm['token']) => mutate({ email, token });
 
 	return (
 		<div className='max-w-md text-center'>
@@ -40,8 +45,14 @@ const ConfirmAccount = () => {
 				<span className='text-primary-600 font-bold'>{email}</span>
 			</p>
 			<form className='mt-10 px-5 py-5 rounded bg-primary-500 flex justify-stretch gap-3 h-24 md:h-28'>
-				<PinInput onComplete={handleComplete}>
-					<PinInputField className='w-full h-full text-center text-2xl font-bold rounded border-gray-300' />
+				<PinInput
+					value={code}
+					onChange={setCode}
+					onComplete={handleComplete}>
+					<PinInputField
+						ref={pinFieldRef}
+						className='w-full h-full text-center text-2xl font-bold rounded border-gray-300'
+					/>
 					<PinInputField className='w-full h-full text-center text-2xl font-bold rounded border-gray-300' />
 					<PinInputField className='w-full h-full text-center text-2xl font-bold rounded border-gray-300' />
 					<PinInputField className='w-full h-full text-center text-2xl font-bold rounded border-gray-300' />

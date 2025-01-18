@@ -1,6 +1,6 @@
 import api from '@/lib/axios';
 import { responseError } from './errors';
-import { ConfirmAccountForm, LoginForm, RegisterForm, ResendCodeForm } from '@/interfaces/auth';
+import { ConfirmUserForm, LoginForm, RegisterForm, ResendCodeForm, ResetPassword } from '@/interfaces/auth';
 
 export async function createAccount(formData: RegisterForm): Promise<string> {
 	try {
@@ -12,7 +12,7 @@ export async function createAccount(formData: RegisterForm): Promise<string> {
 	}
 }
 
-export async function confirmAccount(formData: ConfirmAccountForm): Promise<string> {
+export async function confirmAccount(formData: ConfirmUserForm): Promise<string> {
 	try {
 		const url = '/auth/confirm-account';
 		const { data } = await api.post(url, formData);
@@ -52,9 +52,19 @@ export async function requestNewPassword(formData: ResendCodeForm): Promise<stri
 	}
 }
 
-export async function validateCodeForNewPassword(formData: ConfirmAccountForm): Promise<string> {
+export async function validateCodeForNewPassword(formData: ConfirmUserForm): Promise<string> {
 	try {
 		const url = '/auth/confirm-new-password';
+		const { data } = await api.post(url, formData);
+		return data.message;
+	} catch (error) {
+		throw new Error(responseError(error as Error));
+	}
+}
+
+export async function resetPassword(formData: ResetPassword): Promise<string> {
+	try {
+		const url = '/auth/reset-password';
 		const { data } = await api.post(url, formData);
 		return data.message;
 	} catch (error) {

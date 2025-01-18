@@ -22,7 +22,7 @@ const RequestNewPassword = () => {
 	const { mutate } = useMutation({
 		mutationFn: requestNewPassword,
 		onSuccess: message => {
-			toast.success(message + ' ' + watch('email'));
+			toast.success(message);
 			navigate('/auth/forgot-password', { state: { email: watch('email') } });
 		},
 		onError: error => {
