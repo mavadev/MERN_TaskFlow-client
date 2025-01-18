@@ -3,11 +3,11 @@ import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { resendCode } from '@/api/AuthAPI';
+import { requestCode } from '@/api/AuthAPI';
 import { ErrorMessage } from '@/components/ErrorMessage';
 import type { ResendCodeForm } from '@/interfaces/auth';
 
-const ResendCode = () => {
+const RequestCode = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const { email: emailUser } = location.state || {};
@@ -20,7 +20,7 @@ const ResendCode = () => {
 	} = useForm({ defaultValues: { email: emailUser || '' } });
 
 	const { mutate } = useMutation({
-		mutationFn: resendCode,
+		mutationFn: requestCode,
 		onSuccess: message => {
 			toast.success(message);
 			navigate('/auth/confirm-account', { state: { email: watch('email') } });
@@ -34,7 +34,7 @@ const ResendCode = () => {
 
 	return (
 		<div className='max-w-md text-center'>
-			<h2 className='text-4xl font-normal'>Reenviar Código</h2>
+			<h2 className='text-4xl font-normal'>Solicitar Código</h2>
 			<p className='mt-5 text-xl font-light'>
 				Por favor, ingresa tu correo electrónico para recibir un nuevo código de confirmación.
 			</p>
@@ -68,4 +68,4 @@ const ResendCode = () => {
 	);
 };
 
-export default ResendCode;
+export default RequestCode;

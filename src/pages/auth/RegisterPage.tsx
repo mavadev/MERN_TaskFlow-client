@@ -7,7 +7,7 @@ import { ErrorMessage } from '@/components/ErrorMessage';
 import { createAccount } from '@/api/AuthAPI';
 import type { RegisterForm } from '@/interfaces/auth';
 
-const RegisterForm = () => {
+const RegisterPage = () => {
 	const navigate = useNavigate();
 	// Registro de datos iniciales del formulario
 	const initialValues: RegisterForm = {
@@ -154,4 +154,4 @@ const RegisterForm = () => {
 	);
 };
 
-export default RegisterForm;
+export default RegisterPage;

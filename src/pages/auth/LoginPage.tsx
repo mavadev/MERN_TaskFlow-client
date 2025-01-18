@@ -1,20 +1,40 @@
-import { useForm } from 'react-hook-form';
-import { ErrorMessage } from '@/components/ErrorMessage';
-import type { LoginForm } from '@/interfaces/auth';
+import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
 
-const LoginForm = () => {
+import { login } from '@/api/AuthAPI';
+import { ErrorMessage } from '@/components/ErrorMessage';
+import { LoginForm } from '@/interfaces/auth';
+
+const LoginPage = () => {
+	const navigate = useNavigate();
 	const initialValues: LoginForm = {
 		email: '',
 		password: '',
 	};
 	const {
+		watch,
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm({ defaultValues: initialValues });
 
-	const handleLogin = (formData: LoginForm) => {};
+	const { mutate } = useMutation({
+		mutationFn: login,
+		onSuccess: message => {
+			toast.success(message);
+		},
+		onError: error => {
+			toast.error(error.message);
+			if (error.message.includes('confirmar la cuenta')) {
+				navigate('/auth/confirm-account', { state: { email: watch('email') } });
+			}
+		},
+	});
+
+	const handleLogin = (formData: LoginForm) => mutate(formData);
 
 	return (
 		<>
@@ -86,4 +106,4 @@ const LoginForm = () => {
 	);
 };
 
-export default LoginForm;
+export default LoginPage;

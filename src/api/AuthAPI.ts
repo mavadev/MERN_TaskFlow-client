@@ -1,6 +1,6 @@
 import api from '@/lib/axios';
 import { responseError } from './errors';
-import { ConfirmAccountForm, RegisterForm, ResendCodeForm } from '@/interfaces/auth';
+import { ConfirmAccountForm, LoginForm, RegisterForm, ResendCodeForm } from '@/interfaces/auth';
 
 export async function createAccount(formData: RegisterForm): Promise<string> {
 	try {
@@ -22,9 +22,19 @@ export async function confirmAccount(formData: ConfirmAccountForm): Promise<stri
 	}
 }
 
-export async function resendCode(formData: ResendCodeForm): Promise<string> {
+export async function requestCode(formData: ResendCodeForm): Promise<string> {
 	try {
-		const url = '/auth/resend-code';
+		const url = '/auth/request-code';
+		const { data } = await api.post(url, formData);
+		return data.message;
+	} catch (error) {
+		throw new Error(responseError(error as Error));
+	}
+}
+
+export async function login(formData: LoginForm): Promise<string> {
+	try {
+		const url = '/auth/login';
 		const { data } = await api.post(url, formData);
 		return data.message;
 	} catch (error) {
