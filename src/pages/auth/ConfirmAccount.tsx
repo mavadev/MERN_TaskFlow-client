@@ -12,8 +12,6 @@ const ConfirmAccount = () => {
 	const location = useLocation();
 	const { email } = location.state || {};
 
-	const [code, setCode] = useState<ConfirmAccountForm['token']>('');
-
 	const { mutate } = useMutation({
 		mutationFn: confirmAccount,
 		onSuccess: message => {
@@ -42,10 +40,7 @@ const ConfirmAccount = () => {
 				<span className='text-primary-600 font-bold'>{email}</span>
 			</p>
 			<form className='mt-10 px-5 py-5 rounded bg-primary-500 flex justify-stretch gap-3 h-24 md:h-28'>
-				<PinInput
-					value={code}
-					onChange={setCode}
-					onComplete={handleComplete}>
+				<PinInput onComplete={handleComplete}>
 					<PinInputField className='w-full h-full text-center text-2xl font-bold rounded border-gray-300' />
 					<PinInputField className='w-full h-full text-center text-2xl font-bold rounded border-gray-300' />
 					<PinInputField className='w-full h-full text-center text-2xl font-bold rounded border-gray-300' />

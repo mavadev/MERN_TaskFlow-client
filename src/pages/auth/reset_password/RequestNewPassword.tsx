@@ -9,19 +9,21 @@ import type { ResendCodeForm } from '@/interfaces/auth';
 
 const RequestNewPassword = () => {
 	const navigate = useNavigate();
+	const location = useLocation();
+	const { email: emailUser } = location.state || {};
 
 	const {
 		watch,
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm({ defaultValues: { email: '' } });
+	} = useForm({ defaultValues: { email: emailUser || '' } });
 
 	const { mutate } = useMutation({
 		mutationFn: requestNewPassword,
 		onSuccess: message => {
 			toast.success(message + ' ' + watch('email'));
-			// navigate('/auth/reset-password', { state: { email: watch('email') } });
+			navigate('/auth/forgot-password', { state: { email: watch('email') } });
 		},
 		onError: error => {
 			toast.error(error.message);

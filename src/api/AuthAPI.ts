@@ -51,3 +51,13 @@ export async function requestNewPassword(formData: ResendCodeForm): Promise<stri
 		throw new Error(responseError(error as Error));
 	}
 }
+
+export async function validateCodeForNewPassword(formData: ConfirmAccountForm): Promise<string> {
+	try {
+		const url = '/auth/confirm-new-password';
+		const { data } = await api.post(url, formData);
+		return data.message;
+	} catch (error) {
+		throw new Error(responseError(error as Error));
+	}
+}
