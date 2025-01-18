@@ -30,7 +30,7 @@ const RegisterForm = () => {
 		mutationFn: createAccount,
 		onSuccess: message => {
 			toast.success(message);
-			navigate('/auth/login');
+			navigate('/auth/confirm-account', { state: { email: watch('email') } });
 		},
 		onError: error => {
 			toast.error(error.message);

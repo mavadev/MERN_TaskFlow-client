@@ -1,13 +1,16 @@
 import { z } from 'zod';
 
 // Create Account
-const createAccountSchema = z.object({
+const authSchema = z.object({
 	name: z.string(),
 	email: z.string(),
 	password: z.string(),
 	password_confirmation: z.string(),
+	user: z.string(),
+	token: z.string(),
 });
-export type RegisterForm = z.infer<typeof createAccountSchema>;
+export type AuthSchema = z.infer<typeof authSchema>;
 
-// Login
-export type LoginForm = Pick<RegisterForm, 'email' | 'password'>;
+export type LoginForm = Pick<AuthSchema, 'email' | 'password'>;
+export type RegisterForm = Pick<AuthSchema, 'name' | 'email' | 'password' | 'password_confirmation'>;
+export type ConfirmAccountForm = Pick<AuthSchema, 'email' | 'token'>;
