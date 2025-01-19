@@ -22,9 +22,9 @@ export async function confirmAccount(formData: ConfirmUserForm): Promise<string>
 	}
 }
 
-export async function requestCode(formData: ResendCodeForm): Promise<string> {
+export async function login(formData: LoginForm): Promise<string> {
 	try {
-		const url = '/auth/request-code';
+		const url = '/auth/login';
 		const { data } = await api.post(url, formData);
 		return data.message;
 	} catch (error) {
@@ -32,9 +32,9 @@ export async function requestCode(formData: ResendCodeForm): Promise<string> {
 	}
 }
 
-export async function login(formData: LoginForm): Promise<string> {
+export async function requestConfirmAccount(formData: ResendCodeForm): Promise<string> {
 	try {
-		const url = '/auth/login';
+		const url = '/auth/request-code';
 		const { data } = await api.post(url, formData);
 		return data.message;
 	} catch (error) {

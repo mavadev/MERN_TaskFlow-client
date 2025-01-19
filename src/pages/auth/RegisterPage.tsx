@@ -141,7 +141,7 @@ const RegisterPage = () => {
 				/>
 			</form>
 			<nav className='flex flex-col space-y-4'>
-				<p className='text-center text-xl'>
+				<p className='text-center'>
 					¿Ya tienes cuenta?{' '}
 					<Link
 						to='/auth/login'

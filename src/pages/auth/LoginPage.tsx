@@ -6,7 +6,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import { login } from '@/api/AuthAPI';
 import { ErrorMessage } from '@/components/ErrorMessage';
-import { LoginForm } from '@/interfaces/auth';
+import type { LoginForm } from '@/interfaces/auth';
 
 const LoginPage = () => {
 	const navigate = useNavigate();
@@ -82,13 +82,12 @@ const LoginPage = () => {
 							required: 'El Password es obligatorio',
 						})}
 					/>
+					{errors.password && <ErrorMessage error={errors.password.message as string}></ErrorMessage>}
 					<Link
 						to='/auth/request-new-password'
 						className='text-primary-600 hover:text-primary-700 font-bold text-right'>
 						¿Olvidaste tu contraseña?
 					</Link>
-
-					{errors.password && <ErrorMessage error={errors.password.message as string}></ErrorMessage>}
 				</div>
 
 				<input
@@ -99,12 +98,20 @@ const LoginPage = () => {
 			</form>
 
 			<nav className='flex flex-col space-y-4'>
-				<p className='text-center text-xl'>
+				<p className='text-center'>
 					¿No tienes cuenta?{' '}
 					<Link
 						to='/auth/register'
 						className='text-primary-600 hover:text-primary-700 font-bold'>
 						Crear cuenta
+					</Link>
+				</p>
+				<p className='text-center'>
+					¿Olvidaste tu contraseña?{' '}
+					<Link
+						to='/auth/request-new-password'
+						className='text-primary-600 hover:text-primary-700 font-bold'>
+						Recuperar contraseña
 					</Link>
 				</p>
 			</nav>
