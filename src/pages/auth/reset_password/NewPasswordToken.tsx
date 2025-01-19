@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
@@ -5,15 +6,15 @@ import { PinInput, PinInputField } from '@chakra-ui/pin-input';
 
 import { ConfirmUserForm } from '@/interfaces/auth';
 import { validateCodeForNewPassword } from '@/api/AuthAPI';
-import { useRef, useState } from 'react';
 
 interface NewPasswordTokenProps {
-	email: string;
+	email: ConfirmUserForm['email'];
+	token: ConfirmUserForm['token'];
+	setToken: (token: ConfirmUserForm['token']) => void;
 	setCodeCorrect: () => void;
 }
 
-const NewPasswordToken = ({ email, setCodeCorrect }: NewPasswordTokenProps) => {
-	const [code, setCode] = useState('');
+const NewPasswordToken = ({ email, token, setToken, setCodeCorrect }: NewPasswordTokenProps) => {
 	const pinFieldRef = useRef<HTMLInputElement>(null);
 
 	// Validar código para cambiar contraseña
@@ -24,8 +25,8 @@ const NewPasswordToken = ({ email, setCodeCorrect }: NewPasswordTokenProps) => {
 			setCodeCorrect();
 		},
 		onError: error => {
+			setToken('');
 			toast.error(error.message);
-			setCode('');
 			pinFieldRef.current?.focus();
 		},
 	});
@@ -35,8 +36,8 @@ const NewPasswordToken = ({ email, setCodeCorrect }: NewPasswordTokenProps) => {
 		<>
 			<form className='mt-10 px-5 py-5 rounded bg-primary-500 flex justify-stretch gap-3 h-24 md:h-28'>
 				<PinInput
-					value={code}
-					onChange={setCode}
+					value={token}
+					onChange={setToken}
 					onComplete={handleValidateCode}>
 					<PinInputField
 						ref={pinFieldRef}

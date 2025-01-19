@@ -19,4 +19,4 @@ export type ResendCodeForm = Pick<AuthSchema, 'email'>;
 export type ConfirmUserForm = Pick<AuthSchema, 'email' | 'token'>;
 
 export type ForgotPasswordForm = Pick<AuthSchema, 'password' | 'password_confirmation'>;
-export type ResetPassword = Pick<AuthSchema, 'email' | 'password'>;
+export type ResetPassword = Pick<AuthSchema, 'email' | 'password' | 'token'>;

@@ -9,6 +9,7 @@ const ForgotPassword = () => {
 	const location = useLocation();
 	const { email } = location.state || {};
 
+	const [token, setToken] = useState('');
 	const [isCodeCorrect, setIsCodeCorrect] = useState(false);
 
 	useEffect(() => {
@@ -29,10 +30,15 @@ const ForgotPassword = () => {
 			</p>
 
 			{isCodeCorrect ? (
-				<NewPasswordForm email={email} />
+				<NewPasswordForm
+					token={token}
+					email={email}
+				/>
 			) : (
 				<NewPasswordToken
 					email={email}
+					token={token}
+					setToken={setToken}
 					setCodeCorrect={setCodeCorrect}
 				/>
 			)}

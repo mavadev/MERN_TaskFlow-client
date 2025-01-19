@@ -5,13 +5,14 @@ import { useMutation } from '@tanstack/react-query';
 
 import { resetPassword } from '@/api/AuthAPI';
 import { ErrorMessage } from '@/components/ErrorMessage';
-import type { ForgotPasswordForm } from '@/interfaces/auth';
+import type { ConfirmUserForm, ForgotPasswordForm } from '@/interfaces/auth';
 
 interface NewPasswordFormProps {
-	email: string;
+	email: ConfirmUserForm['email'];
+	token: ConfirmUserForm['token'];
 }
 
-const NewPasswordForm = ({ email }: NewPasswordFormProps) => {
+const NewPasswordForm = ({ email, token }: NewPasswordFormProps) => {
 	const navigate = useNavigate();
 
 	// Valores iniciales del formulario
@@ -40,7 +41,7 @@ const NewPasswordForm = ({ email }: NewPasswordFormProps) => {
 	});
 
 	// Función para registrar la cuenta
-	const handleNewPassword = (formData: ForgotPasswordForm) => mutate({ email, password: formData.password });
+	const handleNewPassword = (formData: ForgotPasswordForm) => mutate({ token, email, password: formData.password });
 
 	return (
 		<form
