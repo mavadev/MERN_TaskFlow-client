@@ -26,6 +26,8 @@ export async function login(formData: LoginForm): Promise<string> {
 	try {
 		const url = '/auth/login';
 		const { data } = await api.post(url, formData);
+		// Guardar token en localStorage
+		localStorage.setItem('AUTH_TOKEN', data.data);
 		return data.message;
 	} catch (error) {
 		throw new Error(responseError(error as Error));
@@ -34,7 +36,7 @@ export async function login(formData: LoginForm): Promise<string> {
 
 export async function requestConfirmAccount(formData: ResendCodeForm): Promise<string> {
 	try {
-		const url = '/auth/request-code';
+		const url = '/auth/request-code-confirmation';
 		const { data } = await api.post(url, formData);
 		return data.message;
 	} catch (error) {
@@ -44,7 +46,7 @@ export async function requestConfirmAccount(formData: ResendCodeForm): Promise<s
 
 export async function requestNewPassword(formData: ResendCodeForm): Promise<string> {
 	try {
-		const url = '/auth/request-new-password';
+		const url = '/auth/request-code-password';
 		const { data } = await api.post(url, formData);
 		return data.message;
 	} catch (error) {
@@ -52,9 +54,9 @@ export async function requestNewPassword(formData: ResendCodeForm): Promise<stri
 	}
 }
 
-export async function validateCodeForNewPassword(formData: ConfirmUserForm): Promise<string> {
+export async function validateCodePassword(formData: ConfirmUserForm): Promise<string> {
 	try {
-		const url = '/auth/confirm-new-password';
+		const url = '/auth/validate-code-password';
 		const { data } = await api.post(url, formData);
 		return data.message;
 	} catch (error) {

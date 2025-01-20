@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 import { PinInput, PinInputField } from '@chakra-ui/pin-input';
 
 import { ConfirmUserForm } from '@/interfaces/auth';
-import { validateCodeForNewPassword } from '@/api/AuthAPI';
+import { validateCodePassword } from '@/api/AuthAPI';
 
 interface NewPasswordTokenProps {
 	email: ConfirmUserForm['email'];
@@ -19,7 +19,7 @@ const NewPasswordToken = ({ email, token, setToken, setCodeCorrect }: NewPasswor
 
 	// Validar código para cambiar contraseña
 	const { mutate } = useMutation({
-		mutationFn: validateCodeForNewPassword,
+		mutationFn: validateCodePassword,
 		onSuccess: message => {
 			toast.success(message);
 			setCodeCorrect();
