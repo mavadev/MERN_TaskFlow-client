@@ -1,11 +1,15 @@
-import { Outlet } from 'react-router-dom';
-import { Logo } from '@/components/LogoApp';
+import { Navigate, Outlet } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { Logo } from '@/components/LogoApp';
 import { UserMenu } from '@/components/app/UserMenu';
+import { useAuth } from '@/hooks/useAuth';
 
 const AppLayout = () => {
+	const { data } = useAuth();
+	if (!data) return <Navigate to='/auth/login' />;
+
 	return (
 		<div className='flex flex-col min-h-screen'>
 			<header className='bg-slate-800'>

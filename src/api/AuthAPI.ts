@@ -73,3 +73,13 @@ export async function resetPassword(formData: ResetPassword): Promise<string> {
 		throw new Error(responseError(error as Error));
 	}
 }
+
+export async function getUser(): Promise<object> {
+	try {
+		const url = '/auth/user';
+		const { data } = await api.get(url);
+		return data.data;
+	} catch (error) {
+		throw new Error(responseError(error as Error));
+	}
+}

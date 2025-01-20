@@ -10,21 +10,21 @@ export default function AppRouter() {
 	return (
 		<BrowserRouter>
 			<Routes>
+				<Route path='/auth' element={<AuthLayout />}>
+					<Route path='login' element={<LoginPage />} />
+					<Route path='register' element={<RegisterPage />} />
+
+					<Route path='request-code' element={<RequestConfirmAccount />} />
+					<Route path='confirm-account' element={<ConfirmAccount />} />
+
+					<Route path='request-new-password' element={<RequestNewPassword />} />
+					<Route path='forgot-password' element={<ForgotPassword />} />
+				</Route>
 				<Route path='/' element={<AppLayout />}>
 					<Route index element={<DashboardPage />} />
-					<Route path='/projects/create' element={<CreateProjectPage />} />
-					<Route path='/projects/:projectId/edit' element={<EditProjectPage />} />
-					<Route path='/projects/:projectId' element={<ProjectDetailsPage />} />
-				</Route>
-				<Route element={<AuthLayout />}>
-					<Route path='/auth/login' element={<LoginPage />} />
-					<Route path='/auth/register' element={<RegisterPage />} />
-
-					<Route path='/auth/request-code' element={<RequestConfirmAccount />} />
-					<Route path='/auth/confirm-account' element={<ConfirmAccount />} />
-
-					<Route path='/auth/request-new-password' element={<RequestNewPassword />} />
-					<Route path='/auth/forgot-password' element={<ForgotPassword />} />
+					<Route path='projects/create' element={<CreateProjectPage />} />
+					<Route path='projects/:projectId' element={<ProjectDetailsPage />} />
+					<Route path='projects/:projectId/edit' element={<EditProjectPage />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>
