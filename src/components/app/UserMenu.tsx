@@ -1,9 +1,20 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { Bars3Icon } from '@heroicons/react/20/solid';
+import { useQueryClient } from '@tanstack/react-query';
 import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
 
-export const UserMenu = () => {
+interface UserMenuProps {
+	name: string;
+}
+
+export const UserMenu = ({ name }: UserMenuProps) => {
+	const queryClient = useQueryClient();
+	const logout = () => {
+		localStorage.removeItem('AUTH_TOKEN');
+		queryClient.invalidateQueries({ queryKey: ['user'] });
+	};
+
 	return (
 		<Popover className='md:relative'>
 			<PopoverButton className='leading-6 p-1 rounded bg-primary-600'>
@@ -22,7 +33,7 @@ export const UserMenu = () => {
 					<PopoverPanel className='w-full'>
 						<div className='mt-auto p-4 md:w-56 shrink rounded bg-card text-sm font-semibold leading-6 text-gray-800 shadow-lg text-center'>
 							<p className='max-md:text-lg'>Bienvenido,</p>
-							<p className='max-md:text-xl font-bold text-primary-700 mb-3'>Gianmarco Chistama</p>
+							<p className='max-md:text-xl font-bold text-primary-700 mb-3'>{name}</p>
 							<div className='text-left transition-colors max-md:text-lg font-medium'>
 								<Link
 									to='/profile'
@@ -36,7 +47,7 @@ export const UserMenu = () => {
 								</Link>
 								<button
 									type='button'
-									onClick={() => {}}
+									onClick={logout}
 									className='block p-2 border-b-2 w-full hover:border-b-darken-500 text-left'>
 									Cerrar Sesión
 								</button>

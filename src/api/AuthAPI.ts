@@ -1,6 +1,14 @@
 import api from '@/lib/axios';
 import { responseError } from './errors';
-import { ConfirmUserForm, LoginForm, RegisterForm, ResendCodeForm, ResetPassword } from '@/interfaces/auth';
+import {
+	ConfirmUserForm,
+	LoginForm,
+	RegisterForm,
+	ResendCodeForm,
+	ResetPassword,
+	User,
+	userSchema,
+} from '@/interfaces/auth';
 
 export async function createAccount(formData: RegisterForm): Promise<string> {
 	try {
@@ -74,11 +82,15 @@ export async function resetPassword(formData: ResetPassword): Promise<string> {
 	}
 }
 
-export async function getUser(): Promise<object> {
+export async function getUser(): Promise<User> {
 	try {
 		const url = '/auth/user';
 		const { data } = await api.get(url);
-		return data.data;
+
+		const response = userSchema.safeParse(data.data);
+		if (!response.success) throw new Error('Error al obtener el usuario');
+
+		return response.data;
 	} catch (error) {
 		throw new Error(responseError(error as Error));
 	}

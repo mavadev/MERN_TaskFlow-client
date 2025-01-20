@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 // Create Account
 const authSchema = z.object({
+	_id: z.string(),
 	name: z.string(),
 	email: z.string(),
 	password: z.string(),
@@ -20,3 +21,11 @@ export type ConfirmUserForm = Pick<AuthSchema, 'email' | 'token'>;
 
 export type ForgotPasswordForm = Pick<AuthSchema, 'password' | 'password_confirmation'>;
 export type ResetPassword = Pick<AuthSchema, 'email' | 'password' | 'token'>;
+
+// User
+export const userSchema = z.object({
+	_id: z.string(),
+	name: z.string(),
+	email: z.string(),
+});
+export type User = z.infer<typeof userSchema>;

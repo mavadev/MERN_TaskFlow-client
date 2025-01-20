@@ -7,15 +7,17 @@ import { UserMenu } from '@/components/app/UserMenu';
 import { useAuth } from '@/hooks/useAuth';
 
 const AppLayout = () => {
-	const { data } = useAuth();
-	if (!data) return <Navigate to='/auth/login' />;
+	const { data, isLoading, isError } = useAuth();
+
+	if (isLoading) return <div>Cargando...</div>;
+	if (isError) return <Navigate to='/auth/login' />;
 
 	return (
 		<div className='flex flex-col min-h-screen'>
 			<header className='bg-slate-800'>
 				<div className='container mx-auto flex flex-row justify-between items-center px-4 py-6'>
 					<Logo />
-					<UserMenu />
+					<UserMenu name={data?.name!} />
 				</div>
 			</header>
 			<main className='container mx-auto flex-1 px-4 py-8'>
