@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { MenuItem } from '@headlessui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import type { Project } from '@/interfaces/app';
+import type { Project } from '@/interfaces/project.interface';
 import { deleteProject } from '@/api/ProjectAPI';
 import { OptionsMenu } from '../OptionsMenu';
 

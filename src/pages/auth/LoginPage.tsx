@@ -6,7 +6,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import { login } from '@/api/AuthAPI';
 import { ErrorMessage } from '@/components/ErrorMessage';
-import type { LoginForm } from '@/interfaces/auth';
+import type { LoginForm } from '@/interfaces/auth.interface';
 
 const LoginPage = () => {
 	const navigate = useNavigate();

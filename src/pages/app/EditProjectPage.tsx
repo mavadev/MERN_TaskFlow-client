@@ -4,14 +4,13 @@ import { useForm } from 'react-hook-form';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 
-import type { Project, ProjectDraftData } from '@/interfaces/app';
-import { getProject, updateProject } from '@/api/ProjectAPI';
+import type { Project, ProjectCreate } from '@/interfaces/project.interface';
 import ProjectForm from '@/components/app/projects/ProjectForm';
+import { getProject, updateProject } from '@/api/ProjectAPI';
 
 const EditProjectPage = () => {
-	const params = useParams();
 	const navigate = useNavigate();
-	const projectId = params.projectId as Project['_id'];
+	const { projectId } = useParams() as { projectId: Project['_id'] };
 
 	// Obtener Proyecto
 	const { data, isLoading, isError } = useQuery({
@@ -59,7 +58,7 @@ const EditProjectPage = () => {
 			toast.error(error.message);
 		},
 	});
-	const handleForm = (formData: ProjectDraftData) => mutate({ projectId, formData });
+	const handleForm = (formData: ProjectCreate) => mutate({ projectId, formData });
 
 	// Condiciones de renderizado
 	if (isLoading) return <h2>Cargando...</h2>;

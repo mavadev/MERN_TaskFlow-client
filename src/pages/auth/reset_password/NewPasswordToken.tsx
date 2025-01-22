@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { PinInput, PinInputField } from '@chakra-ui/pin-input';
 
-import { ConfirmUserForm } from '@/interfaces/auth';
 import { validateCodePassword } from '@/api/AuthAPI';
+import type { ConfirmUserForm } from '@/interfaces/auth.interface';
 
 interface NewPasswordTokenProps {
 	email: ConfirmUserForm['email'];

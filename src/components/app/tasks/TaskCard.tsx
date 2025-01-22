@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { OptionsMenu } from '../OptionsMenu';
 import { deleteTask } from '@/api/TaskAPI';
-import type { Task } from '@/interfaces/app';
+import type { Task } from '@/interfaces/task.interface';
 
 export const TaskCard = ({ task }: { task: Task }) => {
 	const navigate = useNavigate();

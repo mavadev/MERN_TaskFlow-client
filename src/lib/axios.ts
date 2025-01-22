@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { responseSchema } from '@/interfaces/api.interface';
 
 const api = axios.create({
 	baseURL: import.meta.env.VITE_API_URL,
@@ -14,5 +15,25 @@ api.interceptors.request.use(config => {
 	}
 	return config;
 });
+
+// Validación de respuesta
+api.interceptors.response.use(
+	response => {
+		const { data, success } = responseSchema.safeParse(response.data);
+		if (!success) {
+			throw new Error('Estructura de respuesta inválida');
+		}
+		if (response.config.method === 'get' && !data.data) {
+			throw new Error('No se obtuvo la data esperada');
+		}
+		if (response.config.method !== 'get' && (!data.message || typeof data.message !== 'string')) {
+			throw new Error('No se obtuvo el mensaje de respuesta');
+		}
+		return response;
+	},
+	error => {
+		return Promise.reject(error);
+	}
+);
 
 export default api;

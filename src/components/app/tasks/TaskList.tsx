@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { TaskCard } from './TaskCard';
 import { TaskStatus } from './TaskStatus';
-import type { Task } from '@/interfaces/app';
+import type { Task } from '@/interfaces/task.interface';
 
 interface TaskListProps {
 	tasks: Task[];

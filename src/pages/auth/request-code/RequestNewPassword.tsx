@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import RequestCode from './RequestCode';
 import { requestNewPassword } from '@/api/AuthAPI';
-import type { ResendCodeForm } from '@/interfaces/auth';
+import type { ResendCodeForm } from '@/interfaces/auth.interface';
 
 const RequestNewPassword = () => {
 	const navigate = useNavigate();

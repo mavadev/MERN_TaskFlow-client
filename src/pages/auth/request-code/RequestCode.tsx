@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@/components/ErrorMessage';
-import type { ResendCodeForm } from '@/interfaces/auth';
+import type { ResendCodeForm } from '@/interfaces/auth.interface';
 
 interface RequestCodeProps {
 	email?: string;

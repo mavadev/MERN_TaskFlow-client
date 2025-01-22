@@ -5,7 +5,7 @@ import { PinInput, PinInputField } from '@chakra-ui/pin-input';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { confirmAccount } from '@/api/AuthAPI';
-import type { ConfirmUserForm } from '@/interfaces/auth';
+import type { ConfirmUserForm } from '@/interfaces/auth.interface';
 
 const ConfirmAccount = () => {
 	const navigate = useNavigate();

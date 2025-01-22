@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import { ErrorMessage } from '@/components/ErrorMessage';
 import { createAccount } from '@/api/AuthAPI';
-import type { RegisterForm } from '@/interfaces/auth';
+import type { RegisterForm } from '@/interfaces/auth.interface';
 
 const RegisterPage = () => {
 	const navigate = useNavigate();

@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import { resetPassword } from '@/api/AuthAPI';
 import { ErrorMessage } from '@/components/ErrorMessage';
-import type { ConfirmUserForm, ForgotPasswordForm } from '@/interfaces/auth';
+import type { ConfirmUserForm, ForgotPasswordForm } from '@/interfaces/auth.interface';
 
 interface NewPasswordFormProps {
 	email: ConfirmUserForm['email'];

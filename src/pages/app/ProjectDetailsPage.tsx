@@ -1,16 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
 import { Navigate, useParams } from 'react-router-dom';
 
-import type { Project } from '@/interfaces/app';
 import { getProject } from '@/api/ProjectAPI';
 import { TaskList } from '@/components/app/tasks/TaskList';
 import AddTaskModal from '@/components/app/tasks/modal/AddTaskModal';
 import EditTaskModal from '@/components/app/tasks/modal/EditTaskModal';
 import ViewTaskModal from '@/components/app/tasks/modal/ViewTaskModal';
 
+import type { Project } from '@/interfaces/project.interface';
+
 const ProjectDetailsPage = () => {
-	const params = useParams();
-	const projectId = params.projectId as Project['_id'];
+	const { projectId } = useParams() as { projectId: Project['_id'] };
 
 	const { data, isLoading, isError } = useQuery({
 		queryKey: ['project', projectId],

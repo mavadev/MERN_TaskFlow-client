@@ -4,12 +4,12 @@ import { useMutation } from '@tanstack/react-query';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { createProject } from '@/api/ProjectAPI';
-import type { ProjectDraftData } from '@/interfaces/app';
 import ProjectForm from '@/components/app/projects/ProjectForm';
+import type { ProjectCreate } from '@/interfaces/project.interface';
 
 const CreateProjectPage = () => {
 	const navigate = useNavigate();
-	const initialValues: ProjectDraftData = {
+	const initialValues: ProjectCreate = {
 		clientName: '',
 		projectName: '',
 		description: '',
@@ -32,7 +32,7 @@ const CreateProjectPage = () => {
 			toast.error(error.message);
 		},
 	});
-	const handleForm = (formData: ProjectDraftData) => mutate({ formData });
+	const handleForm = (formData: ProjectCreate) => mutate({ formData });
 	return (
 		<>
 			<header>

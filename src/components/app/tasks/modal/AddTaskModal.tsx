@@ -1,14 +1,15 @@
+import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { DialogTitle } from '@headlessui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
-import type { Project, TaskDraftData, TaskStatus } from '@/interfaces/app';
-import { createTask } from '@/api/TaskAPI';
 import { TaskModal } from './TaskModal';
+import { createTask } from '@/api/TaskAPI';
+import type { Project } from '@/interfaces/project.interface';
+import type { TaskCreate, TaskStatus } from '@/interfaces/task.interface';
 import TaskForm from './TaskForm';
-import { useEffect } from 'react';
 
 export default function AddTaskModal() {
 	const navigate = useNavigate();
@@ -27,7 +28,7 @@ export default function AddTaskModal() {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<TaskDraftData>({
+	} = useForm<TaskCreate>({
 		defaultValues: {
 			name: '',
 			description: '',
@@ -59,7 +60,7 @@ export default function AddTaskModal() {
 			toast.error(error.message);
 		},
 	});
-	const handleCreateTask = (formData: TaskDraftData) => mutate({ projectId, formData });
+	const handleCreateTask = (formData: TaskCreate) => mutate({ projectId, formData });
 
 	return (
 		<TaskModal

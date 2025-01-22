@@ -5,10 +5,11 @@ import { DialogTitle } from '@headlessui/react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import type { Project, TaskDraftData } from '@/interfaces/app';
-import { getTask, editTask } from '@/api/TaskAPI';
-import { TaskModal } from './TaskModal';
 import TaskForm from './TaskForm';
+import { TaskModal } from './TaskModal';
+import { getTask, editTask } from '@/api/TaskAPI';
+import type { Project } from '@/interfaces/project.interface';
+import type { TaskCreate } from '@/interfaces/task.interface';
 
 export default function EditTaskModal() {
 	const navigate = useNavigate();
@@ -33,7 +34,7 @@ export default function EditTaskModal() {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<TaskDraftData>({
+	} = useForm<TaskCreate>({
 		defaultValues: {
 			name: '',
 			description: '',
@@ -71,7 +72,7 @@ export default function EditTaskModal() {
 			toast.error(error.message);
 		},
 	});
-	const handleEditTask = (formData: TaskDraftData) => mutate({ projectId, taskId, formData });
+	const handleEditTask = (formData: TaskCreate) => mutate({ projectId, taskId, formData });
 
 	return (
 		<TaskModal
