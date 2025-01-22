@@ -20,13 +20,16 @@ api.interceptors.request.use(config => {
 api.interceptors.response.use(
 	response => {
 		const { data, success } = responseSchema.safeParse(response.data);
+
 		if (!success) {
 			throw new Error('Estructura de respuesta inválida');
 		}
 		if (response.config.method === 'get' && !data.data) {
+			console.error('No se obtuvo la data esperada');
 			throw new Error('No se obtuvo la data esperada');
 		}
 		if (response.config.method !== 'get' && (!data.message || typeof data.message !== 'string')) {
+			console.error('No se obtuvo el mensaje de respuesta');
 			throw new Error('No se obtuvo el mensaje de respuesta');
 		}
 		return response;

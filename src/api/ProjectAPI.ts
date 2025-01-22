@@ -18,7 +18,7 @@ export async function getProjects(): Promise<Project[]> {
 	try {
 		const { data } = await api.get<ResponseData>('/projects');
 
-		const { success, data: projects } = projectsSchema.safeParse(data);
+		const { success, data: projects } = projectsSchema.safeParse(data.data);
 		if (!success) throw new Error('Error al obtener los proyectos');
 
 		return projects;
@@ -31,7 +31,7 @@ export async function getProject({ projectId }: Pick<ProjectProps, 'projectId'>)
 	try {
 		const { data } = await api.get<ResponseData>(`/projects/${projectId}`);
 
-		const { success, data: project } = projectTasksSchema.safeParse(data);
+		const { success, data: project } = projectTasksSchema.safeParse(data.data);
 		if (!success) throw new Error('Error al obtener el proyecto');
 
 		return project;
