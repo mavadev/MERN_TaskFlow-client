@@ -13,6 +13,12 @@ export const projectSchema = z.object({
 export const projectsSchema = z.array(projectSchema);
 export interface Project extends z.infer<typeof projectSchema> {}
 
+export const projectsResponseSchema = z.object({
+	managedProjects: z.array(projectSchema),
+	teamProjects: z.array(projectSchema),
+});
+export interface ProjectsResponse extends z.infer<typeof projectsResponseSchema> {}
+
 // Proyecto con sus tareas
 export const projectTasksSchema = z.object({
 	_id: z.string(),

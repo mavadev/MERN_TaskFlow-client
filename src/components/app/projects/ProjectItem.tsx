@@ -9,9 +9,10 @@ import { OptionsMenu } from '../OptionsMenu';
 
 interface ProjectProps {
 	project: Project;
+	type: 'managed' | 'team';
 }
 
-export const ProjectItem = ({ project }: ProjectProps) => {
+export const ProjectItem = ({ project, type }: ProjectProps) => {
 	const queryClient = useQueryClient();
 
 	const { mutate: handleDelete } = useMutation({

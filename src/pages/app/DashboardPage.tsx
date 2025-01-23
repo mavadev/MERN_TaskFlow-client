@@ -6,13 +6,17 @@ import { getProjects } from '@/api/ProjectAPI';
 import { ProjectItem } from '@/components/app/projects/ProjectItem';
 
 const DashboardPage = () => {
-	const { data, isLoading, isError } = useQuery({
+	const {
+		data: projects,
+		isLoading,
+		isError,
+	} = useQuery({
 		queryKey: ['projects'],
 		queryFn: getProjects,
 	});
 
 	if (isLoading) return <h2>Cargando...</h2>;
-	if (isError || !data) return <Navigate to='/404' />;
+	if (isError || !projects) return <Navigate to='/404' />;
 
 	return (
 		<>
@@ -29,16 +33,17 @@ const DashboardPage = () => {
 				</nav>
 			</header>
 
-			{data?.length ? (
+			{projects.managedProjects.length ? (
 				<>
-					<h3 className='text-right mb-5 text-xl text-black'>Proyectos: {data.length}</h3>
+					<h3 className='text-right mb-5 text-xl text-black'>Proyectos: {projects.managedProjects.length}</h3>
 					<ul
 						role='list'
 						className='mb-10 grid grid-cols-1 md:grid-cols-2 gap-5'>
-						{data.map(project => (
+						{projects.managedProjects.map(project => (
 							<ProjectItem
 								key={project._id}
 								project={project}
+								type='managed'
 							/>
 						))}
 					</ul>
@@ -48,6 +53,22 @@ const DashboardPage = () => {
 					<DocumentTextIcon width={50} />
 					<h2>No tienes proyectos</h2>
 				</div>
+			)}
+			{projects.teamProjects.length && (
+				<>
+					<h3 className='text-right mb-5 text-xl text-black'>Proyectos Colaborados: {projects.teamProjects.length}</h3>
+					<ul
+						role='list'
+						className='mb-10 grid grid-cols-1 md:grid-cols-2 gap-5'>
+						{projects.teamProjects.map(project => (
+							<ProjectItem
+								key={project._id}
+								project={project}
+								type='team'
+							/>
+						))}
+					</ul>
+				</>
 			)}
 		</>
 	);
