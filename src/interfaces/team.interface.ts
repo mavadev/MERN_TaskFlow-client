@@ -9,6 +9,6 @@ export const teamProjectSchema = z.array(teamMemberSchema);
 export type TeamProject = z.infer<typeof teamProjectSchema>;
 
 export const teamMemberSearchSchema = z.object({
-	email: z.string().email('El email no es válido'),
+	username: z.string().min(3, 'El nombre de usuario debe tener al menos 3 caracteres'),
 });
 export type TeamMemberSearch = z.infer<typeof teamMemberSearchSchema>;

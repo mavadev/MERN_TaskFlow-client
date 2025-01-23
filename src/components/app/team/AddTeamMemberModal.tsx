@@ -1,11 +1,11 @@
 import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { Modal } from '../modal/Modal';
-import { FindMemberCard } from './FindMemberCard';
-import { getUserByEmail } from '@/api/TeamProjectAPI';
+import { FindMembers } from './FindMembers';
+import { getUsersByUsername } from '@/api/TeamProjectAPI';
 import type { TeamMemberSearch } from '@/interfaces/team.interface';
 import type { Project } from '@/interfaces/project.interface';
 
@@ -24,28 +24,29 @@ export const AddTeamMemberModal = () => {
 	const {
 		watch,
 		register,
-		formState: { isValid },
+		formState: { errors, isValid },
 	} = useForm<TeamMemberSearch>({
 		mode: 'onChange',
-		defaultValues: { email: '' },
+		defaultValues: { username: '' },
 	});
 
-	// Obtener usuario por email
+	// Obtener usuarios por username
 	const {
-		data: user,
+		data: users,
 		isPending,
 		isError,
 		mutate,
+		isIdle,
 	} = useMutation({
-		mutationFn: getUserByEmail,
+		mutationFn: getUsersByUsername,
 	});
 
 	const handleNewMember = () => {
-		const email = watch('email');
+		const username = watch('username');
 
-		if (email !== lastSearch) {
-			mutate({ projectId, email });
-			setLastSearch(email);
+		if (username !== lastSearch) {
+			mutate({ projectId, username });
+			setLastSearch(username);
 		}
 	};
 
@@ -68,35 +69,35 @@ export const AddTeamMemberModal = () => {
 		<Modal
 			show={newMember}
 			handleOnClose={handleOnClose}>
-			<form className='flex flex-col mb-10'>
+			<form className='flex flex-col gap-2'>
 				<label
-					htmlFor='email'
+					htmlFor='username'
 					className='text-2xl font-bold mb-3'>
-					Buscar colaborador
+					Buscar Colaborador
 				</label>
 				<input
-					id='email'
-					type='email'
+					id='username'
+					type='text'
 					className='input-form'
 					onKeyUp={handleKeyUp}
 					onKeyDown={handleKeyDown}
-					placeholder='Ingrese el email del colaborador'
-					{...register('email', {
-						required: 'El email es obligatorio',
-						pattern: {
-							value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-							message: 'El email no es válido',
+					placeholder='Ingrese el nombre de usuario del colaborador'
+					{...register('username', {
+						required: 'El nombre de usuario es obligatorio',
+						minLength: {
+							value: 3,
+							message: 'El nombre de usuario debe tener al menos 3 caracteres',
 						},
 					})}
 				/>
+				{errors.username && <p className='text-sm text-gray-500 mt-2'>{errors.username.message}</p>}
 			</form>
-			{isPending ? (
-				<h3>Cargando...</h3>
-			) : isError ? (
-				<h3>No se encontró el usuario</h3>
-			) : (
-				user && <FindMemberCard user={user} />
-			)}
+			<FindMembers
+				users={users!}
+				isIdle={isIdle}
+				isError={isError}
+				isPending={isPending}
+			/>
 		</Modal>
 	);
 };

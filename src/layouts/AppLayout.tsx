@@ -10,7 +10,11 @@ const AppLayout = () => {
 	const { data, isLoading, isError } = useAuth();
 
 	if (isLoading) return <div>Cargando...</div>;
-	if (isError) return <Navigate to='/auth/login' />;
+
+	if (isError) {
+		localStorage.removeItem('AUTH_TOKEN');
+		return <Navigate to='/auth/login' />;
+	}
 
 	return (
 		<div className='flex flex-col min-h-screen'>
