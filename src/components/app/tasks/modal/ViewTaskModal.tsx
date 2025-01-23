@@ -3,7 +3,7 @@ import { DialogTitle } from '@headlessui/react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
 
-import { TaskModal } from './TaskModal';
+import { Modal } from '../../modal/Modal';
 import { statusTranslate } from '@/locales/es';
 import { getTask, updateStatus } from '@/api/TaskAPI';
 import type { Project } from '@/interfaces/project.interface';
@@ -37,7 +37,7 @@ export default function ViewTaskModal() {
 	if (isError) return <Navigate to={location.pathname} />;
 
 	return (
-		<TaskModal
+		<Modal
 			show={!!taskId}
 			handleOnClose={handleClose}>
 			{isLoading || !data ? (
@@ -73,6 +73,6 @@ export default function ViewTaskModal() {
 					</div>
 				</>
 			)}
-		</TaskModal>
+		</Modal>
 	);
 }

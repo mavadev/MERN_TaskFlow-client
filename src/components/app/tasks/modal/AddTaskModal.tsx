@@ -5,7 +5,7 @@ import { DialogTitle } from '@headlessui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
-import { TaskModal } from './TaskModal';
+import { Modal } from '../../modal/Modal';
 import { createTask } from '@/api/TaskAPI';
 import type { Project } from '@/interfaces/project.interface';
 import type { TaskCreate, TaskStatus } from '@/interfaces/task.interface';
@@ -63,7 +63,7 @@ export default function AddTaskModal() {
 	const handleCreateTask = (formData: TaskCreate) => mutate({ projectId, formData });
 
 	return (
-		<TaskModal
+		<Modal
 			show={newTask}
 			handleOnClose={() => navigate(location.pathname)}>
 			<DialogTitle
@@ -88,6 +88,6 @@ export default function AddTaskModal() {
 					className='btn-secondary p-4 w-full'
 				/>
 			</form>
-		</TaskModal>
+		</Modal>
 	);
 }

@@ -6,7 +6,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import TaskForm from './TaskForm';
-import { TaskModal } from './TaskModal';
+import { Modal } from '../../modal/Modal';
 import { getTask, editTask } from '@/api/TaskAPI';
 import type { Project } from '@/interfaces/project.interface';
 import type { TaskCreate } from '@/interfaces/task.interface';
@@ -75,7 +75,7 @@ export default function EditTaskModal() {
 	const handleEditTask = (formData: TaskCreate) => mutate({ projectId, taskId, formData });
 
 	return (
-		<TaskModal
+		<Modal
 			show={!!taskId}
 			handleOnClose={() => navigate(location.pathname)}>
 			<DialogTitle
@@ -100,6 +100,6 @@ export default function EditTaskModal() {
 					className='btn-secondary p-4 w-full'
 				/>
 			</form>
-		</TaskModal>
+		</Modal>
 	);
 }

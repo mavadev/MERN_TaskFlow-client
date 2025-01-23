@@ -1,12 +1,12 @@
 import { Fragment, PropsWithChildren } from 'react';
 import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react';
 
-interface TaskModalProps extends PropsWithChildren {
+interface ModalProps extends PropsWithChildren {
 	show: boolean;
 	handleOnClose: () => void;
 }
 
-export const TaskModal = ({ children, show, handleOnClose }: TaskModalProps) => {
+export const Modal = ({ children, show, handleOnClose }: ModalProps) => {
 	return (
 		<Transition
 			appear
