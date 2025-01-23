@@ -39,7 +39,16 @@ export async function getUsersByUsername({ projectId, username }: Pick<TeamProje
 
 export async function addMemberToProject({ projectId, userId }: Pick<TeamProjectProps, 'projectId' | 'userId'>) {
 	try {
-		const { data } = await api.post(`/projects/${projectId}/team/addMember`, { userId });
+		const { data } = await api.post(`/projects/${projectId}/team/add`, { userId });
+		return data.message;
+	} catch (error) {
+		throw new Error(responseError(error as Error));
+	}
+}
+
+export async function deleteMemberFromProject({ projectId, userId }: Pick<TeamProjectProps, 'projectId' | 'userId'>) {
+	try {
+		const { data } = await api.delete(`/projects/${projectId}/team/delete/${userId}`);
 		return data.message;
 	} catch (error) {
 		throw new Error(responseError(error as Error));

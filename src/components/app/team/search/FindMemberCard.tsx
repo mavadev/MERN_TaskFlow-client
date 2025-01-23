@@ -25,7 +25,7 @@ export const FindMemberCard = ({ user }: FindMemberCardProps) => {
 		},
 		onError: error => {
 			toast.error(error.message);
-			setStatusAddMember('idle');
+			setStatusAddMember('error');
 		},
 	});
 
@@ -50,7 +50,7 @@ export const FindMemberCard = ({ user }: FindMemberCardProps) => {
 			<button
 				onClick={handleAddMember}
 				disabled={statusAddMember !== 'idle'}
-				className='btn bg-black/90 px-4 py-3 disabled:opacity-50 '>
+				className='btn bg-black/90 px-4 py-3 disabled:opacity-50 disabled:cursor-default'>
 				{statusAddMember === 'idle' ? 'Añadir' : statusAddMember === 'loading' ? 'Añadiendo...' : 'Añadido'}
 			</button>
 		</div>
