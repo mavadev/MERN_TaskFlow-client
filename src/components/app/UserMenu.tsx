@@ -10,6 +10,7 @@ interface UserMenuProps {
 
 export const UserMenu = ({ name }: UserMenuProps) => {
 	const queryClient = useQueryClient();
+
 	const logout = () => {
 		localStorage.removeItem('AUTH_TOKEN');
 		queryClient.invalidateQueries({ queryKey: ['user'] });

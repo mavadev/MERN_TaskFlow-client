@@ -3,11 +3,11 @@ import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
-import { Modal } from '../modal/Modal';
+import { Modal } from '../../modal/Modal';
 import { FindMembers } from './FindMembers';
 import { getUsersByUsername } from '@/api/TeamProjectAPI';
-import type { TeamMemberSearch } from '@/interfaces/team.interface';
 import type { Project } from '@/interfaces/project.interface';
+import type { TeamMemberSearch } from '@/interfaces/team.interface';
 
 export const AddTeamMemberModal = () => {
 	const navigate = useNavigate();
@@ -35,9 +35,10 @@ export const AddTeamMemberModal = () => {
 		data: users,
 		isPending,
 		isError,
-		mutate,
+		mutate: fetchUsers,
 		isIdle,
 	} = useMutation({
+		mutationKey: ['search-users-team', projectId],
 		mutationFn: getUsersByUsername,
 	});
 
@@ -45,7 +46,7 @@ export const AddTeamMemberModal = () => {
 		const username = watch('username');
 
 		if (username !== lastSearch) {
-			mutate({ projectId, username });
+			fetchUsers({ projectId, username });
 			setLastSearch(username);
 		}
 	};

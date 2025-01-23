@@ -1,6 +1,6 @@
+import { ToastContainer } from 'react-toastify';
 import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
-import { ToastContainer } from 'react-toastify';
 import { Logo } from '@/components/LogoApp';
 
 const AuthLayout = () => {

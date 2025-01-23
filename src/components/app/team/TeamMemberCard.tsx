@@ -6,10 +6,16 @@ interface TeamMemberProps {
 }
 
 export const TeamMemberCard = ({ member }: TeamMemberProps) => {
+	const avatar = `${import.meta.env.VITE_PUBLIC_URL}${member.avatar}`;
 	return (
 		<div className='flex flex-col gap-2 p-5 border border-gray-400 max-w-md'>
 			<div className='flex items-end justify-between gap-4'>
-				<div className='flex flex-col gap-2'>
+				<div className='flex gap-2'>
+					<img
+						src={avatar}
+						alt={member.name}
+						className='w-10 h-10 rounded-full'
+					/>
 					<div>
 						<p className='text-lg mb-1 font-semibold line-clamp-1'>{member.name}</p>
 						<p className='text-sm text-gray-600'>{member.email}</p>
@@ -28,11 +34,11 @@ export const TeamMemberCard = ({ member }: TeamMemberProps) => {
 					</button>
 				</div>
 			</div>
-			<div className='flex items-center gap-2'>
+			<footer className='flex items-center gap-2'>
 				<p>Rol 1</p>
 				<p>Rol 2</p>
 				<p>Rol 3</p>
-			</div>
+			</footer>
 		</div>
 	);
 };

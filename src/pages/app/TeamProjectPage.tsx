@@ -3,9 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { getProjectTeam } from '@/api/TeamProjectAPI';
 import type { Project } from '@/interfaces/project.interface';
-import { TeamMemberCard } from '@/components/app/team/TeamMemberCard';
-
-import { AddTeamMemberModal } from '@/components/app/team/AddTeamMemberModal';
+import { TeamMembers, AddTeamMemberModal } from '@/components/app/team';
 
 const TeamProjectPage = () => {
 	const navigate = useNavigate();
@@ -39,12 +37,8 @@ const TeamProjectPage = () => {
 				onClick={handleNavigate}>
 				Añadir colaborador
 			</button>
-			{team?.map(member => (
-				<TeamMemberCard
-					key={member._id}
-					member={member}
-				/>
-			))}
+			<TeamMembers team={team!} />
+
 			<AddTeamMemberModal />
 		</div>
 	);

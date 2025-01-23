@@ -1,5 +1,5 @@
-import { Navigate, Outlet } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import { Navigate, Outlet } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { Logo } from '@/components/LogoApp';
@@ -10,11 +10,7 @@ const AppLayout = () => {
 	const { data, isLoading, isError } = useAuth();
 
 	if (isLoading) return <div>Cargando...</div>;
-
-	if (isError) {
-		localStorage.removeItem('AUTH_TOKEN');
-		return <Navigate to='/auth/login' />;
-	}
+	if (isError) return <Navigate to='/auth/login' />;
 
 	return (
 		<div className='flex flex-col min-h-screen'>
