@@ -2,7 +2,7 @@ import { TeamMemberCard } from './TeamMemberCard';
 import type { TeamProject } from '@/interfaces/team.interface';
 
 interface TeamMembersProps {
-	team: TeamProject;
+	team: TeamProject['team'];
 }
 
 export const TeamMembers = ({ team }: TeamMembersProps) => {

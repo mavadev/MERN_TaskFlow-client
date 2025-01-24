@@ -29,7 +29,12 @@ export const TaskCard = ({ task, isManager }: TaskCardProps) => {
 
 	const handleViewTask = () => navigate(location.pathname + `?viewTask=${task._id}`);
 	const handleEditTask = () => navigate(location.pathname + `?editTask=${task._id}`);
-	const handleDeleteTask = () => mutate({ projectId: task.project, taskId: task._id });
+	const handleDeleteTask = () => {
+		window.confirm('¿Estás seguro de querer eliminar esta tarea?') &&
+			mutate({ projectId: task.project, taskId: task._id });
+	};
+
+	const avatar = `${import.meta.env.VITE_PUBLIC_URL}${task.assignedTo?.avatar}`;
 
 	return (
 		<li className='p-4 bg-white border border-slate-400 flex justify-between gap-3 rounded cursor-pointer'>
@@ -40,6 +45,18 @@ export const TaskCard = ({ task, isManager }: TaskCardProps) => {
 					{task.name}
 				</p>
 				<p className='md:text-sm text-slate-500 line-clamp-2'>{task.description}</p>
+				{task.assignedTo ? (
+					<div className='flex gap-2 items-center mt-3'>
+						<img
+							src={avatar}
+							alt={task.assignedTo.username}
+							className='w-5 h-5 rounded-full'
+						/>
+						<p className='text-sm text-gray-500'>{task.assignedTo.name}</p>
+					</div>
+				) : (
+					<p className='text-sm text-gray-500 mt-3'>Sin asignar</p>
+				)}
 			</div>
 			<OptionsMenu>
 				<MenuItem>

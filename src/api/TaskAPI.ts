@@ -2,6 +2,7 @@ import api from '@/lib/axios';
 import { responseError } from './errors';
 import type { Project } from '@/interfaces/project.interface';
 import type { ResponseData } from '@/interfaces/api.interface';
+import type{ TeamMember } from '@/interfaces/team.interface';
 import { Task, TaskCreate, taskSchema } from '@/interfaces/task.interface';
 
 interface TaskProps {
@@ -9,6 +10,7 @@ interface TaskProps {
 	formData: TaskCreate;
 	taskId: Task['_id'];
 	status: Task['status'];
+	assignTo: TeamMember['_id'];
 }
 
 export async function getTask({ projectId, taskId }: Pick<TaskProps, 'projectId' | 'taskId'>): Promise<Task> {
@@ -58,3 +60,13 @@ export async function updateStatus({ projectId, taskId, status }: Pick<TaskProps
 		throw new Error(responseError(error as Error));
 	}
 }
+
+export async function updateAssignTo({ projectId, taskId, assignTo }: Pick<TaskProps, 'projectId' | 'taskId' | 'assignTo'>) {
+	try {
+		const { data } = await api.patch(`/projects/${projectId}/tasks/${taskId}/assign`, { assignTo });
+		return data.message;
+	} catch (error) {
+		throw new Error(responseError(error as Error));
+	}
+}
+

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { userSearchSchema } from './auth.interface';
 
 const taskStatusSchema = z.enum(['pending', 'onHold', 'inProgress', 'underReview', 'completed']);
 export type TaskStatus = z.infer<typeof taskStatusSchema>;
@@ -9,8 +10,11 @@ export const taskSchema = z.object({
 	description: z.string(),
 	status: taskStatusSchema,
 	project: z.string(),
+	assignedTo: userSearchSchema.or(z.null()),
 });
 export interface Task extends z.infer<typeof taskSchema> {}
 
-export const taskCreateSchema = taskSchema.pick({ name: true, description: true, status: true });
+export const taskCreateSchema = taskSchema.pick({ name: true, description: true, status: true }).extend({
+	assignedTo: z.string().optional(),
+});
 export interface TaskCreate extends z.infer<typeof taskCreateSchema> {}

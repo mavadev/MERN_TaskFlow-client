@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { DialogTitle } from '@headlessui/react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { Modal } from '../../modal/Modal';
@@ -10,6 +10,7 @@ import { createTask } from '@/api/TaskAPI';
 import type { Project } from '@/interfaces/project.interface';
 import type { TaskCreate, TaskStatus } from '@/interfaces/task.interface';
 import TaskForm from './TaskForm';
+import { getProjectTeam } from '@/api/TeamProjectAPI';
 
 export default function AddTaskModal() {
 	const navigate = useNavigate();
@@ -33,7 +34,14 @@ export default function AddTaskModal() {
 			name: '',
 			description: '',
 			status: 'pending',
+			assignedTo: undefined,
 		},
+	});
+
+	const { data: teamData } = useQuery({
+		queryKey: ['project-team', projectId],
+		queryFn: () => getProjectTeam({ projectId }),
+		retry: false,
 	});
 
 	useEffect(() => {
@@ -42,6 +50,7 @@ export default function AddTaskModal() {
 				name: '',
 				description: '',
 				status: statusTask,
+				assignedTo: undefined,
 			});
 		}
 	}, [statusTask]);
@@ -79,6 +88,7 @@ export default function AddTaskModal() {
 				className='space-y-5'
 				onSubmit={handleSubmit(handleCreateTask)}>
 				<TaskForm
+					teamData={teamData!}
 					errors={errors}
 					register={register}
 				/>

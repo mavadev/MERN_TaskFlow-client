@@ -11,7 +11,7 @@ import { useAuth } from '@/hooks/useAuth';
 
 const EditProjectPage = () => {
 	const navigate = useNavigate();
-	const { data: user } = useAuth();
+	const { user } = useAuth();
 	const { projectId } = useParams() as { projectId: Project['_id'] };
 
 	// Obtener Proyecto

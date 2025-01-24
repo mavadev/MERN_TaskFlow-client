@@ -7,7 +7,7 @@ import { UserMenu } from '@/components/app/UserMenu';
 import { useAuth } from '@/hooks/useAuth';
 
 const AppLayout = () => {
-	const { data, isLoading, isError } = useAuth();
+	const { user, isLoading, isError } = useAuth();
 
 	if (isLoading) return <div>Cargando...</div>;
 	if (isError) return <Navigate to='/auth/login' />;
@@ -17,7 +17,7 @@ const AppLayout = () => {
 			<header className='bg-slate-800'>
 				<div className='container mx-auto flex flex-row justify-between items-center px-4 py-6'>
 					<Logo />
-					<UserMenu name={data?.name!} />
+					<UserMenu name={user?.name!} />
 				</div>
 			</header>
 			<main className='container mx-auto flex-1 px-4 py-8'>

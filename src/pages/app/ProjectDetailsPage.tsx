@@ -10,7 +10,7 @@ import ViewTaskModal from '@/components/app/tasks/modal/ViewTaskModal';
 import type { Project } from '@/interfaces/project.interface';
 
 const ProjectDetailsPage = () => {
-	const { data: user } = useAuth();
+	const { user } = useAuth();
 	const { projectId } = useParams() as { projectId: Project['_id'] };
 
 	const {

@@ -9,5 +9,5 @@ export const useAuth = () => {
 		refetchOnWindowFocus: false,
 	});
 
-	return { data, isLoading, isError };
+	return { user: data, isLoading, isError };
 };

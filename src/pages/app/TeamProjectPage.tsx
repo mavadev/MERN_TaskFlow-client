@@ -11,7 +11,7 @@ const TeamProjectPage = () => {
 
 	// Obtener colaboradores
 	const {
-		data: team,
+		data: teamData,
 		isLoading,
 		isError,
 	} = useQuery({
@@ -37,7 +37,7 @@ const TeamProjectPage = () => {
 				onClick={handleNavigate}>
 				Añadir colaborador
 			</button>
-			<TeamMembers team={team!} />
+			<TeamMembers team={teamData?.team!} />
 
 			<AddTeamMemberModal />
 		</div>

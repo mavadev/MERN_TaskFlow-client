@@ -5,7 +5,10 @@ import { userSchema } from './auth.interface';
 export const teamMemberSchema = userSchema.pick({ _id: true, name: true, email: true, avatar: true });
 export type TeamMember = z.infer<typeof teamMemberSchema>;
 
-export const teamProjectSchema = z.array(teamMemberSchema);
+export const teamProjectSchema = z.object({
+	manager: teamMemberSchema,
+	team: z.array(teamMemberSchema),
+});
 export type TeamProject = z.infer<typeof teamProjectSchema>;
 
 export const teamMemberSearchSchema = z.object({

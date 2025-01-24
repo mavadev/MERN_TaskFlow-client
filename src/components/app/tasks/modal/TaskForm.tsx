@@ -2,13 +2,16 @@ import { FieldErrors, Path, UseFormRegister } from 'react-hook-form';
 import { ErrorMessage } from '@/components/ErrorMessage';
 import { statusTranslate } from '@/locales/es';
 import type { TaskStatus } from '@/interfaces/task.interface';
+import type { TeamProject } from '@/interfaces/team.interface';
 
 type TaskFormProps<T extends { name: string; description: string; status: TaskStatus }> = {
+	teamData: TeamProject;
 	errors: FieldErrors<T>;
 	register: UseFormRegister<T>;
 };
 
 export default function TaskForm<T extends { name: string; description: string; status: TaskStatus }>({
+	teamData,
 	errors,
 	register,
 }: TaskFormProps<T>) {
@@ -45,6 +48,32 @@ export default function TaskForm<T extends { name: string; description: string; 
 					})}
 				/>
 				{errors.description?.message && <ErrorMessage error={String(errors.description.message)} />}
+			</div>
+			<div className='flex flex-col'>
+				<label
+					htmlFor='assignedTo'
+					className='label-form mb-3'>
+					Asignado a
+				</label>
+				<select
+					id='assignedTo'
+					className='input-form select-none'
+					{...register('assignedTo' as Path<T>)}>
+					<option value={''}>Sin asignar</option>
+					<option
+						key={teamData.manager._id}
+						value={teamData.manager._id}>
+						{teamData.manager.name}
+					</option>
+					{teamData.team.map(teamMember => (
+						<option
+							key={teamMember._id}
+							value={teamMember._id}>
+							{teamMember.name}
+						</option>
+					))}
+				</select>
+				{errors.status?.message && <ErrorMessage error={String(errors.status.message)} />}
 			</div>
 			<div className='flex flex-col'>
 				<label

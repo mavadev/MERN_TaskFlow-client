@@ -10,6 +10,7 @@ import { Modal } from '../../modal/Modal';
 import { getTask, editTask } from '@/api/TaskAPI';
 import type { Project } from '@/interfaces/project.interface';
 import type { TaskCreate } from '@/interfaces/task.interface';
+import { getProjectTeam } from '@/api/TeamProjectAPI';
 
 export default function EditTaskModal() {
 	const navigate = useNavigate();
@@ -24,8 +25,15 @@ export default function EditTaskModal() {
 	const { data, isError } = useQuery({
 		retry: false,
 		enabled: !!taskId,
-		queryKey: ['task--edit', taskId],
+		queryKey: ['task--view', taskId],
 		queryFn: () => getTask({ projectId, taskId }),
+	});
+
+	// OBTENER EQUIPO DEL PROYECTO
+	const { data: teamData } = useQuery({
+		queryKey: ['project-team', projectId],
+		queryFn: () => getProjectTeam({ projectId }),
+		retry: false,
 	});
 
 	// CONFIGURACIÓN DE FORMULARIO
@@ -49,6 +57,7 @@ export default function EditTaskModal() {
 				name: data.name,
 				description: data.description,
 				status: data.status,
+				assignedTo: data.assignedTo?._id || '',
 			});
 		}
 		if (isError) {
@@ -93,6 +102,7 @@ export default function EditTaskModal() {
 				<TaskForm
 					errors={errors}
 					register={register}
+					teamData={teamData!}
 				/>
 				<input
 					type='submit'
