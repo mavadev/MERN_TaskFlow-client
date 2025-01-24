@@ -70,7 +70,9 @@ export const AddTeamMemberModal = () => {
 		<Modal
 			show={newMember}
 			handleOnClose={handleOnClose}>
-			<form className='flex flex-col gap-2'>
+			<form
+				className='flex flex-col gap-2'
+				onSubmit={e => e.preventDefault()}>
 				<label
 					htmlFor='username'
 					className='text-2xl font-bold mb-3'>

@@ -13,9 +13,9 @@ interface TaskProps {
 
 export async function getTask({ projectId, taskId }: Pick<TaskProps, 'projectId' | 'taskId'>): Promise<Task> {
 	try {
-		const response = await api.get<ResponseData>(`/projects/${projectId}/tasks/${taskId}`);
+		const { data } = await api.get<ResponseData>(`/projects/${projectId}/tasks/${taskId}`);
 
-		const { success, data: task } = taskSchema.safeParse(response.data);
+		const { success, data: task } = taskSchema.safeParse(data.data);
 		if (!success) throw new Error('Error al obtener la tarea');
 
 		return task;

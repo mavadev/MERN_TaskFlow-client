@@ -7,7 +7,12 @@ import { OptionsMenu } from '../OptionsMenu';
 import { deleteTask } from '@/api/TaskAPI';
 import type { Task } from '@/interfaces/task.interface';
 
-export const TaskCard = ({ task }: { task: Task }) => {
+type TaskCardProps = {
+	task: Task;
+	isManager: boolean;
+};
+
+export const TaskCard = ({ task, isManager }: TaskCardProps) => {
 	const navigate = useNavigate();
 
 	const queryClient = useQueryClient();
@@ -29,12 +34,11 @@ export const TaskCard = ({ task }: { task: Task }) => {
 	return (
 		<li className='p-4 bg-white border border-slate-400 flex justify-between gap-3 rounded cursor-pointer'>
 			<div className='flex flex-col gap-y-2'>
-				<button
-					type='button'
+				<p
 					onClick={handleViewTask}
 					className='font-bold text-gray-700 text-left line-clamp-2 text-balance md:text-sm'>
 					{task.name}
-				</button>
+				</p>
 				<p className='md:text-sm text-slate-500 line-clamp-2'>{task.description}</p>
 			</div>
 			<OptionsMenu>
@@ -46,22 +50,26 @@ export const TaskCard = ({ task }: { task: Task }) => {
 						Ver Tarea
 					</button>
 				</MenuItem>
-				<MenuItem>
-					<button
-						type='button'
-						onClick={handleEditTask}
-						className='block px-3 py-2 text-sm font-medium leading-6 text-gray-700 w-full hover:bg-gray-50'>
-						Editar Tarea
-					</button>
-				</MenuItem>
-				<MenuItem>
-					<button
-						type='button'
-						onClick={handleDeleteTask}
-						className='block px-3 py-2 text-sm font-medium leading-6 bg-red-500 w-full hover:bg-red-600 text-white'>
-						Eliminar Tarea
-					</button>
-				</MenuItem>
+				{isManager && (
+					<>
+						<MenuItem>
+							<button
+								type='button'
+								onClick={handleEditTask}
+								className='block px-3 py-2 text-sm font-medium leading-6 text-gray-700 w-full hover:bg-gray-50'>
+								Editar Tarea
+							</button>
+						</MenuItem>
+						<MenuItem>
+							<button
+								type='button'
+								onClick={handleDeleteTask}
+								className='block px-3 py-2 text-sm font-medium leading-6 bg-red-500 w-full hover:bg-red-600 text-white'>
+								Eliminar Tarea
+							</button>
+						</MenuItem>
+					</>
+				)}
 			</OptionsMenu>
 		</li>
 	);

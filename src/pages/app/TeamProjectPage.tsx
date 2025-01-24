@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 
 import { getProjectTeam } from '@/api/TeamProjectAPI';
 import type { Project } from '@/interfaces/project.interface';
@@ -23,7 +23,7 @@ const TeamProjectPage = () => {
 	const handleNavigate = () => navigate(location.pathname + '?addMember=true');
 
 	if (isLoading) return <div>Cargando...</div>;
-	if (isError) return <div>Error</div>;
+	if (isError) return <Navigate to='/404' />;
 
 	return (
 		<div>

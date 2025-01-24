@@ -10,7 +10,12 @@ const statusStyles: { [key: string]: string } = {
 	completed: 'bg-emerald-200 border-emerald-500 text-emerald-600',
 };
 
-export const TaskStatus = ({ status }: { status: string }) => {
+type TaskStatusProps = {
+	status: string;
+	isManager: boolean;
+};
+
+export const TaskStatus = ({ status, isManager }: TaskStatusProps) => {
 	const navigate = useNavigate();
 	const handleNavigate = () => navigate(location.pathname + `?newTask=true&status=${status}`);
 
@@ -18,9 +23,11 @@ export const TaskStatus = ({ status }: { status: string }) => {
 		<div
 			className={`flex items-center justify-between w-full select-none p-3 rounded-t border-b-8 ${statusStyles[status]} opacity-80`}>
 			<h3 className='capitalize font-bold'>{statusTranslate[status]}</h3>
-			<button onClick={handleNavigate}>
-				<PlusCircleIcon width={25} />
-			</button>
+			{isManager && (
+				<button onClick={handleNavigate}>
+					<PlusCircleIcon width={25} />
+				</button>
+			)}
 		</div>
 	);
 };

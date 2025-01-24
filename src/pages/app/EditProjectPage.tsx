@@ -7,13 +7,19 @@ import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import type { Project, ProjectCreate } from '@/interfaces/project.interface';
 import ProjectForm from '@/components/app/projects/ProjectForm';
 import { getProject, updateProject } from '@/api/ProjectAPI';
+import { useAuth } from '@/hooks/useAuth';
 
 const EditProjectPage = () => {
 	const navigate = useNavigate();
+	const { data: user } = useAuth();
 	const { projectId } = useParams() as { projectId: Project['_id'] };
 
 	// Obtener Proyecto
-	const { data, isLoading, isError } = useQuery({
+	const {
+		data: project,
+		isLoading,
+		isError,
+	} = useQuery({
 		queryKey: ['project--edit', projectId],
 		queryFn: () => getProject({ projectId }),
 	});
@@ -34,14 +40,14 @@ const EditProjectPage = () => {
 
 	// Actualizar cuando los datos estén listos
 	useEffect(() => {
-		if (data) {
+		if (project) {
 			reset({
-				clientName: data.clientName,
-				projectName: data.projectName,
-				description: data.description,
+				clientName: project.clientName,
+				projectName: project.projectName,
+				description: project.description,
 			});
 		}
-	}, [data, reset]);
+	}, [project, reset]);
 
 	// Petición a la API (PUT)
 	const queryClient = useQueryClient();
@@ -62,7 +68,7 @@ const EditProjectPage = () => {
 
 	// Condiciones de renderizado
 	if (isLoading) return <h2>Cargando...</h2>;
-	if (isError || !data) return <Navigate to='/404' />;
+	if (isError || user?._id !== project?.manager) return <Navigate to='/404' />;
 
 	return (
 		<>

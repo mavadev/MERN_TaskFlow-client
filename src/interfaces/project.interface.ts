@@ -25,6 +25,7 @@ export const projectTasksSchema = z.object({
 	projectName: z.string(),
 	clientName: z.string(),
 	description: z.string(),
+	manager: z.string(),
 	tasks: z.array(taskSchema),
 });
 export interface ProjectTasks extends z.infer<typeof projectTasksSchema> {}

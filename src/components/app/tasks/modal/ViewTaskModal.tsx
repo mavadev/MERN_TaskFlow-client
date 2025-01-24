@@ -22,6 +22,7 @@ export default function ViewTaskModal() {
 		enabled: !!taskId,
 		queryKey: ['task--view', taskId],
 		queryFn: () => getTask({ projectId, taskId }),
+		retry: false,
 	});
 
 	const queryClient = useQueryClient();
@@ -35,6 +36,8 @@ export default function ViewTaskModal() {
 	const handleClose = () => navigate(location.pathname);
 
 	if (isError) return <Navigate to={location.pathname} />;
+
+	console.log({ data, isLoading, isError });
 
 	return (
 		<Modal

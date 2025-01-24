@@ -6,9 +6,9 @@ export type TaskStatus = z.infer<typeof taskStatusSchema>;
 export const taskSchema = z.object({
 	_id: z.string(),
 	name: z.string(),
-	project: z.string(),
 	description: z.string(),
 	status: taskStatusSchema,
+	project: z.string(),
 });
 export interface Task extends z.infer<typeof taskSchema> {}
 

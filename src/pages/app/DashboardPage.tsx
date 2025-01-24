@@ -54,7 +54,7 @@ const DashboardPage = () => {
 					<h2>No tienes proyectos</h2>
 				</div>
 			)}
-			{projects.teamProjects.length && (
+			{projects.teamProjects.length ? (
 				<>
 					<h3 className='text-right mb-5 text-xl text-black'>Proyectos Colaborados: {projects.teamProjects.length}</h3>
 					<ul
@@ -69,6 +69,11 @@ const DashboardPage = () => {
 						))}
 					</ul>
 				</>
+			) : (
+				<div className='flex flex-col items-center text-2xl gap-3 my-10'>
+					<DocumentTextIcon width={50} />
+					<h2>No tienes proyectos colaborados</h2>
+				</div>
 			)}
 		</>
 	);
