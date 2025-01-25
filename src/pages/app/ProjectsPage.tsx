@@ -5,7 +5,7 @@ import { DocumentTextIcon } from '@heroicons/react/24/outline';
 import { getProjects } from '@/api/ProjectAPI';
 import { ProjectItem } from '@/components/app/projects/ProjectItem';
 
-const DashboardPage = () => {
+const ProjectsPage = () => {
 	const {
 		data: projects,
 		isLoading,
@@ -79,4 +79,4 @@ const DashboardPage = () => {
 	);
 };
 
-export default DashboardPage;
+export default ProjectsPage;

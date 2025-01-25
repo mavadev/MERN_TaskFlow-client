@@ -2,17 +2,16 @@ import api from '@/lib/axios';
 import { responseError } from './errors';
 import { ResponseData } from '@/interfaces/api.interface';
 import {
-	Project,
-	projectTasksSchema,
-	ProjectTasks,
-	ProjectCreate,
 	projectsResponseSchema,
 	ProjectsResponse,
+	projectSchema,
+	Project,
+	ProjectDraft,
 } from '@/interfaces/project.interface';
 
 interface ProjectProps {
 	projectId: Project['_id'];
-	formData: ProjectCreate;
+	formData: ProjectDraft;
 }
 
 export async function getProjects(): Promise<ProjectsResponse> {
@@ -28,11 +27,11 @@ export async function getProjects(): Promise<ProjectsResponse> {
 	}
 }
 
-export async function getProject({ projectId }: Pick<ProjectProps, 'projectId'>): Promise<ProjectTasks> {
+export async function getProject({ projectId }: Pick<ProjectProps, 'projectId'>): Promise<Project> {
 	try {
 		const { data } = await api.get<ResponseData>(`/projects/${projectId}`);
 
-		const { success, data: project } = projectTasksSchema.safeParse(data.data);
+		const { success, data: project } = projectSchema.safeParse(data.data);
 		if (!success) throw new Error('Error al obtener el proyecto');
 
 		return project;

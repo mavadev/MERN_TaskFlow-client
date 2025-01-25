@@ -1,21 +1,21 @@
 import api from '@/lib/axios';
 import { responseError } from './errors';
+import type { User } from '@/interfaces/user.interface';
 import type { Project } from '@/interfaces/project.interface';
 import type { ResponseData } from '@/interfaces/api.interface';
-import { teamProjectSchema } from '@/interfaces/team.interface';
-import { UserSearch, usersSearchSchema } from '@/interfaces/auth.interface';
+import { TeamMember, teamMembersSchema, TeamResponse, teamResponseSchema } from '@/interfaces/team.interface';
 
 interface TeamProjectProps {
 	projectId: Project['_id'];
-	username: UserSearch['username'];
-	userId: UserSearch['_id'];
+	userId: User['_id'];
+	username: User['username'];
 }
 
-export async function getProjectTeam({ projectId }: Pick<TeamProjectProps, 'projectId'>) {
+export async function getProjectTeam({ projectId }: Pick<TeamProjectProps, 'projectId'>): Promise<TeamResponse> {
 	try {
 		const { data } = await api.get<ResponseData>(`/projects/${projectId}/team`);
 
-		const { success, data: team } = teamProjectSchema.safeParse(data.data);
+		const { success, data: team } = teamResponseSchema.safeParse(data.data);
 		if (!success) throw new Error('No se pudo obtener el equipo del proyecto');
 
 		return team;
@@ -24,11 +24,11 @@ export async function getProjectTeam({ projectId }: Pick<TeamProjectProps, 'proj
 	}
 }
 
-export async function getUsersByUsername({ projectId, username }: Pick<TeamProjectProps, 'projectId' | 'username'>) {
+export async function getUsersByUsername({ projectId, username }: Pick<TeamProjectProps, 'projectId' | 'username'>): Promise<TeamMember[]> {
 	try {
 		const { data } = await api.post(`/projects/${projectId}/team/search`, { username });
 
-		const { success, data: users } = usersSearchSchema.safeParse(data.data);
+		const { success, data: users } = teamMembersSchema.safeParse(data.data);
 		if (!success) throw new Error('No se pudo obtener los usuarios');
 
 		return users;

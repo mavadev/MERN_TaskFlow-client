@@ -26,12 +26,13 @@ export default function ViewTaskModal() {
 		isError,
 	} = useQuery({
 		enabled: !!taskId,
-		queryKey: ['task--view', taskId],
+		queryKey: ['task', taskId],
 		queryFn: () => getTask({ projectId, taskId }),
 		retry: false,
 	});
 
 	const { data: teamData } = useQuery({
+		enabled: !!taskId,
 		queryKey: ['project-team', projectId],
 		queryFn: () => getProjectTeam({ projectId }),
 		retry: false,
@@ -85,43 +86,49 @@ export default function ViewTaskModal() {
 					</header>
 					<p className='text-lg text-slate-500 mb-2'>Descripción:</p>
 					<p className='text-lg text-slate-500 mb-2'>{task.description}</p>
-					<div className='flex flex-col'>
-						<label htmlFor='status'>Estado</label>
-						<select
-							id='status'
-							onChange={handleChangeStatus}
-							defaultValue={task.status}
-							className='input-form select-none'>
-							{Object.entries(statusTranslate).map(([status, translate]) => (
+					{/* Notas */}
+					{/* <NotesList notes={task.notes} /> */}
+
+					{/* Estado y Asignado a */}
+					<div className='flex gap-2'>
+						<div className='flex flex-col flex-1'>
+							<label htmlFor='status'>Estado</label>
+							<select
+								id='status'
+								onChange={handleChangeStatus}
+								defaultValue={task.status}
+								className='input-form select-none'>
+								{Object.entries(statusTranslate).map(([status, translate]) => (
+									<option
+										key={status}
+										value={status}>
+										{translate}
+									</option>
+								))}
+							</select>
+						</div>
+						<div className='flex flex-col flex-1'>
+							<label htmlFor='assignTo'>Asignado a</label>
+							<select
+								id='assignTo'
+								className='input-form select-none'
+								onChange={handleChangeAssignTo}
+								defaultValue={task.assignedTo?._id}>
+								<option value=''>Sin asignar</option>
 								<option
-									key={status}
-									value={status}>
-									{translate}
+									key={teamData?.manager._id}
+									value={teamData?.manager._id}>
+									{teamData?.manager.name}
 								</option>
-							))}
-						</select>
-					</div>
-					<div className='flex flex-col'>
-						<label htmlFor='assignTo'>Asignado a</label>
-						<select
-							id='assignTo'
-							className='input-form select-none'
-							onChange={handleChangeAssignTo}
-							defaultValue={task.assignedTo?._id}>
-							<option value=''>Sin asignar</option>
-							<option
-								key={teamData?.manager._id}
-								value={teamData?.manager._id}>
-								{teamData?.manager.name}
-							</option>
-							{teamData?.team.map(teamMember => (
-								<option
-									key={teamMember._id}
-									value={teamMember._id}>
-									{teamMember.name}
-								</option>
-							))}
-						</select>
+								{teamData?.team.map(teamMember => (
+									<option
+										key={teamMember._id}
+										value={teamMember._id}>
+										{teamMember.name}
+									</option>
+								))}
+							</select>
+						</div>
 					</div>
 				</>
 			)}

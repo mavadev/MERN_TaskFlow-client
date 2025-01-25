@@ -1,20 +1,36 @@
 import { z } from 'zod';
-import { userSearchSchema } from './auth.interface';
+import { noteSchema } from './note.interface';
+import { userSimpleSchema } from './user.interface';
 
+// Estados de la tarea
 const taskStatusSchema = z.enum(['pending', 'onHold', 'inProgress', 'underReview', 'completed']);
 export type TaskStatus = z.infer<typeof taskStatusSchema>;
 
-export const taskSchema = z.object({
+// Tarea Simple ( Listado de tareas )
+const taskSchemaSimple = z.object({
 	_id: z.string(),
 	name: z.string(),
 	description: z.string(),
 	status: taskStatusSchema,
+	assignedTo: userSimpleSchema.or(z.null()),
+	createdAt: z.string(),
 	project: z.string(),
-	assignedTo: userSearchSchema.or(z.null()),
+});
+export const tasksSchemaSimple = z.array(taskSchemaSimple);
+export interface TaskSimple extends z.infer<typeof taskSchemaSimple> {}
+
+// Tarea Completa
+export const taskSchema = taskSchemaSimple.extend({
+	notes: z.array(noteSchema),
 });
 export interface Task extends z.infer<typeof taskSchema> {}
 
-export const taskCreateSchema = taskSchema.pick({ name: true, description: true, status: true }).extend({
-	assignedTo: z.string().optional(),
-});
-export interface TaskCreate extends z.infer<typeof taskCreateSchema> {}
+// Tarea en estado de borrador
+export const taskDraftSchema = taskSchemaSimple
+	.pick({
+		name: true,
+		description: true,
+		status: true,
+	})
+	.extend({ assignedTo: z.string().or(z.undefined()) });
+export interface TaskDraft extends z.infer<typeof taskDraftSchema> {}

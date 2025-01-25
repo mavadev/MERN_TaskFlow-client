@@ -1,13 +1,18 @@
 import { TeamMemberCard } from './TeamMemberCard';
-import type { TeamProject } from '@/interfaces/team.interface';
+import type { TeamResponse } from '@/interfaces/team.interface';
 
 interface TeamMembersProps {
-	team: TeamProject['team'];
+	teamData: TeamResponse;
 }
 
-export const TeamMembers = ({ team }: TeamMembersProps) => {
+export const TeamMembers = ({ teamData: { manager, team } }: TeamMembersProps) => {
 	return (
-		<div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
+		<div className='flex flex-wrap gap-5'>
+			<TeamMemberCard
+				isManager={true}
+				key={manager._id}
+				member={manager}
+			/>
 			{team?.map(member => (
 				<TeamMemberCard
 					key={member._id}

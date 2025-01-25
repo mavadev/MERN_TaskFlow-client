@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import { MenuItem } from '@headlessui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import type { Project } from '@/interfaces/project.interface';
-import { deleteProject } from '@/api/ProjectAPI';
 import { OptionsMenu } from '../OptionsMenu';
+import { deleteProject } from '@/api/ProjectAPI';
+import type { ProjectSimple } from '@/interfaces/project.interface';
 
 interface ProjectProps {
-	project: Project;
+	project: ProjectSimple;
 	type: 'managed' | 'team';
 }
 
@@ -25,6 +25,12 @@ export const ProjectItem = ({ project, type }: ProjectProps) => {
 			toast.error(error.message);
 		},
 	});
+
+	const handleDeleteProject = () => {
+		if (window.confirm('¿Estás seguro de que deseas eliminar este proyecto?')) {
+			handleDelete({ projectId: project._id });
+		}
+	};
 
 	return (
 		<li className='flex justify-between items-center rounded-md bg-card border border-gray-500 shadow-xl shadow-gray-400 max-w-md'>
@@ -57,7 +63,7 @@ export const ProjectItem = ({ project, type }: ProjectProps) => {
 						<MenuItem>
 							<button
 								type='button'
-								onClick={() => handleDelete({ projectId: project._id })}
+								onClick={handleDeleteProject}
 								className='block px-3 py-2 text-sm font-medium leading-6 bg-red-500 w-full hover:bg-red-600 text-white text-center'>
 								Eliminar Proyecto
 							</button>

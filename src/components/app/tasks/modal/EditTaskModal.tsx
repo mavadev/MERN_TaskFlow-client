@@ -9,7 +9,7 @@ import TaskForm from './TaskForm';
 import { Modal } from '../../modal/Modal';
 import { getTask, editTask } from '@/api/TaskAPI';
 import type { Project } from '@/interfaces/project.interface';
-import type { TaskCreate } from '@/interfaces/task.interface';
+import type { TaskDraft } from '@/interfaces/task.interface';
 import { getProjectTeam } from '@/api/TeamProjectAPI';
 
 export default function EditTaskModal() {
@@ -25,12 +25,13 @@ export default function EditTaskModal() {
 	const { data, isError } = useQuery({
 		retry: false,
 		enabled: !!taskId,
-		queryKey: ['task--view', taskId],
+		queryKey: ['task', taskId],
 		queryFn: () => getTask({ projectId, taskId }),
 	});
 
 	// OBTENER EQUIPO DEL PROYECTO
 	const { data: teamData } = useQuery({
+		enabled: !!taskId,
 		queryKey: ['project-team', projectId],
 		queryFn: () => getProjectTeam({ projectId }),
 		retry: false,
@@ -42,7 +43,7 @@ export default function EditTaskModal() {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<TaskCreate>({
+	} = useForm<TaskDraft>({
 		defaultValues: {
 			name: '',
 			description: '',
@@ -81,7 +82,7 @@ export default function EditTaskModal() {
 			toast.error(error.message);
 		},
 	});
-	const handleEditTask = (formData: TaskCreate) => mutate({ projectId, taskId, formData });
+	const handleEditTask = (formData: TaskDraft) => mutate({ projectId, taskId, formData });
 
 	return (
 		<Modal

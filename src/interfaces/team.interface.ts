@@ -1,16 +1,23 @@
 import { z } from 'zod';
-import { userSchema } from './auth.interface';
 
-// User Team Project
-export const teamMemberSchema = userSchema.pick({ _id: true, name: true, email: true, avatar: true });
+// Miembro del equipo
+export const teamMemberSchema = z.object({
+	_id: z.string(),
+	name: z.string(),
+	avatar: z.string(),
+	username: z.string(),
+});
+export const teamMembersSchema = z.array(teamMemberSchema);
 export type TeamMember = z.infer<typeof teamMemberSchema>;
 
-export const teamProjectSchema = z.object({
+// Respuesta de equipo de proyecto
+export const teamResponseSchema = z.object({
 	manager: teamMemberSchema,
-	team: z.array(teamMemberSchema),
+	team: teamMembersSchema,
 });
-export type TeamProject = z.infer<typeof teamProjectSchema>;
+export type TeamResponse = z.infer<typeof teamResponseSchema>;
 
+// Buscar miembro del equipo
 export const teamMemberSearchSchema = z.object({
 	username: z.string().min(3, 'El nombre de usuario debe tener al menos 3 caracteres'),
 });

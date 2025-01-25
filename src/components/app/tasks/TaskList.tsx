@@ -1,14 +1,14 @@
 import { useMemo } from 'react';
 import { TaskCard } from './TaskCard';
 import { TaskStatus } from './TaskStatus';
-import type { Task } from '@/interfaces/task.interface';
+import type { TaskSimple } from '@/interfaces/task.interface';
 
 interface TaskListProps {
-	tasks: Task[];
+	tasks: TaskSimple[];
 	isManager: boolean;
 }
 interface GroupTasks {
-	[key: string]: Task[];
+	[key: string]: TaskSimple[];
 }
 const initialStatusTasks: GroupTasks = {
 	pending: [],

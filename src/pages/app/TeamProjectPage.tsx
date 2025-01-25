@@ -37,7 +37,7 @@ const TeamProjectPage = () => {
 				onClick={handleNavigate}>
 				Añadir colaborador
 			</button>
-			<TeamMembers team={teamData?.team!} />
+			<TeamMembers teamData={teamData!} />
 
 			<AddTeamMemberModal />
 		</div>

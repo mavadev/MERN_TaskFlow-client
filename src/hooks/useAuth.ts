@@ -1,13 +1,19 @@
 import { useQuery } from '@tanstack/react-query';
-import { getUser } from '@/api/AuthAPI';
+import { userValidate } from '@/api/AuthAPI';
 
 export const useAuth = () => {
-	const { data, isLoading, isError } = useQuery({
+	const {
+		data: user,
+		isLoading,
+		isError,
+	} = useQuery({
 		queryKey: ['user'],
-		queryFn: getUser,
+		queryFn: userValidate,
 		retry: false,
 		refetchOnWindowFocus: false,
 	});
 
-	return { user: data, isLoading, isError };
+	if (isError) localStorage.removeItem('AUTH_TOKEN');
+
+	return { user, isLoading, isError };
 };

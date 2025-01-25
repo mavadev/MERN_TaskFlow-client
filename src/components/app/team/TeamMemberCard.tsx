@@ -1,17 +1,18 @@
 import { toast } from 'react-toastify';
 import { useParams } from 'react-router-dom';
+import { TrashIcon } from '@heroicons/react/24/outline';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { AdjustmentsHorizontalIcon, TrashIcon } from '@heroicons/react/24/outline';
 
 import { deleteMemberFromProject } from '@/api/TeamProjectAPI';
 import type { TeamMember } from '@/interfaces/team.interface';
 import type { Project } from '@/interfaces/project.interface';
 
 interface TeamMemberProps {
+	isManager?: boolean;
 	member: TeamMember;
 }
 
-export const TeamMemberCard = ({ member }: TeamMemberProps) => {
+export const TeamMemberCard = ({ isManager = false, member }: TeamMemberProps) => {
 	const queryClient = useQueryClient();
 	const { projectId } = useParams() as { projectId: Project['_id'] };
 	const avatar = `${import.meta.env.VITE_PUBLIC_URL}${member.avatar}`;
@@ -33,7 +34,7 @@ export const TeamMemberCard = ({ member }: TeamMemberProps) => {
 	};
 
 	return (
-		<div className='flex flex-col gap-2 p-5 border border-gray-400 max-w-md'>
+		<div className='flex flex-col gap-2 p-5 border border-gray-400 w-full max-w-md'>
 			<div className='flex items-end justify-between gap-4'>
 				<div className='flex gap-2'>
 					<img
@@ -43,27 +44,22 @@ export const TeamMemberCard = ({ member }: TeamMemberProps) => {
 					/>
 					<div>
 						<p className='text-lg mb-1 font-semibold line-clamp-1'>{member.name}</p>
-						<p className='text-sm text-gray-600'>{member.email}</p>
+						<p className='text-sm text-gray-600'>{member.username}</p>
 					</div>
 				</div>
-				<div className='flex items-center gap-2'>
-					<button
-						onClick={() => {}}
-						className='bg-slate-500 text-white p-3 rounded-full hover:bg-slate-600 transition-colors'>
-						<AdjustmentsHorizontalIcon className='w-5 h-5' />
-					</button>
-					<button
-						disabled={!isIdle}
-						onClick={handleDeleteMember}
-						className='bg-red-500 text-white p-3 rounded-full hover:bg-red-600 transition-colors disabled:opacity-50 disabled:cursor-default'>
-						<TrashIcon className='w-5 h-5' />
-					</button>
-				</div>
+				{!isManager && (
+					<div className='flex items-center gap-2'>
+						<button
+							disabled={!isIdle}
+							onClick={handleDeleteMember}
+							className='bg-red-500 text-white p-3 rounded-full hover:bg-red-600 transition-colors disabled:opacity-50 disabled:cursor-default'>
+							<TrashIcon className='w-5 h-5' />
+						</button>
+					</div>
+				)}
 			</div>
-			<footer className='flex items-center gap-2'>
-				<p>Rol 1</p>
-				<p>Rol 2</p>
-				<p>Rol 3</p>
+			<footer className={`px-4 py-2 rounded-md mt-4 ${isManager ? 'bg-indigo-500' : 'bg-cyan-500'}`}>
+				<p className='text-white font-semibold uppercase text-sm'>{isManager ? 'Manager' : 'Colaborador'}</p>
 			</footer>
 		</div>
 	);

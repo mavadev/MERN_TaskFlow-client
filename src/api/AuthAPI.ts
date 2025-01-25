@@ -1,15 +1,8 @@
 import api from '@/lib/axios';
 import { responseError } from './errors';
-import {
-	RegisterForm,
-	ResendCodeForm,
-	ConfirmUserForm,
-	LoginForm,
-	ResetPassword,
-	User,
-	userSchema,
-} from '@/interfaces/auth.interface';
 import type { ResponseData } from '@/interfaces/api.interface';
+import { UserSimple, userSimpleSchema } from '@/interfaces/user.interface';
+import { RegisterForm, ResendCodeForm, ConfirmUserForm, LoginForm, ResetPassword } from '@/interfaces/auth.interface';
 
 export async function createAccount(formData: RegisterForm) {
 	try {
@@ -83,12 +76,12 @@ export async function resetPassword(formData: ResetPassword) {
 	}
 }
 
-export async function getUser(): Promise<User> {
+export async function userValidate(): Promise<UserSimple> {
 	try {
 		const url = '/auth/user';
 		const { data } = await api.get<ResponseData>(url);
 
-		const { success, data: user } = userSchema.safeParse(data.data);
+		const { success, data: user } = userSimpleSchema.safeParse(data.data);
 		if (!success) throw new Error('Error al obtener el usuario');
 
 		return user;

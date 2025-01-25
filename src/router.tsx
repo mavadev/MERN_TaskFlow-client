@@ -11,12 +11,13 @@ import {
 } from '@/pages/auth';
 
 import AppLayout from '@/layouts/AppLayout';
-import { CreateProjectPage, DashboardPage, EditProjectPage, ProjectDetailsPage, TeamProjectPage } from '@/pages/app';
+import { ProjectsPage, CreateProjectPage, EditProjectPage, ProjectDetailsPage, TeamProjectPage } from '@/pages/app';
 
 export default function AppRouter() {
 	return (
 		<BrowserRouter>
 			<Routes>
+				{/* Rutas de autenticación */}
 				<Route path='/auth' element={<AuthLayout />}>
 					<Route path='login' element={<LoginPage />}/>
 					<Route path='register' element={<RegisterPage />}/>
@@ -27,8 +28,10 @@ export default function AppRouter() {
 					<Route path='request-new-password' element={<RequestNewPassword />}/>
 					<Route path='forgot-password' element={<ForgotPassword />}/>
 				</Route>
+
+				{/* Rutas Protegidas */}
 				<Route path='/' element={<AppLayout />}>
-					<Route index element={<DashboardPage />}/>
+					<Route index element={<ProjectsPage />}/>
 					<Route path='projects/create' element={<CreateProjectPage />}/>
 					<Route path='projects/:projectId' element={<ProjectDetailsPage />}/>
 					<Route path='projects/:projectId/team' element={<TeamProjectPage />}/>

@@ -8,7 +8,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Modal } from '../../modal/Modal';
 import { createTask } from '@/api/TaskAPI';
 import type { Project } from '@/interfaces/project.interface';
-import type { TaskCreate, TaskStatus } from '@/interfaces/task.interface';
+import type { TaskDraft, TaskStatus } from '@/interfaces/task.interface';
 import TaskForm from './TaskForm';
 import { getProjectTeam } from '@/api/TeamProjectAPI';
 
@@ -29,7 +29,7 @@ export default function AddTaskModal() {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<TaskCreate>({
+	} = useForm<TaskDraft>({
 		defaultValues: {
 			name: '',
 			description: '',
@@ -69,7 +69,7 @@ export default function AddTaskModal() {
 			toast.error(error.message);
 		},
 	});
-	const handleCreateTask = (formData: TaskCreate) => mutate({ projectId, formData });
+	const handleCreateTask = (formData: TaskDraft) => mutate({ projectId, formData });
 
 	return (
 		<Modal

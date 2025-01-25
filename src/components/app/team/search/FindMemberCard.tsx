@@ -1,13 +1,13 @@
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addMemberToProject } from '@/api/TeamProjectAPI';
-import type { UserSearch } from '@/interfaces/auth.interface';
 import type { Project } from '@/interfaces/project.interface';
-import { useState } from 'react';
+import type { UserSimple } from '@/interfaces/user.interface';
 
 interface FindMemberCardProps {
-	user: UserSearch;
+	user: UserSimple;
 }
 
 export const FindMemberCard = ({ user }: FindMemberCardProps) => {

@@ -2,14 +2,14 @@ import api from '@/lib/axios';
 import { responseError } from './errors';
 import type { Project } from '@/interfaces/project.interface';
 import type { ResponseData } from '@/interfaces/api.interface';
-import type{ TeamMember } from '@/interfaces/team.interface';
-import { Task, TaskCreate, taskSchema } from '@/interfaces/task.interface';
+import type { TeamMember } from '@/interfaces/team.interface';
+import { Task, TaskDraft, taskSchema } from '@/interfaces/task.interface';
 
 interface TaskProps {
-	projectId: Project['_id'];
-	formData: TaskCreate;
+	formData: TaskDraft;
 	taskId: Task['_id'];
 	status: Task['status'];
+	projectId: Project['_id'];
 	assignTo: TeamMember['_id'];
 }
 
@@ -61,7 +61,11 @@ export async function updateStatus({ projectId, taskId, status }: Pick<TaskProps
 	}
 }
 
-export async function updateAssignTo({ projectId, taskId, assignTo }: Pick<TaskProps, 'projectId' | 'taskId' | 'assignTo'>) {
+export async function updateAssignTo({
+	projectId,
+	taskId,
+	assignTo,
+}: Pick<TaskProps, 'projectId' | 'taskId' | 'assignTo'>) {
 	try {
 		const { data } = await api.patch(`/projects/${projectId}/tasks/${taskId}/assign`, { assignTo });
 		return data.message;
@@ -69,4 +73,3 @@ export async function updateAssignTo({ projectId, taskId, assignTo }: Pick<TaskP
 		throw new Error(responseError(error as Error));
 	}
 }
-

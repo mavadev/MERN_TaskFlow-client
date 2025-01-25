@@ -5,11 +5,11 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { createProject } from '@/api/ProjectAPI';
 import ProjectForm from '@/components/app/projects/ProjectForm';
-import type { ProjectCreate } from '@/interfaces/project.interface';
+import type { ProjectDraft } from '@/interfaces/project.interface';
 
 const CreateProjectPage = () => {
 	const navigate = useNavigate();
-	const initialValues: ProjectCreate = {
+	const initialValues: ProjectDraft = {
 		clientName: '',
 		projectName: '',
 		description: '',
@@ -32,7 +32,7 @@ const CreateProjectPage = () => {
 			toast.error(error.message);
 		},
 	});
-	const handleForm = (formData: ProjectCreate) => mutate({ formData });
+	const handleForm = (formData: ProjectDraft) => mutate({ formData });
 	return (
 		<>
 			<header>

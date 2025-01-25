@@ -2,10 +2,10 @@ import { FieldErrors, Path, UseFormRegister } from 'react-hook-form';
 import { ErrorMessage } from '@/components/ErrorMessage';
 import { statusTranslate } from '@/locales/es';
 import type { TaskStatus } from '@/interfaces/task.interface';
-import type { TeamProject } from '@/interfaces/team.interface';
+import type { TeamResponse } from '@/interfaces/team.interface';
 
 type TaskFormProps<T extends { name: string; description: string; status: TaskStatus }> = {
-	teamData: TeamProject;
+	teamData: TeamResponse;
 	errors: FieldErrors<T>;
 	register: UseFormRegister<T>;
 };

@@ -4,14 +4,14 @@ import { useForm } from 'react-hook-form';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 
-import type { Project, ProjectCreate } from '@/interfaces/project.interface';
+import type { Project, ProjectDraft } from '@/interfaces/project.interface';
 import ProjectForm from '@/components/app/projects/ProjectForm';
 import { getProject, updateProject } from '@/api/ProjectAPI';
 import { useAuth } from '@/hooks/useAuth';
 
 const EditProjectPage = () => {
-	const navigate = useNavigate();
 	const { user } = useAuth();
+	const navigate = useNavigate();
 	const { projectId } = useParams() as { projectId: Project['_id'] };
 
 	// Obtener Proyecto
@@ -64,7 +64,7 @@ const EditProjectPage = () => {
 			toast.error(error.message);
 		},
 	});
-	const handleForm = (formData: ProjectCreate) => mutate({ projectId, formData });
+	const handleForm = (formData: ProjectDraft) => mutate({ projectId, formData });
 
 	// Condiciones de renderizado
 	if (isLoading) return <h2>Cargando...</h2>;

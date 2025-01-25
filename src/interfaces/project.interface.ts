@@ -1,35 +1,32 @@
 import { z } from 'zod';
-import { taskSchema } from './task.interface';
+import { tasksSchemaSimple } from './task.interface';
 
-// Proyecto
-export const projectSchema = z.object({
+// Proyecto Simple ( Listado de proyectos )
+export const projectSchemaSimple = z.object({
 	_id: z.string(),
-	projectName: z.string(),
 	clientName: z.string(),
+	projectName: z.string(),
 	description: z.string(),
-	tasks: z.array(z.string()),
 	team: z.array(z.string()),
 });
-export const projectsSchema = z.array(projectSchema);
-export interface Project extends z.infer<typeof projectSchema> {}
+export const projectsSchema = z.array(projectSchemaSimple);
+export interface ProjectSimple extends z.infer<typeof projectSchemaSimple> {}
 
+// Respuesta de proyectos
 export const projectsResponseSchema = z.object({
-	managedProjects: z.array(projectSchema),
-	teamProjects: z.array(projectSchema),
+	managedProjects: z.array(projectSchemaSimple),
+	teamProjects: z.array(projectSchemaSimple),
 });
 export interface ProjectsResponse extends z.infer<typeof projectsResponseSchema> {}
 
-// Proyecto con sus tareas
-export const projectTasksSchema = z.object({
-	_id: z.string(),
-	projectName: z.string(),
-	clientName: z.string(),
-	description: z.string(),
+// Proyecto Completo
+export const projectSchema = projectSchemaSimple.extend({
 	manager: z.string(),
-	tasks: z.array(taskSchema),
+	tasks: tasksSchemaSimple,
+	createdAt: z.string(),
 });
-export interface ProjectTasks extends z.infer<typeof projectTasksSchema> {}
+export interface Project extends z.infer<typeof projectSchema> {}
 
-// Proyecto para crear
-export const projectCreateSchema = projectSchema.pick({ projectName: true, clientName: true, description: true });
-export interface ProjectCreate extends z.infer<typeof projectCreateSchema> {}
+// Proyecto en estado de borrador
+export const projectDraftSchema = projectSchemaSimple.pick({ projectName: true, clientName: true, description: true });
+export interface ProjectDraft extends z.infer<typeof projectDraftSchema> {}
