@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-
-import AuthLayout from '@/layouts/AuthLayout';
+import { AuthLayout, AppLayout } from '@/layouts';
+// Auth Pages
 import {
 	LoginPage,
 	RegisterPage,
@@ -10,13 +10,20 @@ import {
 	ForgotPassword,
 } from '@/pages/auth';
 
-import AppLayout from '@/layouts/AppLayout';
-import { ProjectsPage, CreateProjectPage, EditProjectPage, ProjectDetailsPage, TeamProjectPage } from '@/pages/app';
+// App Pages
+import { ProjectsPage, CreateProjectPage, ProjectDetailsPage } from '@/pages/app';
+import { ProjectViewPage, ProjectEditPage, ProjectTeamPage } from '@/pages/app/project';
+
+// Landing Page
+import LandingPage from '@/pages/LandingPage';
 
 export default function AppRouter() {
 	return (
 		<BrowserRouter>
 			<Routes>
+				{/* Ruta Principal */}
+				<Route path='/' element={<LandingPage />} />
+
 				{/* Rutas de autenticación */}
 				<Route path='/auth' element={<AuthLayout />}>
 					<Route path='login' element={<LoginPage />}/>
@@ -30,12 +37,14 @@ export default function AppRouter() {
 				</Route>
 
 				{/* Rutas Protegidas */}
-				<Route path='/' element={<AppLayout />}>
-					<Route index element={<ProjectsPage />}/>
+				<Route path='/app' element={<AppLayout />}>
+					<Route path='projects' element={<ProjectsPage />}/>
 					<Route path='projects/create' element={<CreateProjectPage />}/>
-					<Route path='projects/:projectId' element={<ProjectDetailsPage />}/>
-					<Route path='projects/:projectId/team' element={<TeamProjectPage />}/>
-					<Route path='projects/:projectId/edit' element={<EditProjectPage />}/>
+					<Route path='projects/:projectId' element={<ProjectDetailsPage />}>
+						<Route index element={<ProjectViewPage />}/>
+						<Route path='team' element={<ProjectTeamPage />}/>
+						<Route path='edit' element={<ProjectEditPage />}/>
+					</Route>
 				</Route>
 			</Routes>
 		</BrowserRouter>

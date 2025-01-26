@@ -3,16 +3,16 @@ import { MenuItem } from '@headlessui/react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { OptionsMenu } from '../OptionsMenu';
 import { deleteTask } from '@/api/TaskAPI';
+import { OptionsItem } from '../OptionsItem';
 import type { TaskSimple } from '@/interfaces/task.interface';
 
-type TaskCardProps = {
+type TaskItemProps = {
 	task: TaskSimple;
 	isManager: boolean;
 };
 
-export const TaskCard = ({ task, isManager }: TaskCardProps) => {
+export const TaskItem = ({ task, isManager }: TaskItemProps) => {
 	const navigate = useNavigate();
 
 	const queryClient = useQueryClient();
@@ -27,8 +27,9 @@ export const TaskCard = ({ task, isManager }: TaskCardProps) => {
 		},
 	});
 
-	const handleViewTask = () => navigate(location.pathname + `?viewTask=${task._id}`);
-	const handleEditTask = () => navigate(location.pathname + `?editTask=${task._id}`);
+	const handleNavigate = (mode: string) =>
+		navigate(location.pathname + `?taskId=${task._id}&mode=${mode}`, { replace: true });
+
 	const handleDeleteTask = () => {
 		window.confirm('¿Estás seguro de querer eliminar esta tarea?') &&
 			mutate({ projectId: task.project, taskId: task._id });
@@ -40,7 +41,7 @@ export const TaskCard = ({ task, isManager }: TaskCardProps) => {
 		<li className='p-4 bg-white border border-slate-400 flex justify-between gap-3 rounded cursor-pointer'>
 			<div className='flex flex-col gap-y-2'>
 				<p
-					onClick={handleViewTask}
+					onClick={() => handleNavigate('view')}
 					className='font-bold text-gray-700 text-left line-clamp-2 text-balance md:text-sm'>
 					{task.name}
 				</p>
@@ -58,11 +59,11 @@ export const TaskCard = ({ task, isManager }: TaskCardProps) => {
 					<p className='text-sm text-gray-500 mt-3'>Sin asignar</p>
 				)}
 			</div>
-			<OptionsMenu>
+			<OptionsItem>
 				<MenuItem>
 					<button
 						type='button'
-						onClick={handleViewTask}
+						onClick={() => handleNavigate('view')}
 						className='block px-3 py-2 text-sm font-medium leading-6 text-gray-700 w-full hover:bg-gray-50'>
 						Ver Tarea
 					</button>
@@ -72,7 +73,7 @@ export const TaskCard = ({ task, isManager }: TaskCardProps) => {
 						<MenuItem>
 							<button
 								type='button'
-								onClick={handleEditTask}
+								onClick={() => handleNavigate('edit')}
 								className='block px-3 py-2 text-sm font-medium leading-6 text-gray-700 w-full hover:bg-gray-50'>
 								Editar Tarea
 							</button>
@@ -87,7 +88,7 @@ export const TaskCard = ({ task, isManager }: TaskCardProps) => {
 						</MenuItem>
 					</>
 				)}
-			</OptionsMenu>
+			</OptionsItem>
 		</li>
 	);
 };

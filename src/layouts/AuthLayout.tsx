@@ -7,7 +7,7 @@ const AuthLayout = () => {
 	const { isLoading, isError } = useAuth();
 
 	if (isLoading) return <div>Cargando...</div>;
-	if (!isError) return <Navigate to='/' />;
+	if (!isError) return <Navigate to='/app/projects' replace />;
 
 	return (
 		<div className='flex flex-col min-h-screen'>

@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { TaskCard } from './TaskCard';
+import { TaskItem } from './TaskItem';
 import { TaskStatus } from './TaskStatus';
 import type { TaskSimple } from '@/interfaces/task.interface';
 
@@ -44,7 +44,7 @@ export const TaskList = ({ tasks, isManager }: TaskListProps) => {
 						<ul className='w-full space-y-2'>
 							{statusTasks.length ? (
 								statusTasks.map(task => (
-									<TaskCard
+									<TaskItem
 										task={task}
 										key={task._id}
 										isManager={isManager}

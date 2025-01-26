@@ -2,22 +2,22 @@ import { ToastContainer } from 'react-toastify';
 import { Navigate, Outlet } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { Logo } from '@/components/LogoApp';
-import { UserMenu } from '@/components/app/UserMenu';
 import { useAuth } from '@/hooks/useAuth';
+import { Logo } from '@/components/LogoApp';
+import { MenuUser } from '@/components/app/MenuUser';
 
 const AppLayout = () => {
 	const { user, isLoading, isError } = useAuth();
 
 	if (isLoading) return <div>Cargando...</div>;
-	if (isError) return <Navigate to='/auth/login' />;
+	if (isError) return <Navigate replace to='/auth/login' />;
 
 	return (
 		<div className='flex flex-col min-h-screen'>
 			<header className='bg-slate-800'>
 				<div className='container mx-auto flex flex-row justify-between items-center px-4 py-6'>
 					<Logo />
-					<UserMenu name={user?.name!} />
+					<MenuUser name={user?.name!} />
 				</div>
 			</header>
 			<main className='container mx-auto flex-1 px-4 py-8'>

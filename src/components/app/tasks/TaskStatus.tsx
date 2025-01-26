@@ -17,7 +17,7 @@ type TaskStatusProps = {
 
 export const TaskStatus = ({ status, isManager }: TaskStatusProps) => {
 	const navigate = useNavigate();
-	const handleNavigate = () => navigate(location.pathname + `?newTask=true&status=${status}`);
+	const handleNavigate = () => navigate(location.pathname + `?mode=create&status=${status}`, { replace: true });
 
 	return (
 		<div

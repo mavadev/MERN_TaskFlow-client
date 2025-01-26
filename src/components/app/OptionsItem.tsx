@@ -2,20 +2,16 @@ import { Fragment, PropsWithChildren } from 'react';
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
 import { Menu, MenuButton, MenuItems, Transition } from '@headlessui/react';
 
-interface OptionsMenuProps extends PropsWithChildren {
-	light?: boolean;
-}
-
-export const OptionsMenu = ({ children, light = false }: OptionsMenuProps) => {
+export const OptionsItem = ({ children }: PropsWithChildren) => {
 	return (
 		<Menu
 			as='div'
 			className='relative'>
-			<MenuButton className={`block ${light ? 'text-white hover:text-gray-200' : 'text-black hover:text-gray-700'}`}>
-				<span className='sr-only'>Opciones de Proyecto</span>
+			<MenuButton className='block text-white hover:text-gray-200'>
+				<span className='sr-only'>Opciones</span>
 				<EllipsisVerticalIcon
 					aria-hidden='true'
-					className='h-7 w-7'
+					className='h-6 w-6 text-gray-500'
 				/>
 			</MenuButton>
 			<Transition

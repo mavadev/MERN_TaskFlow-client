@@ -1,29 +1,27 @@
-import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { DialogTitle } from '@headlessui/react';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
-import { Modal } from '../../modal/Modal';
+import TaskForm from './TaskForm';
 import { createTask } from '@/api/TaskAPI';
 import type { Project } from '@/interfaces/project.interface';
+import type { TeamResponse } from '@/interfaces/team.interface';
 import type { TaskDraft, TaskStatus } from '@/interfaces/task.interface';
-import TaskForm from './TaskForm';
-import { getProjectTeam } from '@/api/TeamProjectAPI';
 
-export default function AddTaskModal() {
+interface TaskAddModalProps {
+	team: TeamResponse;
+	status: TaskStatus;
+}
+
+export default function TaskAddModal({ team, status }: TaskAddModalProps) {
 	const navigate = useNavigate();
-
-	const params = useParams();
-	const projectId = params.projectId as Project['_id'];
-
 	const location = useLocation();
-	const searchParams = new URLSearchParams(location.search);
 
-	const newTask = !!searchParams.get('newTask');
-	const statusTask = searchParams.get('status') as TaskStatus;
+	const { projectId } = useParams() as { projectId: Project['_id'] };
 
+	// CONFIGURACIÓN DE FORMULARIO
 	const {
 		reset,
 		register,
@@ -33,29 +31,12 @@ export default function AddTaskModal() {
 		defaultValues: {
 			name: '',
 			description: '',
-			status: 'pending',
+			status: status || 'pending',
 			assignedTo: undefined,
 		},
 	});
 
-	const { data: teamData } = useQuery({
-		queryKey: ['project-team', projectId],
-		queryFn: () => getProjectTeam({ projectId }),
-		retry: false,
-	});
-
-	useEffect(() => {
-		if (statusTask) {
-			reset({
-				name: '',
-				description: '',
-				status: statusTask,
-				assignedTo: undefined,
-			});
-		}
-	}, [statusTask]);
-
-	// Petición API - POST
+	// AÑADIR TAREA
 	const queryClient = useQueryClient();
 	const { mutate } = useMutation({
 		mutationFn: createTask,
@@ -72,9 +53,7 @@ export default function AddTaskModal() {
 	const handleCreateTask = (formData: TaskDraft) => mutate({ projectId, formData });
 
 	return (
-		<Modal
-			show={newTask}
-			handleOnClose={() => navigate(location.pathname)}>
+		<>
 			<DialogTitle
 				as='h3'
 				className='font-bold text-3xl my-4'>
@@ -88,7 +67,7 @@ export default function AddTaskModal() {
 				className='space-y-5'
 				onSubmit={handleSubmit(handleCreateTask)}>
 				<TaskForm
-					teamData={teamData!}
+					teamData={team}
 					errors={errors}
 					register={register}
 				/>
@@ -98,6 +77,6 @@ export default function AddTaskModal() {
 					className='btn-secondary p-4 w-full'
 				/>
 			</form>
-		</Modal>
+		</>
 	);
 }

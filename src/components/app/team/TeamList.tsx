@@ -1,20 +1,20 @@
-import { TeamMemberCard } from './TeamMemberCard';
+import { TeamMemberItem } from './TeamMemberItem';
 import type { TeamResponse } from '@/interfaces/team.interface';
 
-interface TeamMembersProps {
-	teamData: TeamResponse;
+interface TeamListProps {
+	team: TeamResponse;
 }
 
-export const TeamMembers = ({ teamData: { manager, team } }: TeamMembersProps) => {
+export const TeamList = ({ team: { manager, team } }: TeamListProps) => {
 	return (
 		<div className='flex flex-wrap gap-5'>
-			<TeamMemberCard
+			<TeamMemberItem
 				isManager={true}
 				key={manager._id}
 				member={manager}
 			/>
 			{team?.map(member => (
-				<TeamMemberCard
+				<TeamMemberItem
 					key={member._id}
 					member={member}
 				/>

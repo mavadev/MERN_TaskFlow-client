@@ -1,2 +1,2 @@
-export { TeamMembers } from './TeamMembers';
-export { AddTeamMemberModal } from './search/AddTeamMemberModal';
+export { TeamList } from './TeamList';
+export { AddMemberModal } from './search/AddMemberModal';

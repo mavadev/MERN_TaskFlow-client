@@ -7,9 +7,9 @@ export const useAuth = () => {
 		isLoading,
 		isError,
 	} = useQuery({
+		retry: false,
 		queryKey: ['user'],
 		queryFn: userValidate,
-		retry: false,
 		refetchOnWindowFocus: false,
 	});
 

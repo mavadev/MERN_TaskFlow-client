@@ -7,12 +7,12 @@ import { deleteMemberFromProject } from '@/api/TeamProjectAPI';
 import type { TeamMember } from '@/interfaces/team.interface';
 import type { Project } from '@/interfaces/project.interface';
 
-interface TeamMemberProps {
+interface TeamMemberItemProps {
 	isManager?: boolean;
 	member: TeamMember;
 }
 
-export const TeamMemberCard = ({ isManager = false, member }: TeamMemberProps) => {
+export const TeamMemberItem = ({ isManager = false, member }: TeamMemberItemProps) => {
 	const queryClient = useQueryClient();
 	const { projectId } = useParams() as { projectId: Project['_id'] };
 	const avatar = `${import.meta.env.VITE_PUBLIC_URL}${member.avatar}`;

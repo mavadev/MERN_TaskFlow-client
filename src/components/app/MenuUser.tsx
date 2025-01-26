@@ -4,11 +4,11 @@ import { Bars3Icon } from '@heroicons/react/20/solid';
 import { useQueryClient } from '@tanstack/react-query';
 import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
 
-interface UserMenuProps {
+interface MenuUserProps {
 	name: string;
 }
 
-export const UserMenu = ({ name }: UserMenuProps) => {
+export const MenuUser = ({ name }: MenuUserProps) => {
 	const queryClient = useQueryClient();
 
 	const logout = () => {

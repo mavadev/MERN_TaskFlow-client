@@ -9,7 +9,7 @@ import ProjectForm from '@/components/app/projects/ProjectForm';
 import { getProject, updateProject } from '@/api/ProjectAPI';
 import { useAuth } from '@/hooks/useAuth';
 
-const EditProjectPage = () => {
+const ProjectEditPage = () => {
 	const { user } = useAuth();
 	const navigate = useNavigate();
 	const { projectId } = useParams() as { projectId: Project['_id'] };
@@ -103,4 +103,4 @@ const EditProjectPage = () => {
 	);
 };
 
-export default EditProjectPage;
+export default ProjectEditPage;

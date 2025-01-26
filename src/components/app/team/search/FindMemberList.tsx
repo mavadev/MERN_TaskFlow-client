@@ -1,15 +1,13 @@
-import { FindMemberCard } from './FindMemberCard';
-import type { UsersSearch } from '@/interfaces/auth.interface';
+import { FindMemberItem } from './FindMemberItem';
+import type { UserSimple } from '@/interfaces/user.interface';
 
-interface FindMembersProps {
-	isIdle: boolean;
+interface FindMemberListProps {
 	isPending: boolean;
 	isError: boolean;
-	users: UsersSearch;
+	users: UserSimple[];
 }
 
-export const FindMembers = ({ isIdle, isPending, isError, users }: FindMembersProps) => {
-	if (isIdle) return <></>;
+export const FindMemberList = ({ isPending, isError, users }: FindMemberListProps) => {
 	if (isPending) return <h3>Cargando...</h3>;
 	if (isError) return <h3>Hubo un error al buscar los usuarios</h3>;
 
@@ -18,7 +16,7 @@ export const FindMembers = ({ isIdle, isPending, isError, users }: FindMembersPr
 			<div className='flex flex-col gap-4 mt-10'>
 				{users.length ? (
 					users.map(user => (
-						<FindMemberCard
+						<FindMemberItem
 							key={user._id}
 							user={user}
 						/>

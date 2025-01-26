@@ -6,11 +6,11 @@ import { addMemberToProject } from '@/api/TeamProjectAPI';
 import type { Project } from '@/interfaces/project.interface';
 import type { UserSimple } from '@/interfaces/user.interface';
 
-interface FindMemberCardProps {
+interface FindMemberItemProps {
 	user: UserSimple;
 }
 
-export const FindMemberCard = ({ user }: FindMemberCardProps) => {
+export const FindMemberItem = ({ user }: FindMemberItemProps) => {
 	const queryClient = useQueryClient();
 	const [statusAddMember, setStatusAddMember] = useState('idle');
 	const { projectId } = useParams() as { projectId: Project['_id'] };

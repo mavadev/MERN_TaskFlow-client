@@ -4,27 +4,28 @@ import { useMutation } from '@tanstack/react-query';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { Modal } from '../../modal/Modal';
-import { FindMembers } from './FindMembers';
+import { FindMemberList } from './FindMemberList';
 import { getUsersByUsername } from '@/api/TeamProjectAPI';
 import type { Project } from '@/interfaces/project.interface';
 import type { TeamMemberSearch } from '@/interfaces/team.interface';
 
-export const AddTeamMemberModal = () => {
+export const AddMemberModal = () => {
 	const navigate = useNavigate();
-	const { projectId } = useParams() as { projectId: Project['_id'] };
-
 	const location = useLocation();
-	const newMember = !!new URLSearchParams(location.search).get('addMember');
 
+	const { projectId } = useParams() as { projectId: Project['_id'] };
+	const addMember = !!new URLSearchParams(location.search).get('addMember');
+
+	// Estado para controlar el tiempo de espera
 	const [_, setIsPaused] = useState(false);
 	const [lastSearch, setLastSearch] = useState('');
 	const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-	// Formulario
+	// Formulario para buscar usuarios
 	const {
 		watch,
 		register,
-		formState: { errors, isValid },
+		formState: formAddMember,
 	} = useForm<TeamMemberSearch>({
 		mode: 'onChange',
 		defaultValues: { username: '' },
@@ -32,11 +33,11 @@ export const AddTeamMemberModal = () => {
 
 	// Obtener usuarios por username
 	const {
-		data: users,
-		isPending,
-		isError,
-		mutate: fetchUsers,
 		isIdle,
+		isError,
+		isPending,
+		data: users,
+		mutate: getUsers,
 	} = useMutation({
 		mutationKey: ['search-users-team', projectId],
 		mutationFn: getUsersByUsername,
@@ -46,7 +47,7 @@ export const AddTeamMemberModal = () => {
 		const username = watch('username');
 
 		if (username !== lastSearch) {
-			fetchUsers({ projectId, username });
+			getUsers({ projectId, username });
 			setLastSearch(username);
 		}
 	};
@@ -60,15 +61,15 @@ export const AddTeamMemberModal = () => {
 		if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
 		typingTimeoutRef.current = setTimeout(async () => {
 			setIsPaused(false);
-			isValid && handleNewMember();
+			formAddMember.isValid && handleNewMember();
 		}, 500);
 	};
 
-	const handleOnClose = () => navigate(location.pathname);
+	const handleOnClose = () => navigate(location.pathname, { replace: true });
 
 	return (
 		<Modal
-			show={newMember}
+			show={addMember}
 			handleOnClose={handleOnClose}>
 			<form
 				className='flex flex-col gap-2'
@@ -93,14 +94,17 @@ export const AddTeamMemberModal = () => {
 						},
 					})}
 				/>
-				{errors.username && <p className='text-sm text-gray-500 mt-2'>{errors.username.message}</p>}
+				{formAddMember.errors.username && (
+					<p className='text-sm text-gray-500 mt-2'>{formAddMember.errors.username.message}</p>
+				)}
 			</form>
-			<FindMembers
-				users={users!}
-				isIdle={isIdle}
-				isError={isError}
-				isPending={isPending}
-			/>
+			{!isIdle && (
+				<FindMemberList
+					users={users!}
+					isError={isError}
+					isPending={isPending}
+				/>
+			)}
 		</Modal>
 	);
 };
