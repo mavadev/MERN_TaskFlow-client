@@ -14,6 +14,7 @@ const CreateProjectPage = () => {
 		projectName: '',
 		description: '',
 	};
+
 	// Creación de datos/métodos para formulario
 	const {
 		register,

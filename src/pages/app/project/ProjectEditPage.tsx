@@ -1,74 +1,48 @@
-import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import type { Project, ProjectDraft } from '@/interfaces/project.interface';
+import { updateProject } from '@/api/ProjectAPI';
+import { useProject } from '../ProjectDetailsPage';
 import ProjectForm from '@/components/app/projects/ProjectForm';
-import { getProject, updateProject } from '@/api/ProjectAPI';
-import { useAuth } from '@/hooks/useAuth';
+import type { Project, ProjectDraft } from '@/interfaces/project.interface';
 
 const ProjectEditPage = () => {
-	const { user } = useAuth();
+	const { project } = useProject();
+
 	const navigate = useNavigate();
 	const { projectId } = useParams() as { projectId: Project['_id'] };
 
-	// Obtener Proyecto
-	const {
-		data: project,
-		isLoading,
-		isError,
-	} = useQuery({
-		queryKey: ['project--edit', projectId],
-		queryFn: () => getProject({ projectId }),
-	});
-
 	// Configuración de Formulario
 	const {
-		reset,
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm({
 		defaultValues: {
-			clientName: '',
-			projectName: '',
-			description: '',
+			clientName: project?.clientName || '',
+			projectName: project?.projectName || '',
+			description: project?.description || '',
 		},
 	});
-
-	// Actualizar cuando los datos estén listos
-	useEffect(() => {
-		if (project) {
-			reset({
-				clientName: project.clientName,
-				projectName: project.projectName,
-				description: project.description,
-			});
-		}
-	}, [project, reset]);
 
 	// Petición a la API (PUT)
 	const queryClient = useQueryClient();
 	const { mutate } = useMutation({
 		mutationFn: updateProject,
 		onSuccess: message => {
-			queryClient.invalidateQueries({ queryKey: ['project--edit', projectId] });
+			queryClient.invalidateQueries({ queryKey: ['project', projectId] });
 			queryClient.invalidateQueries({ queryKey: ['projects'] });
 
 			toast.success(message);
-			navigate('/');
+			navigate('/app/projects');
 		},
 		onError: error => {
 			toast.error(error.message);
 		},
 	});
 	const handleForm = (formData: ProjectDraft) => mutate({ projectId, formData });
-
-	// Condiciones de renderizado
-	if (isLoading) return <h2>Cargando...</h2>;
-	if (isError || user?._id !== project?.manager) return <Navigate to='/404' />;
 
 	return (
 		<>

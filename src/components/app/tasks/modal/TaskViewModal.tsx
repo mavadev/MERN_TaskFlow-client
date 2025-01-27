@@ -68,7 +68,11 @@ export default function TaskViewModal({ task, team }: TaskViewModalProps) {
 				{/* Notas */}
 				<section className='space-y-2'>
 					<h3 className='uppercase text-slate-700 font-bold'>Notas:</h3>
-					<NoteList notes={task.notes} />
+					<NoteList
+						taskId={taskId}
+						projectId={projectId}
+						notes={task.notes}
+					/>
 				</section>
 
 				{/* Estado y Asignado a */}
