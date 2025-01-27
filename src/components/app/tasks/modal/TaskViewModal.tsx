@@ -1,8 +1,12 @@
 import { toast } from 'react-toastify';
-import { DialogTitle } from '@headlessui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
+import { statusStyles } from '../TaskStatus';
+import { UserItem } from '../../user/UserItem';
+import { NoteList } from '../../notes/NoteList';
+
+import { formatDate } from '@/utils';
 import { statusTranslate } from '@/locales/es';
 import { updateStatus, updateAssignTo } from '@/api/TaskAPI';
 import type { Project } from '@/interfaces/project.interface';
@@ -24,9 +28,9 @@ export default function TaskViewModal({ task, team }: TaskViewModalProps) {
 	const { projectId } = useParams() as { projectId: Project['_id'] };
 
 	const successChange = (message: string) => {
+		toast.success(message);
 		queryClient.invalidateQueries({ queryKey: ['task', taskId] });
 		queryClient.invalidateQueries({ queryKey: ['project', projectId] });
-		toast.success(message);
 	};
 
 	const errorChange = (error: Error) => {
@@ -47,60 +51,88 @@ export default function TaskViewModal({ task, team }: TaskViewModalProps) {
 	};
 
 	return (
-		<>
-			<header>
-				<p className='text-sm text-slate-400'>Agregada el: {task.name}</p>
-				<p className='text-sm text-slate-400'>Última actualización: {task.name}</p>
-				<DialogTitle
-					as='h3'
-					className='font-black text-3xl text-slate-600 my-5'>
-					{task.name}
-				</DialogTitle>
+		<div className='py-5'>
+			<header className='px-10 py-5 space-y-5'>
+				<span className={`px-2 py-1 rounded border-2 text-sm font-semibold ${statusStyles[task.status]} uppercase`}>
+					{statusTranslate[task.status]}
+				</span>
+				<h2 className='font-bold text-3xl text-slate-700'>{task.name}</h2>
 			</header>
-			<p className='text-lg text-slate-500 mb-2'>Descripción:</p>
-			<p className='text-lg text-slate-500 mb-2'>{task.description}</p>
+			<main className='px-10 space-y-5'>
+				{/* Descripción */}
+				<section className='bg-blue-200 p-2 text-slate-700 space-y-2'>
+					<p className='font-semibold'>Descripción:</p>
+					<p className='pl-3 text-sm '>{task.description}</p>
+				</section>
 
-			{/* Estado y Asignado a */}
-			<div className='flex gap-2'>
-				<div className='flex flex-col flex-1'>
-					<label htmlFor='status'>Estado</label>
-					<select
-						id='status'
-						onChange={handleChangeStatus}
-						defaultValue={task.status}
-						className='input-form select-none'>
-						{Object.entries(statusTranslate).map(([status, translate]) => (
+				{/* Notas */}
+				<section className='space-y-2'>
+					<h3 className='uppercase text-slate-700 font-bold'>Notas:</h3>
+					<NoteList notes={task.notes} />
+				</section>
+
+				{/* Estado y Asignado a */}
+				<section className='flex gap-2'>
+					<div className='flex flex-col flex-1 space-y-2'>
+						<label
+							htmlFor='status'
+							className='uppercase text-slate-700 font-bold'>
+							Estado
+						</label>
+						<select
+							id='status'
+							defaultValue={task.status}
+							onChange={handleChangeStatus}
+							className='input-form select-none rounded'>
+							{Object.entries(statusTranslate).map(([status, translate]) => (
+								<option
+									key={status}
+									value={status}>
+									{translate}
+								</option>
+							))}
+						</select>
+					</div>
+					<div className='flex flex-col flex-1 space-y-2'>
+						<label
+							htmlFor='assignTo'
+							className='uppercase text-slate-700 font-bold'>
+							Asignado a
+						</label>
+						<select
+							id='assignTo'
+							className='input-form select-none rounded'
+							onChange={handleChangeAssignTo}
+							defaultValue={task.assignedTo?._id}>
+							<option value=''>Sin asignar</option>
 							<option
-								key={status}
-								value={status}>
-								{translate}
+								key={team.manager._id}
+								value={team.manager._id}>
+								{team.manager.name}
 							</option>
-						))}
-					</select>
+							{team.team.map(teamMember => (
+								<option
+									key={teamMember._id}
+									value={teamMember._id}>
+									{teamMember.name}
+								</option>
+							))}
+						</select>
+					</div>
+				</section>
+			</main>
+			<footer className='px-10 py-5 flex items-end justify-between gap-5'>
+				<div className=''>
+					{task.assignedTo ? (
+						<UserItem user={task.assignedTo} />
+					) : (
+						<p className='text-slate-600 uppercase font-semibold'>Sin asignar</p>
+					)}
 				</div>
-				<div className='flex flex-col flex-1'>
-					<label htmlFor='assignTo'>Asignado a</label>
-					<select
-						id='assignTo'
-						className='input-form select-none'
-						onChange={handleChangeAssignTo}
-						defaultValue={task.assignedTo?._id}>
-						<option value=''>Sin asignar</option>
-						<option
-							key={team.manager._id}
-							value={team.manager._id}>
-							{team.manager.name}
-						</option>
-						{team.team.map(teamMember => (
-							<option
-								key={teamMember._id}
-								value={teamMember._id}>
-								{teamMember.name}
-							</option>
-						))}
-					</select>
-				</div>
-			</div>
-		</>
+				<p className='text-sm text-slate-600'>
+					Creado el: <span className='font-semibold'>{formatDate(task.createdAt)}</span>
+				</p>
+			</footer>
+		</div>
 	);
 }

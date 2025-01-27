@@ -53,18 +53,16 @@ export default function TaskAddModal({ team, status }: TaskAddModalProps) {
 	const handleCreateTask = (formData: TaskDraft) => mutate({ projectId, formData });
 
 	return (
-		<>
-			<DialogTitle
-				as='h3'
-				className='font-bold text-3xl my-4'>
-				Nueva Tarea
-			</DialogTitle>
-			<p className='text-xl '>
-				Llena el formulario y crea <span className='text-yellow-600 font-bold'>una tarea</span>
-			</p>
+		<div className='py-10 space-y-5'>
+			<header className='space-y-2 px-10'>
+				<h3 className='font-bold text-3xl '>Nueva Tarea</h3>
+				<p className='text-xl '>
+					Llena el formulario y crea <span className='text-yellow-600 font-bold'>una tarea</span>
+				</p>
+			</header>
 			<form
 				noValidate
-				className='space-y-5'
+				className='space-y-5 px-10'
 				onSubmit={handleSubmit(handleCreateTask)}>
 				<TaskForm
 					teamData={team}
@@ -77,6 +75,6 @@ export default function TaskAddModal({ team, status }: TaskAddModalProps) {
 					className='btn-secondary p-4 w-full'
 				/>
 			</form>
-		</>
+		</div>
 	);
 }

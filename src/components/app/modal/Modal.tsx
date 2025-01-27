@@ -33,7 +33,7 @@ export const Modal = ({ children, show, handleOnClose }: ModalProps) => {
 							leave='ease-in duration-200'
 							leaveFrom='opacity-100 scale-100'
 							leaveTo='opacity-0 scale-95'>
-							<DialogPanel className='w-11/12 max-w-3xl transform overflow-hidden rounded-lg bg-white transition-all p-10 md:px-14 space-y-5'>
+							<DialogPanel className='w-11/12 max-w-xl overflow-hidden rounded bg-white transition-all'>
 								{children}
 							</DialogPanel>
 						</TransitionChild>

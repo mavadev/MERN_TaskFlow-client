@@ -20,7 +20,6 @@ api.interceptors.request.use(config => {
 api.interceptors.response.use(
 	response => {
 		const { data, success } = responseSchema.safeParse(response.data);
-		console.log({ data });
 
 		if (!success) {
 			throw new Error('Estructura de respuesta inválida');

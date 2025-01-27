@@ -56,18 +56,16 @@ export default function EditTaskModal({ task, team }: EditTaskModalProps) {
 	const handleEditTask = (formData: TaskDraft) => mutate({ projectId, taskId, formData });
 
 	return (
-		<>
-			<DialogTitle
-				as='h3'
-				className='font-bold text-3xl my-4'>
-				Editar Tarea
-			</DialogTitle>
-			<p className='text-xl'>
-				Edita el formulario y actualiza <span className='text-yellow-600 font-bold'>la tarea</span>
-			</p>
+		<div className='py-5'>
+			<header className='space-y-2 py-5 px-10'>
+				<h3 className='font-bold text-3xl '>Editar Tarea</h3>
+				<p className='text-xl'>
+					Edita el formulario y actualiza <span className='text-yellow-600 font-bold'>la tarea</span>
+				</p>
+			</header>
 			<form
 				noValidate
-				className='space-y-5'
+				className='space-y-5 px-10'
 				onSubmit={handleSubmit(handleEditTask)}>
 				<TaskForm
 					teamData={team}
@@ -80,6 +78,6 @@ export default function EditTaskModal({ task, team }: EditTaskModalProps) {
 					className='btn-secondary p-4 w-full'
 				/>
 			</form>
-		</>
+		</div>
 	);
 }

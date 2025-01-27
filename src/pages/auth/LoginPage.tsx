@@ -25,7 +25,7 @@ const LoginPage = () => {
 		mutationFn: login,
 		onSuccess: message => {
 			toast.success(message);
-			navigate('/app');
+			navigate('/app/projects');
 		},
 		onError: error => {
 			toast.error(error.message);

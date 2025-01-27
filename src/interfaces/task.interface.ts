@@ -22,6 +22,7 @@ export interface TaskSimple extends z.infer<typeof taskSchemaSimple> {}
 // Tarea Completa
 export const taskSchema = taskSchemaSimple.extend({
 	notes: z.array(noteSchema),
+	updatedAt: z.string(),
 });
 export interface Task extends z.infer<typeof taskSchema> {}
 

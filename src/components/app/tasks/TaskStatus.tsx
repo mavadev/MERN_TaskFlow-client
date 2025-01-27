@@ -1,8 +1,8 @@
-import { statusTranslate } from '@/locales/es';
-import { PlusCircleIcon } from '@heroicons/react/24/solid';
 import { useNavigate } from 'react-router-dom';
+import { PlusCircleIcon } from '@heroicons/react/24/solid';
+import { statusTranslate } from '@/locales/es';
 
-const statusStyles: { [key: string]: string } = {
+export const statusStyles: { [key: string]: string } = {
 	pending: 'bg-slate-200 border-slate-500 text-gray-600',
 	onHold: 'bg-red-200 border-red-500 text-red-600',
 	inProgress: 'bg-blue-200 border-blue-500 text-blue-600',
@@ -17,7 +17,7 @@ type TaskStatusProps = {
 
 export const TaskStatus = ({ status, isManager }: TaskStatusProps) => {
 	const navigate = useNavigate();
-	const handleNavigate = () => navigate(location.pathname + `?mode=create&status=${status}`, { replace: true });
+	const handleNavigate = () => navigate(location.pathname + `?mode=create&status=${status}`);
 
 	return (
 		<div
