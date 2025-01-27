@@ -11,7 +11,7 @@ import {
 } from '@/pages/auth';
 
 // App Pages
-import { ProjectsPage, CreateProjectPage, ProjectDetailsPage } from '@/pages/app';
+import { ProjectsPage, ProjectCreatePage, ProjectDetailsPage } from '@/pages/app';
 import { ProjectViewPage, ProjectEditPage, ProjectTeamPage } from '@/pages/app/project';
 
 // Landing Page
@@ -39,7 +39,7 @@ export default function AppRouter() {
 				{/* Rutas Protegidas */}
 				<Route path='/app' element={<AppLayout />}>
 					<Route path='projects' element={<ProjectsPage />}/>
-					<Route path='projects/create' element={<CreateProjectPage />}/>
+					<Route path='projects/create' element={<ProjectCreatePage />}/>
 					<Route path='projects/:projectId' element={<ProjectDetailsPage />}>
 						<Route index element={<ProjectViewPage />}/>
 						<Route path='team' element={<ProjectTeamPage />}/>

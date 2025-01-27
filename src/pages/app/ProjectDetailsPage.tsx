@@ -4,15 +4,13 @@ import { Navigate, Outlet, useParams } from 'react-router-dom';
 
 import { useAuth } from '@/hooks/useAuth';
 import { getProject } from '@/api/ProjectAPI';
-import { getProjectTeam } from '@/api/TeamProjectAPI';
-import type { UserSimple } from '@/interfaces/user.interface';
 import type { Project } from '@/interfaces/project.interface';
 import type { TeamResponse } from '@/interfaces/team.interface';
 
 interface ProjectContextType {
-	user: UserSimple;
 	project: Project;
 	team: TeamResponse;
+	isManager: boolean;
 }
 
 const ProjectContext = createContext<ProjectContextType>({} as ProjectContextType);
@@ -32,22 +30,26 @@ const ProjectDetailsPage = () => {
 		retry: false,
 	});
 
-	const { data: team, isError: teamError } = useQuery({
-		queryKey: ['project-team', projectId],
-		queryFn: () => getProjectTeam({ projectId }),
-		retry: false,
-	});
-
 	if (isLoading) return <h2>Cargando Proyecto...</h2>;
-	if (projectError || !project || userError || !user || teamError || !team) return <Navigate to='/app/404' />;
+	if (projectError || !project || !user || userError)
+		return (
+			<Navigate
+				to='/app/404'
+				replace
+			/>
+		);
 
-	const isManager = user?._id === project.manager;
+	const isManager = user?._id === project.manager._id;
+	const team: TeamResponse = {
+		manager: project.manager,
+		team: project.team,
+	};
 
 	return (
-		<ProjectContext.Provider value={{ user, project, team }}>
-			<header className='flex flex-col mb-10'>
+		<ProjectContext.Provider value={{ project, team, isManager }}>
+			<header className='flex flex-col mb-5'>
 				<h2 className='uppercase font-bold text-gray-600'>{isManager ? 'Proyecto' : 'Colaboración'}</h2>
-				<h1 className='font-bold text-2xl md:text-3xl'>{project.projectName}</h1>
+				<h1 className='font-bold text-2xl md:text-3xl text-balance'>{project.projectName}</h1>
 				<p className='text-sm text-gray-600 mt-2'>Cliente: {project.clientName}</p>
 			</header>
 			<Outlet />

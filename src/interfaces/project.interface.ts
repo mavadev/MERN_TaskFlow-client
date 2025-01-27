@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { tasksSchemaSimple } from './task.interface';
+import { teamMemberSchema } from './team.interface';
 
 // Proyecto Simple ( Listado de proyectos )
 export const projectSchemaSimple = z.object({
@@ -21,8 +22,9 @@ export interface ProjectsResponse extends z.infer<typeof projectsResponseSchema>
 
 // Proyecto Completo
 export const projectSchema = projectSchemaSimple.extend({
-	manager: z.string(),
 	tasks: tasksSchemaSimple,
+	manager: teamMemberSchema,
+	team: z.array(teamMemberSchema),
 	createdAt: z.string(),
 });
 export interface Project extends z.infer<typeof projectSchema> {}

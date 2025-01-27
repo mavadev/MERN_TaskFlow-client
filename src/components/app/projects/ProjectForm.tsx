@@ -23,6 +23,10 @@ export default function ProjectForm({ register, errors }: ProjectFormProps) {
 					className='input-form'
 					{...register('projectName', {
 						required: 'El Titulo del Proyecto es obligatorio',
+						maxLength: {
+							value: 100,
+							message: 'El Titulo del Proyecto no puede tener más de 70 caracteres',
+						},
 					})}
 				/>
 
@@ -42,6 +46,10 @@ export default function ProjectForm({ register, errors }: ProjectFormProps) {
 					className='input-form'
 					{...register('clientName', {
 						required: 'El Nombre del Cliente es obligatorio',
+						maxLength: {
+							value: 70,
+							message: 'El Nombre del Cliente no puede tener más de 80 caracteres',
+						},
 					})}
 				/>
 
@@ -60,6 +68,10 @@ export default function ProjectForm({ register, errors }: ProjectFormProps) {
 					className='input-form'
 					{...register('description', {
 						required: 'Una descripción del proyecto es obligatoria',
+						maxLength: {
+							value: 300,
+							message: 'La descripción no puede tener más de 300 caracteres',
+						},
 					})}
 				/>
 

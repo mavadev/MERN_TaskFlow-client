@@ -5,13 +5,11 @@ import { TaskList } from '@/components/app/tasks/TaskList';
 import { TaskModal } from '@/components/app/tasks/TaskModal';
 
 const ProjectViewPage = () => {
-	const { user, project, team } = useProject();
-	const isManager = user?._id === project.manager;
-
+	const { project, team, isManager } = useProject();
 	return (
 		<>
 			<header className='flex flex-col gap-3 mb-5'>
-				<p className='text-lg text-gray-900 text-balance'>{project.description}</p>
+				<p className='text-lg text-gray-900'>{project.description}</p>
 				{isManager && (
 					<nav>
 						<Link

@@ -24,7 +24,7 @@
 
 /* Formulario */
 .form--project {
-	@apply mt-10 bg-white shadow-lg rounded-lg w-full max-w-2xl;
+	@apply mt-10 bg-white shadow-lg rounded-lg w-full max-w-xl;
 }
 .label-form {
 	@apply font-bold text-black text-xl;

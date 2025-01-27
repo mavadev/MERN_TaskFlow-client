@@ -26,7 +26,7 @@ const ProjectsPage = () => {
 
 				<nav>
 					<Link
-						to='/projects/create'
+						to='/app/projects/create'
 						className='btn-primary mt-4'>
 						Nuevo Proyecto
 					</Link>
