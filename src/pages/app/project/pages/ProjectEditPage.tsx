@@ -4,7 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { updateProject } from '@/api/ProjectAPI';
-import { useProject } from '../ProjectDetailsPage';
+import { useProject } from '../ProjectPage';
 import ProjectForm from '@/components/app/projects/ProjectForm';
 import type { Project, ProjectDraft } from '@/interfaces/project.interface';
 

@@ -6,3 +6,8 @@ export const formatDate = (date: string) => {
 		day: 'numeric',
 	});
 };
+
+export const formatImage = (pathImage: string) => {
+	const completeURL = `${import.meta.env.VITE_PUBLIC_URL}${pathImage}`;
+	return completeURL;
+};

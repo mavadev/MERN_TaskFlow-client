@@ -1,22 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
-import { useContext, createContext } from 'react';
 import { Navigate, Outlet, useParams } from 'react-router-dom';
 
 import { useAuth } from '@/hooks/useAuth';
 import { getProject } from '@/api/ProjectAPI';
+import { ProjectContext } from './ProjectContext';
 import type { Project } from '@/interfaces/project.interface';
 import type { TeamResponse } from '@/interfaces/team.interface';
 
-interface ProjectContextType {
-	project: Project;
-	team: TeamResponse;
-	isManager: boolean;
-}
-
-const ProjectContext = createContext<ProjectContextType>({} as ProjectContextType);
-export const useProject = () => useContext(ProjectContext);
-
-const ProjectDetailsPage = () => {
+const ProjectPage = () => {
 	const { user, isError: userError } = useAuth();
 	const { projectId } = useParams() as { projectId: Project['_id'] };
 
@@ -57,4 +48,4 @@ const ProjectDetailsPage = () => {
 	);
 };
 
-export default ProjectDetailsPage;
+export default ProjectPage;

@@ -3,6 +3,7 @@ import { MenuItem } from '@headlessui/react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
+import { formatImage } from '@/utils';
 import { deleteTask } from '@/api/TaskAPI';
 import { OptionsItem } from '../OptionsItem';
 import type { TaskSimple } from '@/interfaces/task.interface';
@@ -34,8 +35,6 @@ export const TaskItem = ({ task, isManager }: TaskItemProps) => {
 			mutate({ projectId: task.project, taskId: task._id });
 	};
 
-	const avatar = `${import.meta.env.VITE_PUBLIC_URL}${task.assignedTo?.avatar}`;
-
 	return (
 		<li className='p-4 bg-white border border-slate-400 flex justify-between gap-3 rounded cursor-pointer'>
 			<div className='flex flex-col gap-y-2'>
@@ -48,8 +47,8 @@ export const TaskItem = ({ task, isManager }: TaskItemProps) => {
 				{task.assignedTo ? (
 					<div className='flex gap-2 items-center mt-3'>
 						<img
-							src={avatar}
 							alt={task.assignedTo.username}
+							src={formatImage(task.assignedTo.avatar)}
 							className='w-5 h-5 rounded-full'
 						/>
 						<p className='text-sm text-gray-500'>{task.assignedTo.name}</p>

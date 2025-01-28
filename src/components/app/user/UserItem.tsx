@@ -1,17 +1,16 @@
-import { UserSimple } from '@/interfaces/user.interface';
+import { formatImage } from '@/utils';
+import type { UserSimple } from '@/interfaces/user.interface';
 
 interface UserItemProps {
 	user: UserSimple;
 }
 
 export const UserItem = ({ user }: UserItemProps) => {
-	const avatar = `${import.meta.env.VITE_PUBLIC_URL}${user.avatar}`;
-
 	return (
 		<div className='flex items-center gap-4'>
 			<img
-				src={avatar}
 				alt={user.name}
+				src={formatImage(user.avatar)}
 				className='w-10 h-10 rounded-full'
 			/>
 			<div>

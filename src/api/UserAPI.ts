@@ -3,7 +3,7 @@ import { responseError } from './errors';
 import type { ResponseData } from '@/interfaces/api.interface';
 import { User, userSchema } from '@/interfaces/user.interface';
 
-export async function getUser(): Promise<User> {
+export async function getProfile(): Promise<User> {
 	try {
 		const url = '/user';
 		const { data } = await api.get<ResponseData>(url);

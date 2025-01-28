@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+
+import { formatImage } from '@/utils';
 import { addMemberToProject } from '@/api/TeamProjectAPI';
 import type { Project } from '@/interfaces/project.interface';
 import type { UserSimple } from '@/interfaces/user.interface';
@@ -14,7 +16,6 @@ export const FindMemberItem = ({ user }: FindMemberItemProps) => {
 	const queryClient = useQueryClient();
 	const [statusAddMember, setStatusAddMember] = useState('idle');
 	const { projectId } = useParams() as { projectId: Project['_id'] };
-	const avatar = `${import.meta.env.VITE_PUBLIC_URL}${user.avatar}`;
 
 	const { mutate: addMember } = useMutation({
 		mutationFn: addMemberToProject,
@@ -38,8 +39,8 @@ export const FindMemberItem = ({ user }: FindMemberItemProps) => {
 		<div className='flex items-center justify-between'>
 			<div className='flex items-center gap-4'>
 				<img
-					src={avatar}
 					alt={user.name}
+					src={formatImage(user.avatar)}
 					className='w-12 h-12 rounded-full'
 				/>
 				<div>

@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { TrashIcon } from '@heroicons/react/24/outline';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
+import { formatImage } from '@/utils';
 import { deleteMemberFromProject } from '@/api/TeamProjectAPI';
 import type { TeamMember } from '@/interfaces/team.interface';
 import type { Project } from '@/interfaces/project.interface';
@@ -15,7 +16,6 @@ interface TeamMemberItemProps {
 export const TeamMemberItem = ({ isManager = false, member }: TeamMemberItemProps) => {
 	const queryClient = useQueryClient();
 	const { projectId } = useParams() as { projectId: Project['_id'] };
-	const avatar = `${import.meta.env.VITE_PUBLIC_URL}${member.avatar}`;
 
 	const { mutate: deleteMember, isIdle } = useMutation({
 		mutationFn: deleteMemberFromProject,
@@ -38,8 +38,8 @@ export const TeamMemberItem = ({ isManager = false, member }: TeamMemberItemProp
 			<div className='flex items-end justify-between gap-4'>
 				<div className='flex gap-2'>
 					<img
-						src={avatar}
 						alt={member.name}
+						src={formatImage(member.avatar)}
 						className='w-10 h-10 rounded-full'
 					/>
 					<div>
