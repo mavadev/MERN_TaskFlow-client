@@ -18,3 +18,11 @@ export const userSchema = userSimpleSchema.extend({
 	updatedAt: z.string(),
 });
 export type User = z.infer<typeof userSchema>;
+
+// Cambiar Contraseña
+export const formChangePasswordSchema = z.object({
+	current_password: z.string(),
+	password: z.string(),
+	password_confirmation: z.string(),
+});
+export type FormChangePassword = z.infer<typeof formChangePasswordSchema>;
