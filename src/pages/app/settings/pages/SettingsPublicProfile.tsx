@@ -1,8 +1,9 @@
-import { useProfile } from '../ProfileContext';
+import { useContext } from 'react';
 import { formatDate, formatImage } from '@/utils';
+import { ProfileContext } from '../SettingsContext';
 
 const ProfileViewPage = () => {
-	const { profile } = useProfile();
+	const { profile } = useContext(ProfileContext);
 
 	return (
 		<main className='space-y-5 p-5'>

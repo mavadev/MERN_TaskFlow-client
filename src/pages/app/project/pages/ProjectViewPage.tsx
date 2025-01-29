@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { useProject } from '../ProjectPage';
+import { useProject } from '../ProjectContext';
 import { TaskList } from '@/components/app/tasks/TaskList';
 import { TaskModal } from '@/components/app/tasks/TaskModal';
 

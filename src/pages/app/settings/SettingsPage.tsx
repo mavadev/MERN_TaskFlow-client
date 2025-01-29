@@ -1,34 +1,24 @@
-import { useQuery } from '@tanstack/react-query';
-import { Link, Navigate, NavLink, Outlet } from 'react-router-dom';
-
-import { getProfile } from '@/api/UserAPI';
-import { ProfileContext } from './ProfileContext';
+import { Navigate, NavLink, Outlet } from 'react-router-dom';
 import { UserCircleIcon } from '@heroicons/react/24/outline';
+
+import { useProfile } from '@/hooks/useProfile';
+import { ProfileContext } from './SettingsContext';
 
 const tabs = [
 	{ title: 'Perfil de Usuario', icon: <UserCircleIcon />, link: '/' },
 	{ title: 'Cambiar Contraseña', icon: <UserCircleIcon />, link: '/change-password' },
 ];
 
-const ProfilePage = () => {
-	// Obtener usuario completo
-	const {
-		data: profile,
-		isLoading,
-		isError,
-	} = useQuery({
-		queryKey: ['profile'],
-		queryFn: getProfile,
-		retry: false,
-	});
+const SettingsPage = () => {
+	const { profile, isProfileLoading, isProfileError } = useProfile();
 
-	if (isLoading) return <p>Cargando perfil ...</p>;
-	if (isError || !profile) return <Navigate to='/app/404' />;
+	if (isProfileLoading) return <p>Cargando perfil ...</p>;
+	if (isProfileError || !profile) return <Navigate to='/app/404' />;
 
 	return (
 		<ProfileContext.Provider value={{ profile }}>
 			<header className='container p-5 pb-0'>
-				<h2 className='text-2xl font-semibold mb-10'>Configuración de Perfil</h2>
+				<h2 className='text-2xl font-semibold mb-10'>Configuración</h2>
 				{tabs.map(tab => (
 					<NavLink
 						to={tab.link}
@@ -47,4 +37,4 @@ const ProfilePage = () => {
 	);
 };
 
-export default ProfilePage;
+export default SettingsPage;

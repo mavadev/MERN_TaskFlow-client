@@ -5,6 +5,3 @@ interface ProfileContextType {
 	profile: User;
 }
 export const ProfileContext = createContext<ProfileContextType>({} as ProfileContextType);
-
-// Hook para uso de Contexto
-export const useProfile = () => useContext(ProfileContext);

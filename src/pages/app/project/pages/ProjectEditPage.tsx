@@ -3,8 +3,8 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
+import { useProject } from '../ProjectContext';
 import { updateProject } from '@/api/ProjectAPI';
-import { useProject } from '../ProjectPage';
 import ProjectForm from '@/components/app/projects/ProjectForm';
 import type { Project, ProjectDraft } from '@/interfaces/project.interface';
 

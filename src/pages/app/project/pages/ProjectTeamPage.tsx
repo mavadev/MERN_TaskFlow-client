@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import { useProject } from '../ProjectPage';
+import { useProject } from '../ProjectContext';
 import { TeamList, AddMemberModal } from '@/components/app/team';
 
 const ProjectTeamPage = () => {

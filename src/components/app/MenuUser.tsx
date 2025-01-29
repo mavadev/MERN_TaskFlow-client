@@ -37,14 +37,19 @@ export const MenuUser = ({ name }: MenuUserProps) => {
 							<p className='max-md:text-xl font-bold text-primary-700 mb-3'>{name}</p>
 							<div className='text-left transition-colors max-md:text-lg font-medium'>
 								<Link
-									to='/profile'
+									to='/app/profile'
 									className='block p-2 border-b-2 w-full hover:border-b-darken-500 '>
 									Mi Perfil
 								</Link>
 								<Link
-									to='/'
+									to='/app/projects'
 									className='block p-2 border-b-2 w-full hover:border-b-darken-500'>
 									Mis Proyectos
+								</Link>
+								<Link
+									to='/app/settings'
+									className='block p-2 border-b-2 w-full hover:border-b-darken-500'>
+									Configuración
 								</Link>
 								<button
 									type='button'

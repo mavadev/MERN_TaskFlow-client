@@ -7,7 +7,13 @@ const AuthLayout = () => {
 	const { isLoading, isError } = useAuth();
 
 	if (isLoading) return <div>Cargando...</div>;
-	if (!isError) return <Navigate to='/app/projects' replace />;
+	if (!isError)
+		return (
+			<Navigate
+				to='/app/projects'
+				replace
+			/>
+		);
 
 	return (
 		<div className='flex flex-col min-h-screen'>
@@ -16,7 +22,7 @@ const AuthLayout = () => {
 					draggable
 					closeOnClick
 				/>
-				<div className='flex-1 px-4 py-8 flex flex-col justify-center items-center gap-10'>
+				<div className='flex-1 px-4 py-8 flex flex-col justify-center items-center gap-10 bg-white'>
 					<Logo />
 					<Outlet />
 				</div>
