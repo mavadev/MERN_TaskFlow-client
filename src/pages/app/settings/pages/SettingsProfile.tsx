@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { formatDate, formatImage } from '@/utils';
 import { ProfileContext } from '../SettingsContext';
 
-const ProfileViewPage = () => {
+const SettingsProfile = () => {
 	const { profile } = useContext(ProfileContext);
 
 	return (
@@ -45,4 +45,4 @@ const ProfileViewPage = () => {
 	);
 };
 
-export default ProfileViewPage;
+export default SettingsProfile;

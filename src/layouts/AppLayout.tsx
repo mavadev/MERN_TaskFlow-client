@@ -10,7 +10,13 @@ const AppLayout = () => {
 	const { user, isLoading, isError } = useAuth();
 
 	if (isLoading) return <div>Cargando...</div>;
-	if (isError) return <Navigate replace to='/auth/login' />;
+	if (isError)
+		return (
+			<Navigate
+				replace
+				to='/auth/login'
+			/>
+		);
 
 	return (
 		<div className='flex flex-col min-h-screen'>
@@ -20,7 +26,7 @@ const AppLayout = () => {
 					<MenuUser name={user?.name!} />
 				</div>
 			</header>
-			<main className='container mx-auto flex-1 px-4 py-8'>
+			<main className='container mx-auto flex-1 flex flex-col'>
 				<ToastContainer
 					draggable
 					closeOnClick

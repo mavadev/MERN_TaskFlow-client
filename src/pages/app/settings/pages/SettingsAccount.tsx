@@ -6,7 +6,7 @@ import { changePasswordProfile } from '@/api/UserAPI';
 import { ErrorMessage } from '@/components/ErrorMessage';
 import { FormChangePassword } from '@/interfaces/user.interface';
 
-const ProfileChangePasswordPage = () => {
+const SettingsAccount = () => {
 	// Formulario
 	const initialValues: FormChangePassword = {
 		current_password: '',
@@ -119,4 +119,4 @@ const ProfileChangePasswordPage = () => {
 	);
 };
 
-export default ProfileChangePasswordPage;
+export default SettingsAccount;
