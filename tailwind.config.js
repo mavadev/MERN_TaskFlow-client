@@ -11,6 +11,7 @@ export default {
 				darken: colors.slate,
 				dark: colors.gray[900],
 				card: colors.white,
+				danger: colors.red[500],
 			},
 		},
 	},

@@ -13,8 +13,8 @@ import { ProfileContext } from './SettingsContext';
 const tabs = [
 	{ title: 'Perfil Público', icon: <UserCircleIcon />, link: '/profile' },
 	{ title: 'Cuenta', icon: <WrenchScrewdriverIcon />, link: '/account' },
-	{ title: 'Apariencia', icon: <SwatchIcon />, link: '/preferences' },
 	{ title: 'Autenticación', icon: <KeyIcon />, link: '/authentication' },
+	{ title: 'Apariencia', icon: <SwatchIcon />, link: '/preferences' },
 	{ title: 'Proyectos', icon: <BookmarkSquareIcon />, link: '/projects' },
 ];
 
