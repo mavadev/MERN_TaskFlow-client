@@ -32,6 +32,7 @@ const SettingsPage = () => {
 					<ul>
 						{tabs.map(tab => (
 							<NavLink
+								key={tab.title}
 								to={`/app/settings${tab.link}`}
 								className={({ isActive }) =>
 									`p-4 flex items-center justify-between ${
