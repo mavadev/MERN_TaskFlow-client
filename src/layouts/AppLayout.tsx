@@ -20,7 +20,7 @@ const AppLayout = () => {
 
 	return (
 		<div className='flex flex-col min-h-screen'>
-			<header className='bg-slate-800'>
+			<header className='border-b border-gray-300'>
 				<div className='container mx-auto flex flex-row justify-between items-center px-4 py-6'>
 					<Logo />
 					<MenuUser name={user?.name!} />
@@ -33,7 +33,7 @@ const AppLayout = () => {
 				/>
 				<Outlet />
 			</main>
-			<footer className='bg-slate-800'>
+			<footer className='bg-primary-900'>
 				<div className='container mx-auto p-5 pb-8 flex flex-col md:flex-row items-center justify-between text-gray-300'>
 					<p>
 						Proyecto realizado por{' '}
