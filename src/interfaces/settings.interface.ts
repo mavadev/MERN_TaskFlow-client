@@ -24,8 +24,17 @@ export interface FormUsername {
 	username: User['username'];
 }
 
-// Cambiar Contraseña
+// Eliminar cuenta
+export interface FormDeleteAccount {
+	email: User['email'];
+	password: string;
+	confirmation: string;
+}
+export interface DeleteAccount {
+	user_id: User['_id'];
+}
 
+// Cambiar Contraseña
 export const formChangePasswordSchema = z.object({
 	current_password: z.string(),
 	password: z.string(),

@@ -11,6 +11,10 @@ const SettingsAccount = () => {
 		navigate('?change-username=true');
 	};
 
+	const openModalDeleteAccount = () => {
+		navigate('?delete-account=true');
+	};
+
 	return (
 		<main className='flex-1 p-5 overflow-auto bg-white space-y-10'>
 			<section>
@@ -30,7 +34,7 @@ const SettingsAccount = () => {
 					Elimina tu cuenta de manera permanente, esto eliminará todos los datos de tu cuenta.
 				</p>
 				<button
-					onClick={() => {}}
+					onClick={openModalDeleteAccount}
 					className='btn btn-primary !bg-danger w-full md:w-max'>
 					Eliminar cuenta
 				</button>

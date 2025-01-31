@@ -2,6 +2,7 @@ import api from '@/lib/axios';
 import { responseError } from './errors';
 import type { ResponseData } from '@/interfaces/api.interface';
 import type {
+	DeleteAccount,
 	FormChangePassword,
 	FormCheckPassword,
 	FormUsername,
@@ -57,6 +58,17 @@ export async function updateUsername(formUsername: FormUsername) {
 	try {
 		const url = '/user/username';
 		const { data } = await api.patch<ResponseData>(url, formUsername);
+
+		return data.message;
+	} catch (error) {
+		throw new Error(responseError(error as Error));
+	}
+}
+
+export async function deleteAccount() {
+	try {
+		const url = `/user`;
+		const { data } = await api.delete<ResponseData>(url);
 
 		return data.message;
 	} catch (error) {
