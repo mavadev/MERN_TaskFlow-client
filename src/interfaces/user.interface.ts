@@ -16,5 +16,7 @@ export const userSchema = userSimpleSchema.extend({
 	description: z.string(),
 	createdAt: z.string(),
 	updatedAt: z.string(),
+	allowCollaborate: z.boolean(),
+	allowCollaborators: z.boolean(),
 });
 export type User = z.infer<typeof userSchema>;

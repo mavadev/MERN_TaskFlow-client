@@ -1,10 +1,16 @@
 import { z } from 'zod';
 
-// Cambiar datos de perfil
+// Actualizar datos de perfil
 export interface SettingsProfile {
 	name: string;
 	email: string;
 	description: string;
+}
+
+// Actualizar contribución de usuario
+export interface SettingsContribution {
+	collaborate: boolean;
+	collaborators: boolean;
 }
 
 // Cambiar Contraseña

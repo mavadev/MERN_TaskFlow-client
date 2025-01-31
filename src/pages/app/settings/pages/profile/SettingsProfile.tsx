@@ -19,7 +19,7 @@ const SettingsProfile = () => {
 			</section>
 			<section>
 				<h2 className='text-xl font-semibold mb-3 border-b border-gray-300 pb-2'>Contribución en Proyectos</h2>
-				<SettingsFormContribution />
+				<SettingsFormContribution profile={profile} />
 			</section>
 		</main>
 	);
