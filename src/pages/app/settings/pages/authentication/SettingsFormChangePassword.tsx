@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@/components/ErrorMessage';
-import type { FormChangePassword } from '@/interfaces/user.interface';
+import type { FormChangePassword } from '@/interfaces/settings.interface';
 
 interface SettingsFormChangePasswordProps {
 	onSubmit: (formData: FormChangePassword) => void;

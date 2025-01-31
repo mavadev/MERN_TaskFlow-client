@@ -49,7 +49,7 @@ const SettingsFormProfile = ({ profile }: SettingsFormProfileProps) => {
 		},
 	});
 
-	const handleUpdateProfile = (formUpdateProfile: SettingsProfile) => mutate({ formUpdateProfile });
+	const handleUpdateProfile = (formUpdateProfile: SettingsProfile) => mutate(formUpdateProfile);
 	const handleError = () => setIsError(true);
 
 	return (

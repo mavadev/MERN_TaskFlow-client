@@ -1,9 +1,15 @@
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ProfileContext } from '../../SettingsContext';
 import { ModalSettingsUsername, ModalSettingsDeleteAccount } from '../account';
 
 const SettingsAccount = () => {
+	const navigate = useNavigate();
 	const { profile, projects } = useContext(ProfileContext);
+
+	const openModalUsername = () => {
+		navigate('?change-username=true');
+	};
 
 	return (
 		<main className='flex-1 p-5 overflow-auto bg-white space-y-10'>
@@ -13,7 +19,7 @@ const SettingsAccount = () => {
 					Cambia el nombre de usuario de tu cuenta, este nombre se mostrará en tu perfil público.
 				</p>
 				<button
-					onClick={() => {}}
+					onClick={openModalUsername}
 					className='btn btn-primary w-full md:w-max'>
 					Cambiar usuario
 				</button>

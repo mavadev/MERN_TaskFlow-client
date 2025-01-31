@@ -49,7 +49,7 @@ const SettingsFormContribution = ({ profile }: SettingsContributionProps) => {
 	// Actualizar estado de contribuciones
 	const handleCollaboration = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		if (changes) mutate({ formCollaboration: contribution });
+		if (changes) mutate(contribution);
 	};
 
 	return (

@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useAuth } from '@/hooks/useAuth';
 import { Logo } from '@/components/LogoApp';
 import { MenuUser } from '@/components/app/MenuUser';
+import ModalSecurity from '@/components/app/ModalSecurity';
 
 const AppLayout = () => {
 	const { user, isLoading, isError } = useAuth();
@@ -32,6 +33,7 @@ const AppLayout = () => {
 					closeOnClick
 				/>
 				<Outlet />
+				<ModalSecurity />
 			</main>
 			<footer className='bg-primary-900'>
 				<div className='container mx-auto p-5 pb-8 flex flex-col md:flex-row items-center justify-between text-gray-300'>

@@ -1,19 +1,31 @@
 import { z } from 'zod';
+import type { User } from '@/interfaces/user.interface';
+
+// Validar contraseña
+export interface FormCheckPassword {
+	password: string;
+}
 
 // Actualizar datos de perfil
 export interface SettingsProfile {
-	name: string;
-	email: string;
-	description: string;
+	name: User['name'];
+	email: User['email'];
+	description: User['description'];
 }
 
 // Actualizar contribución de usuario
 export interface SettingsContribution {
-	collaborate: boolean;
-	collaborators: boolean;
+	collaborate: User['allowCollaborate'];
+	collaborators: User['allowCollaborators'];
+}
+
+// Actualizar nombre de usuario
+export interface FormUsername {
+	username: User['username'];
 }
 
 // Cambiar Contraseña
+
 export const formChangePasswordSchema = z.object({
 	current_password: z.string(),
 	password: z.string(),
