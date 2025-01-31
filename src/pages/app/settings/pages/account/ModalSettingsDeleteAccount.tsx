@@ -5,9 +5,10 @@ import type { User } from '@/interfaces/user.interface';
 
 interface ModalSettingsDeleteAccountProps {
 	email: User['email'];
+	projects: number;
 }
 
-const ModalSettingsDeleteAccount = ({ email }: ModalSettingsDeleteAccountProps) => {
+const ModalSettingsDeleteAccount = ({ email, projects }: ModalSettingsDeleteAccountProps) => {
 	return (
 		<Modal
 			show={false}
@@ -24,11 +25,11 @@ const ModalSettingsDeleteAccount = ({ email }: ModalSettingsDeleteAccountProps) 
 			<main className='space-y-5 p-5'>
 				<section className='space-y-3 border-b border-gray-300 pb-5'>
 					<p>
-						Esta acción <span className='font-semibold'>eliminará todos los datos de tu cuenta</span>, incluyendo tus
-						proyectos, tareas, notas de Task Flow.
+						Esta acción <span className='font-semibold'>eliminará todos tus {projects} proyectos</span>, incluyendo sus
+						tareas, notas, colaboradores de Task Flow.
 					</p>
 					<p className=''>
-						Después de eliminar tu cuenta, <span className='font-semibold'>no podrás acceder a tu cuenta</span>.
+						Después de eliminar tu cuenta, <span className='font-semibold'>no podrás acceder a ella</span>.
 					</p>
 					<p className=''>Si estás seguro de que deseas eliminar tu cuenta, ingresa tus credenciales de acceso.</p>
 				</section>

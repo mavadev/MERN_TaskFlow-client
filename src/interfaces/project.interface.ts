@@ -20,6 +20,7 @@ export const projectsResponseSchema = z.object({
 });
 export interface ProjectsResponse extends z.infer<typeof projectsResponseSchema> {}
 
+
 // Proyecto Completo
 export const projectSchema = projectSchemaSimple.extend({
 	tasks: tasksSchemaSimple,
@@ -32,3 +33,19 @@ export interface Project extends z.infer<typeof projectSchema> {}
 // Proyecto en estado de borrador
 export const projectDraftSchema = projectSchemaSimple.pick({ projectName: true, clientName: true, description: true });
 export interface ProjectDraft extends z.infer<typeof projectDraftSchema> {}
+
+// Proyecto en Configuración
+export const projectConfigSchema = z.object({
+	_id: z.string(),
+	projectName: z.string(),
+	manager: teamMemberSchema,
+	team: z.array(z.string()),
+});
+export interface ProjectConfig extends z.infer<typeof projectConfigSchema> {}
+
+// Respuesta de proyectos en Configuración
+export const projectsResponseConfigSchema = z.object({
+	managedProjects: z.array(projectConfigSchema),
+	teamProjects: z.array(projectConfigSchema),
+});
+export interface ProjectsResponseConfig extends z.infer<typeof projectsResponseConfigSchema> {}

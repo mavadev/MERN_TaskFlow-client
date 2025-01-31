@@ -27,7 +27,7 @@ const CreateProjectPage = () => {
 		mutationFn: createProject,
 		onSuccess: message => {
 			toast.success(message);
-			navigate('/');
+			navigate('/app');
 		},
 		onError: error => {
 			toast.error(error.message);

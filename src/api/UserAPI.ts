@@ -2,20 +2,33 @@ import api from '@/lib/axios';
 import { responseError } from './errors';
 import type { ResponseData } from '@/interfaces/api.interface';
 import { FormChangePassword, User, userSchema, UserSimple, userSimpleSchema } from '@/interfaces/user.interface';
+import { ProjectsResponseConfig, projectsResponseConfigSchema } from '@/interfaces/project.interface';
 
 interface UserProps {
 	formChangePassword: FormChangePassword;
 }
 
-export async function getProfile(): Promise<User> {
+interface ProfileResponse {
+	user: User;
+	projects: ProjectsResponseConfig;
+}
+
+export async function getProfile(): Promise<ProfileResponse> {
 	try {
 		const url = '/user';
-		const { data } = await api.get<ResponseData>(url);
+		const {
+			data: { data },
+		} = await api.get<ResponseData>(url);
 
-		const { success, data: user, error } = userSchema.safeParse(data.data);
+		// Validar el usuario
+		const { success, data: user } = userSchema.safeParse(data.user);
 		if (!success) throw new Error('Error al obtener el usuario');
 
-		return user;
+		// Validar los proyectos
+		const { success: successProjects, data: projects } = projectsResponseConfigSchema.safeParse(data.projects);
+		if (!successProjects) throw new Error('Error al obtener los proyectos');
+
+		return { user, projects };
 	} catch (error) {
 		throw new Error(responseError(error as Error));
 	}
@@ -35,7 +48,7 @@ export async function userValidate(): Promise<UserSimple> {
 	}
 }
 
-export async function changePasswordProfile({ formChangePassword }: UserProps) {
+export async function changePasswordProfile({ formChangePassword }: Pick<UserProps, 'formChangePassword'>) {
 	try {
 		const url = '/user/change-password';
 		const { data } = await api.post<ResponseData>(url, formChangePassword);

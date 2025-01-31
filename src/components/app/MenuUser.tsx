@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Bars3Icon } from '@heroicons/react/20/solid';
 import { useQueryClient } from '@tanstack/react-query';
 import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
@@ -9,11 +9,13 @@ interface MenuUserProps {
 }
 
 export const MenuUser = ({ name }: MenuUserProps) => {
+	const navigate = useNavigate();
 	const queryClient = useQueryClient();
 
 	const logout = () => {
 		localStorage.removeItem('AUTH_TOKEN');
-		queryClient.invalidateQueries({ queryKey: ['user'] });
+		queryClient.removeQueries({ queryKey: ['user'] });
+		navigate('/auth/login');
 	};
 
 	return (

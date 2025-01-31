@@ -29,7 +29,7 @@ const SettingsFormChangePassword = ({ onSubmit, isPending }: SettingsFormChangeP
 				<label
 					htmlFor='current_password'
 					className='font-semibold'>
-					Actual Contraseña
+					Contraseña actual
 				</label>
 
 				<input

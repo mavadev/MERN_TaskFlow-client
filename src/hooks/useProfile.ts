@@ -13,5 +13,7 @@ export const useProfile = () => {
 		retry: false,
 	});
 
-	return { profile, isProfileLoading: isLoading, isProfileError: isError };
+	if (!profile) return { profile: null, projects: null, isProfileLoading: isLoading, isProfileError: isError };
+
+	return { profile: profile.user, projects: profile.projects, isProfileLoading: isLoading, isProfileError: isError };
 };

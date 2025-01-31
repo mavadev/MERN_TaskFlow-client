@@ -6,7 +6,7 @@ const SettingsProfile = () => {
 	const { profile } = useContext(ProfileContext);
 
 	return (
-		<main className='flex-1 space-y-10 p-5 overflow-auto'>
+		<main className='flex-1 space-y-10 p-5'>
 			<section>
 				<h2 className='text-xl font-semibold mb-3 border-b border-gray-300 pb-2'>Perfil Público</h2>
 				<div className='flex flex-col-reverse md:flex-row gap-5'>

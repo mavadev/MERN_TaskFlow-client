@@ -3,7 +3,7 @@ import { ProfileContext } from '../../SettingsContext';
 import { ModalSettingsUsername, ModalSettingsDeleteAccount } from '../account';
 
 const SettingsAccount = () => {
-	const { profile } = useContext(ProfileContext);
+	const { profile, projects } = useContext(ProfileContext);
 
 	return (
 		<main className='flex-1 p-5 overflow-auto bg-white space-y-10'>
@@ -31,7 +31,10 @@ const SettingsAccount = () => {
 			</section>
 
 			<ModalSettingsUsername />
-			<ModalSettingsDeleteAccount email={profile.email} />
+			<ModalSettingsDeleteAccount
+				email={profile.email}
+				projects={projects.managedProjects.length}
+			/>
 		</main>
 	);
 };

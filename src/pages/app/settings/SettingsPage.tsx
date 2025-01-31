@@ -19,17 +19,17 @@ const tabs = [
 ];
 
 const SettingsPage = () => {
-	const { profile, isProfileLoading, isProfileError } = useProfile();
+	const { profile, projects, isProfileLoading, isProfileError } = useProfile();
 
 	if (isProfileLoading) return <p>Cargando perfil ...</p>;
 	if (isProfileError || !profile) return <Navigate to='/app/404' />;
 
 	return (
-		<ProfileContext.Provider value={{ profile }}>
+		<ProfileContext.Provider value={{ profile, projects }}>
 			<div className='container flex flex-col md:flex-row flex-1'>
-				<aside className='w-full md:max-w-max flex flex-col justify-end gap-5 border-r-2 border-gray-300'>
-					<h2 className='text-xl uppercase text-gray-700 p-2 hidden md:block'>Configuración</h2>
+				<aside className='w-full md:max-w-max flex flex-col gap-5 border-r-2 border-gray-300'>
 					<ul>
+						<h3 className='p-4 text-sm font-semibold uppercase text-gray-700'>Configuración</h3>
 						{tabs.map(tab => (
 							<NavLink
 								key={tab.title}

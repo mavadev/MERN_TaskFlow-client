@@ -44,6 +44,7 @@ export const AddMemberModal = () => {
 	});
 
 	const handleNewMember = () => {
+		console.log('NEW MEMBER');
 		const username = watch('username');
 
 		if (username !== lastSearch) {

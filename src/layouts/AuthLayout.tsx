@@ -10,8 +10,8 @@ const AuthLayout = () => {
 	if (!isError)
 		return (
 			<Navigate
-				to='/app/projects'
 				replace
+				to='/app/projects'
 			/>
 		);
 
