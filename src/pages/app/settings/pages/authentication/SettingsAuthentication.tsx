@@ -1,9 +1,9 @@
 import { toast } from 'react-toastify';
 import { useMutation } from '@tanstack/react-query';
 
-import { changePasswordProfile } from '@/api/UserAPI';
+import { changePasswordProfile } from '@/api/SettingsAPI';
 import SettingsFormChangePassword from './SettingsFormChangePassword';
-import type { FormChangePassword } from '@/interfaces/user.interface';
+import type { FormChangePassword } from '@/interfaces/settings.interface';
 
 const SettingsAuthentication = () => {
 	// Mutación para cambiar contraseña
@@ -17,8 +17,8 @@ const SettingsAuthentication = () => {
 		},
 	});
 	// Cambiar Contraseña
-	const handleChangePassword = (formData: FormChangePassword) => {
-		mutate({ formChangePassword: formData });
+	const handleChangePassword = (formChangePassword: FormChangePassword) => {
+		mutate({ formChangePassword });
 	};
 
 	return (

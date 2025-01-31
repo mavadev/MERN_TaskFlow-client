@@ -1,12 +1,8 @@
 import api from '@/lib/axios';
 import { responseError } from './errors';
 import type { ResponseData } from '@/interfaces/api.interface';
-import { FormChangePassword, User, userSchema, UserSimple, userSimpleSchema } from '@/interfaces/user.interface';
+import { User, userSchema, UserSimple, userSimpleSchema } from '@/interfaces/user.interface';
 import { ProjectsResponseConfig, projectsResponseConfigSchema } from '@/interfaces/project.interface';
-
-interface UserProps {
-	formChangePassword: FormChangePassword;
-}
 
 interface ProfileResponse {
 	user: User;
@@ -43,17 +39,6 @@ export async function userValidate(): Promise<UserSimple> {
 		if (!success) throw new Error('Error al obtener el usuario');
 
 		return user;
-	} catch (error) {
-		throw new Error(responseError(error as Error));
-	}
-}
-
-export async function changePasswordProfile({ formChangePassword }: Pick<UserProps, 'formChangePassword'>) {
-	try {
-		const url = '/user/change-password';
-		const { data } = await api.post<ResponseData>(url, formChangePassword);
-
-		return data.message;
 	} catch (error) {
 		throw new Error(responseError(error as Error));
 	}
