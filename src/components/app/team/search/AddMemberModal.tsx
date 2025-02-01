@@ -39,14 +39,11 @@ export const AddMemberModal = () => {
 		data: users,
 		mutate: getUsers,
 	} = useMutation({
-		mutationKey: ['search-users-team', projectId],
 		mutationFn: getUsersByUsername,
 	});
 
 	const handleNewMember = () => {
-		console.log('NEW MEMBER');
 		const username = watch('username');
-
 		if (username !== lastSearch) {
 			getUsers({ projectId, username });
 			setLastSearch(username);

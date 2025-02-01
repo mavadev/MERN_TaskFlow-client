@@ -1,24 +1,27 @@
+import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
-import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { Modal } from './modal/Modal';
 import { checkPassword } from '@/api/SettingsAPI';
-import { toast } from 'react-toastify';
-import { FormCheckPassword } from '@/interfaces/settings.interface';
+import type { FormCheckPassword } from '@/interfaces/settings.interface';
 
-const ModalSecurity = () => {
+interface ModalSecurityProps {
+	show: boolean;
+	handleSuccess: () => void;
+}
+
+const ModalSecurity = ({ show, handleSuccess }: ModalSecurityProps) => {
 	const navigate = useNavigate();
-	const [searchParams] = useSearchParams();
 
-	const isOpen = searchParams.get('security');
-	const { register, handleSubmit } = useForm<FormCheckPassword>();
+	const { reset, register, handleSubmit } = useForm<FormCheckPassword>();
 
 	const { mutate } = useMutation({
 		mutationFn: checkPassword,
-		onSuccess: message => {
-			toast.success(message);
-			// navigate(-1);
+		onSuccess: () => {
+			reset();
+			handleSuccess();
 		},
 		onError: error => {
 			toast.error(error.message);
@@ -30,7 +33,7 @@ const ModalSecurity = () => {
 
 	return (
 		<Modal
-			show={!!isOpen}
+			show={show}
 			handleOnClose={handleOnClose}>
 			<main className='p-4 space-y-3'>
 				<h2 className='text-2xl font-semibold'>Confirmar acceso </h2>

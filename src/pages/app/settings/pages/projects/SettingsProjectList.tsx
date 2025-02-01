@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
 import { BookmarkSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
 
+import { SelectAction } from './SettingsProjects';
 import SettingsProjectItem from './SettingsProjectItem';
 import type { ProjectConfig } from '@/interfaces/project.interface';
 
@@ -8,15 +8,10 @@ interface SettingsProjectListProps {
 	type?: 'managed' | 'team';
 	manager: string;
 	projects: ProjectConfig[];
+	handleDeleteClick: (action: SelectAction) => void;
 }
 
-const SettingsProjectList = ({ type = 'managed', manager, projects }: SettingsProjectListProps) => {
-	const handleDeleteProjects = () => {
-		if (window.confirm('¿Estás seguro de que quieres eliminar todos tus proyectos?')) {
-			console.log('Eliminar Proyectos');
-		}
-	};
-
+const SettingsProjectList = ({ type = 'managed', manager, projects, handleDeleteClick }: SettingsProjectListProps) => {
 	return (
 		<div className='rounded-md border-2 border-gray-300'>
 			<header className='flex items-center justify-between p-3 border-b-2 border-gray-300'>
@@ -26,12 +21,12 @@ const SettingsProjectList = ({ type = 'managed', manager, projects }: SettingsPr
 					<p>( {projects.length} )</p>
 				</div>
 				{type === 'managed' && (
-					<Link
-						to='?deleteProjects=true'
-						onClick={handleDeleteProjects}
-						className='text-xs text-red-500 hover:text-red-700'>
+					<button
+						type='button'
+						className='text-xs text-red-500 hover:text-red-700'
+						onClick={() => handleDeleteClick({ type: 'all' })}>
 						<TrashIcon className='size-4' />
-					</Link>
+					</button>
 				)}
 			</header>
 			<main>
@@ -40,6 +35,7 @@ const SettingsProjectList = ({ type = 'managed', manager, projects }: SettingsPr
 						type={type}
 						key={project._id}
 						project={project}
+						handleDeleteClick={handleDeleteClick}
 					/>
 				))}
 			</main>

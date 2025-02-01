@@ -61,12 +61,12 @@ export const ProjectItem = ({ project, type }: ProjectProps) => {
 							</Link>
 						</MenuItem>
 						<MenuItem>
-							<button
-								type='button'
-								onClick={handleDeleteProject}
+							<Link
+								to={`?security=true`}
+								// onClick={handleDeleteProject}
 								className='block px-3 py-2 text-sm font-medium leading-6 bg-red-500 w-full hover:bg-red-600 text-white text-center'>
 								Eliminar Proyecto
-							</button>
+							</Link>
 						</MenuItem>
 					</OptionsItem>
 				</div>

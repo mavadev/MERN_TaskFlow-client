@@ -75,3 +75,25 @@ export async function deleteAccount() {
 		throw new Error(responseError(error as Error));
 	}
 }
+
+export async function deleteProjects() {
+	try {
+		const url = `/projects/`;
+		const { data } = await api.delete<ResponseData>(url);
+
+		return data.message;
+	} catch (error) {
+		throw new Error(responseError(error as Error));
+	}
+}
+
+export async function leaveProject(projectId: string) {
+	try {
+		const url = `/projects/${projectId}/team/exit`;
+		const { data } = await api.post<ResponseData>(url);
+
+		return data.message;
+	} catch (error) {
+		throw new Error(responseError(error as Error));
+	}
+}

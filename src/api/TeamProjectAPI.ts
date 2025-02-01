@@ -13,7 +13,8 @@ interface TeamProjectProps {
 
 export async function getProjectTeam({ projectId }: Pick<TeamProjectProps, 'projectId'>): Promise<TeamResponse> {
 	try {
-		const { data } = await api.get<ResponseData>(`/projects/${projectId}/team`);
+		const url = `/projects/${projectId}/team`;
+		const { data } = await api.get<ResponseData>(url);
 
 		const { success, data: team } = teamResponseSchema.safeParse(data.data);
 		if (!success) throw new Error('No se pudo obtener el equipo del proyecto');
@@ -24,9 +25,13 @@ export async function getProjectTeam({ projectId }: Pick<TeamProjectProps, 'proj
 	}
 }
 
-export async function getUsersByUsername({ projectId, username }: Pick<TeamProjectProps, 'projectId' | 'username'>): Promise<TeamMember[]> {
+export async function getUsersByUsername({
+	projectId,
+	username,
+}: Pick<TeamProjectProps, 'projectId' | 'username'>): Promise<TeamMember[]> {
 	try {
-		const { data } = await api.post(`/projects/${projectId}/team/search`, { username });
+		const url = `/projects/${projectId}/team/search`;
+		const { data } = await api.post<ResponseData>(url, { username });
 
 		const { success, data: users } = teamMembersSchema.safeParse(data.data);
 		if (!success) throw new Error('No se pudo obtener los usuarios');
@@ -39,7 +44,9 @@ export async function getUsersByUsername({ projectId, username }: Pick<TeamProje
 
 export async function addMemberToProject({ projectId, userId }: Pick<TeamProjectProps, 'projectId' | 'userId'>) {
 	try {
-		const { data } = await api.post(`/projects/${projectId}/team/add`, { userId });
+		const url = `/projects/${projectId}/team/add/${userId}`;
+		const { data } = await api.post<ResponseData>(url);
+
 		return data.message;
 	} catch (error) {
 		throw new Error(responseError(error as Error));
@@ -48,7 +55,9 @@ export async function addMemberToProject({ projectId, userId }: Pick<TeamProject
 
 export async function deleteMemberFromProject({ projectId, userId }: Pick<TeamProjectProps, 'projectId' | 'userId'>) {
 	try {
-		const { data } = await api.delete(`/projects/${projectId}/team/delete/${userId}`);
+		const url = `/projects/${projectId}/team/delete/${userId}`;
+		const { data } = await api.delete<ResponseData>(url);
+
 		return data.message;
 	} catch (error) {
 		throw new Error(responseError(error as Error));

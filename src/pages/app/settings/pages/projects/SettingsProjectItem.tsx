@@ -2,12 +2,15 @@ import { Link } from 'react-router-dom';
 import { UsersIcon } from '@heroicons/react/24/outline';
 import type { ProjectConfig } from '@/interfaces/project.interface';
 
+import { SelectAction } from './SettingsProjects';
+
 interface SettingsProjectItemProps {
 	project: ProjectConfig;
 	type: 'team' | 'managed';
+	handleDeleteClick: (action: SelectAction) => void;
 }
 
-const SettingsProjectItem = ({ project, type }: SettingsProjectItemProps) => {
+const SettingsProjectItem = ({ project, type, handleDeleteClick }: SettingsProjectItemProps) => {
 	return (
 		<div
 			key={project._id}
@@ -17,17 +20,22 @@ const SettingsProjectItem = ({ project, type }: SettingsProjectItemProps) => {
 				className='text-sm hover:underline line-clamp-1'>
 				{project.projectName}
 			</Link>
-			{type === 'managed' ? (
-				<div className='flex gap-2 items-center'>
-					<p className='text-sm text-gray-600'>{project.team.length} colaboradores</p>
-					<UsersIcon className='size-4' />
-				</div>
-			) : (
+			{type === 'team' ? (
 				<button
-					onClick={() => {}}
+					onClick={() => handleDeleteClick({ type: 'team', projectId: project._id })}
 					className='font-semibold text-white text-xs !bg-red-500 hover:!bg-red-700 px-4 py-1 rounded'>
 					Salir
 				</button>
+			) : (
+				type === 'managed' &&
+				project.team.length > 0 && (
+					<div className='flex gap-2 items-center'>
+						<p className='text-sm text-gray-600'>
+							{project.team.length} {project.team.length === 1 ? 'colaborador' : 'colaboradores'}
+						</p>
+						<UsersIcon className='size-4' />
+					</div>
+				)
 			)}
 		</div>
 	);
