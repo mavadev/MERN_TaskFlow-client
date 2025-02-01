@@ -46,7 +46,7 @@ export async function updateCollaboration(formCollaboration: SettingsContributio
 export async function changePasswordProfile(formChangePassword: FormChangePassword) {
 	try {
 		const url = '/user/change-password';
-		const { data } = await api.post<ResponseData>(url, formChangePassword);
+		const { data } = await api.patch<ResponseData>(url, formChangePassword);
 
 		return data.message;
 	} catch (error) {

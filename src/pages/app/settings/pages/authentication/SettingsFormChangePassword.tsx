@@ -1,13 +1,11 @@
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@/components/ErrorMessage';
 import type { FormChangePassword } from '@/interfaces/settings.interface';
+import { useMutation } from '@tanstack/react-query';
+import { changePasswordProfile } from '@/api/SettingsAPI';
+import { toast } from 'react-toastify';
 
-interface SettingsFormChangePasswordProps {
-	onSubmit: (formData: FormChangePassword) => void;
-	isPending: boolean;
-}
-
-const SettingsFormChangePassword = ({ onSubmit, isPending }: SettingsFormChangePasswordProps) => {
+const SettingsFormChangePassword = () => {
 	const initialValues: FormChangePassword = {
 		current_password: '',
 		password: '',
@@ -15,15 +13,33 @@ const SettingsFormChangePassword = ({ onSubmit, isPending }: SettingsFormChangeP
 	};
 	const {
 		watch,
+		reset,
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm<FormChangePassword>({ defaultValues: initialValues });
 
+	// Mutación para cambiar contraseña
+	const { mutate, isPending } = useMutation({
+		mutationFn: changePasswordProfile,
+		onSuccess: message => {
+			toast.success(message);
+			reset();
+		},
+		onError: error => {
+			toast.error(error.message);
+		},
+	});
+
+	// Cambiar Contraseña
+	const handleChangePassword = (formChangePassword: FormChangePassword) => {
+		mutate(formChangePassword);
+	};
+
 	return (
 		<form
 			noValidate
-			onSubmit={handleSubmit(onSubmit)}
+			onSubmit={handleSubmit(handleChangePassword)}
 			className='space-y-5 bg-white w-full max-w-md text-left'>
 			<div className='flex flex-col gap-3'>
 				<label
@@ -39,10 +55,6 @@ const SettingsFormChangePassword = ({ onSubmit, isPending }: SettingsFormChangeP
 					placeholder='Ingresar su contraseña actual'
 					{...register('current_password', {
 						required: 'La contraseña actual es obligatoria',
-						minLength: {
-							value: 8,
-							message: 'La contraseña es de al menos 8 caracteres',
-						},
 					})}
 				/>
 				{errors.current_password?.message && <ErrorMessage error={errors.current_password.message} />}
@@ -64,7 +76,7 @@ const SettingsFormChangePassword = ({ onSubmit, isPending }: SettingsFormChangeP
 						required: 'La nueva contraseña es obligatoria',
 						minLength: {
 							value: 8,
-							message: 'La nueva contraseña debe tener al menos 8 caracteres',
+							message: 'La contraseña debe tener al menos 8 caracteres',
 						},
 					})}
 				/>
@@ -91,12 +103,12 @@ const SettingsFormChangePassword = ({ onSubmit, isPending }: SettingsFormChangeP
 				{errors.password_confirmation && <ErrorMessage error={errors.password_confirmation.message as string} />}
 			</div>
 
-			<input
+			<button
 				type='submit'
 				disabled={isPending}
-				value='Cambiar Contraseña'
-				className='btn btn-primary w-full !py-4'
-			/>
+				className='btn btn-primary w-full !py-4 disabled:opacity-80 disabled:cursor-default'>
+				{isPending ? 'Cambiando contraseña...' : 'Cambiar contraseña'}
+			</button>
 		</form>
 	);
 };
