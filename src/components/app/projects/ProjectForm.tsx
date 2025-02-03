@@ -10,17 +10,17 @@ interface ProjectFormProps {
 export default function ProjectForm({ register, errors }: ProjectFormProps) {
 	return (
 		<>
-			<div className='mb-5 space-y-3'>
+			<div className='space-y-3'>
 				<label
 					htmlFor='projectName'
 					className='label-form'>
-					Nombre del Proyecto
+					Título del Proyecto
 				</label>
 				<input
 					type='text'
 					id='projectName'
-					placeholder='Nombre del Proyecto'
 					className='input-form'
+					placeholder='Nombre del Proyecto'
 					{...register('projectName', {
 						required: 'El Titulo del Proyecto es obligatorio',
 						maxLength: {
@@ -30,10 +30,10 @@ export default function ProjectForm({ register, errors }: ProjectFormProps) {
 					})}
 				/>
 
-				{errors.projectName?.message && <ErrorMessage error={errors.projectName.message} />}
+				{errors.projectName?.message && <ErrorMessage>{errors.projectName.message}</ErrorMessage>}
 			</div>
 
-			<div className='mb-5 space-y-3'>
+			<div className='space-y-3'>
 				<label
 					htmlFor='clientName'
 					className='label-form'>
@@ -42,8 +42,8 @@ export default function ProjectForm({ register, errors }: ProjectFormProps) {
 				<input
 					type='text'
 					id='clientName'
-					placeholder='Nombre del Cliente'
 					className='input-form'
+					placeholder='Nombre del Cliente'
 					{...register('clientName', {
 						required: 'El Nombre del Cliente es obligatorio',
 						maxLength: {
@@ -53,19 +53,20 @@ export default function ProjectForm({ register, errors }: ProjectFormProps) {
 					})}
 				/>
 
-				{errors.clientName?.message && <ErrorMessage error={errors.clientName.message} />}
+				{errors.clientName?.message && <ErrorMessage>{errors.clientName.message}</ErrorMessage>}
 			</div>
 
-			<div className='mb-5 space-y-3'>
+			<div className='space-y-3'>
 				<label
 					htmlFor='description'
 					className='label-form'>
 					Descripción
 				</label>
 				<textarea
+					rows={4}
 					id='description'
+					className='input-form resize-none'
 					placeholder='Descripción del Proyecto'
-					className='input-form'
 					{...register('description', {
 						required: 'Una descripción del proyecto es obligatoria',
 						maxLength: {
@@ -75,7 +76,7 @@ export default function ProjectForm({ register, errors }: ProjectFormProps) {
 					})}
 				/>
 
-				{errors.description?.message && <ErrorMessage error={errors.description.message} />}
+				{errors.description?.message && <ErrorMessage>{errors.description.message}</ErrorMessage>}
 			</div>
 		</>
 	);

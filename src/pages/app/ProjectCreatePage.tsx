@@ -36,33 +36,29 @@ const CreateProjectPage = () => {
 	const handleForm = (formData: ProjectDraft) => mutate({ formData });
 	return (
 		<>
-			<header>
-				<h1 className='title'>Crear Proyecto</h1>
-				<p className='subtitle'>Rellena los datos para crear tu nuevo proyecto</p>
-
-				<nav>
-					<Link
-						to='/'
-						className='btn-primary mt-4'>
-						Volver a Proyectos
-					</Link>
-				</nav>
-
-				<form
-					noValidate
-					className='form--project'
-					onSubmit={handleSubmit(handleForm)}>
-					<ProjectForm
-						register={register}
-						errors={errors}
-					/>
-					<input
-						type='submit'
-						value='Crear Proyecto'
-						className='btn-secondary p-4 w-full'
-					/>
-				</form>
+			<header className='py-10 flex flex-col max-md:items-center'>
+				<div className='max-md:text-center'>
+					<h1 className='text-3xl font-bold'>Crear Proyecto</h1>
+					<p className='text-2xl mt-2 text-balance'>
+						Rellena los datos para crear tu <span className='text-primary font-semibold'>nuevo proyecto</span>
+					</p>
+				</div>
 			</header>
+
+			<form
+				noValidate
+				className='w-full max-w-xl space-y-8 mt-5 mb-10'
+				onSubmit={handleSubmit(handleForm)}>
+				<ProjectForm
+					register={register}
+					errors={errors}
+				/>
+				<input
+					type='submit'
+					value='Crear Proyecto'
+					className='btn-primary p-4 uppercase w-full'
+				/>
+			</form>
 		</>
 	);
 };

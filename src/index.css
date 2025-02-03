@@ -23,7 +23,7 @@ button {
 
 /* Formulario */
 .form--project {
-	@apply mt-10 bg-white shadow-lg rounded-lg w-full max-w-xl;
+	@apply rounded-lg w-full max-w-xl;
 }
 .label-form {
 	@apply font-semibold text-xl;
