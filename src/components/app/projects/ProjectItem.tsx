@@ -1,11 +1,10 @@
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
-import { MenuItem } from '@headlessui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { OptionsItem } from '../OptionsItem';
 import { deleteProject } from '@/api/ProjectAPI';
 import type { ProjectSimple } from '@/interfaces/project.interface';
+import { EyeIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
 
 interface ProjectProps {
 	project: ProjectSimple;
@@ -33,44 +32,51 @@ export const ProjectItem = ({ project, type }: ProjectProps) => {
 	};
 
 	return (
-		<li className='flex justify-between items-center rounded-md bg-card border border-gray-500 shadow-xl shadow-gray-400 max-w-md'>
+		<li className='flex flex-col rounded-md border border-outline w-full max-w-sm bg-surfaceContainerLow'>
 			<Link
-				className='flex-1'
+				className='flex-1 relative'
 				to={`/app/projects/${project._id}`}>
 				<div className='flex flex-col p-8'>
-					<p className='text-gray-500 text-sm mb-1'>Cliente: {project.clientName}</p>
-					<h3 className='text-gray-800 text-xl font-bold line-clamp-1'>{project.projectName}</h3>
-					<p className='text-gray-800 mt-3 line-clamp-2 text-balance'>{project.description}</p>
+					<p className='text-gray-600 text-sm mt-1'>{project.clientName}</p>
+					<h3 className='text-black text-xl font-bold line-clamp-1'>{project.projectName}</h3>
+					<div className='flex items-end justify-between'>
+						<p className='text-gray-800 mt-5 line-clamp-2'>{project.description}</p>
+						<div className='flex'>
+							{project.team.map(item => (
+								<div
+									key={item}
+									className='size-7 rounded-full bg-gray-300 border border-black relative -mr-3 opacity-50'
+								/>
+							))}
+						</div>
+					</div>
 				</div>
 			</Link>
-			{type === 'managed' && (
-				<div className='w-14 h-full rounded-r-md bg-primary-500 grid place-content-center'>
-					<OptionsItem>
-						<MenuItem>
-							<Link
-								to={`/app/projects/${project._id}`}
-								className='block px-3 py-2 text-sm font-medium leading-6 text-gray-700 w-full hover:bg-gray-50'>
-								Ver Proyecto
-							</Link>
-						</MenuItem>
-						<MenuItem>
-							<Link
-								to={`/app/projects/${project._id}/edit`}
-								className='block px-3 py-2 text-sm font-medium leading-6 text-gray-700 w-full hover:bg-gray-50'>
-								Editar Proyecto
-							</Link>
-						</MenuItem>
-						<MenuItem>
-							<Link
-								to={`?security=true`}
-								// onClick={handleDeleteProject}
-								className='block px-3 py-2 text-sm font-medium leading-6 bg-red-500 w-full hover:bg-red-600 text-white text-center'>
-								Eliminar Proyecto
-							</Link>
-						</MenuItem>
-					</OptionsItem>
-				</div>
-			)}
+			<div className='w-full flex items-center'>
+				<Link
+					title='Ver proyecto'
+					to={`/app/projects/${project._id}`}
+					className='block p-3 flex-1 bg-surfaceDim text-onSurfaceVariant border-t-2 border-transparent hover:border-onSurfaceVariant'>
+					<EyeIcon className='size-5 mx-auto' />
+				</Link>
+				{type === 'managed' && (
+					<>
+						<Link
+							title='Editar proyecto'
+							to={`/app/projects/${project._id}/edit`}
+							className='block p-3 flex-1 bg-inversePrimary text-onPrimaryContainer border-t-2 border-transparent hover:border-primary'>
+							<PencilSquareIcon className='size-5 mx-auto' />
+						</Link>
+						<Link
+							to={`?security=true`}
+							title='Eliminar proyecto'
+							// onClick={handleDeleteProject}
+							className='block p-3 flex-1 bg-errorContainer text-onErrorContainer border-t-2 border-transparent hover:border-onErrorContainer'>
+							<TrashIcon className='size-5 mx-auto' />
+						</Link>
+					</>
+				)}
+			</div>
 		</li>
 	);
 };

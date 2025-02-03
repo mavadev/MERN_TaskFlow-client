@@ -19,7 +19,7 @@ import {
 } from '@/pages/auth';
 
 /* App Pages */
-import { ProjectsPage, ProjectPage, ProjectCreatePage, ProfilePage, SettingsPage } from '@/pages/app';
+import { ProjectsLayout, ProjectCreatePage, ProfilePage, SettingsPage, ProjectPage } from '@/pages/app';
 // Proyecto
 import { ProjectViewPage, ProjectEditPage, ProjectTeamPage } from '@/pages/app/project/pages';
 // Configuración
@@ -92,7 +92,7 @@ export default function AppRouter() {
 					/>
 					<Route
 						path='projects'
-						element={<ProjectsPage />}>
+						element={<ProjectsLayout />}>
 						<Route
 							index
 							element={

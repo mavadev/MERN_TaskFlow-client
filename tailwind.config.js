@@ -52,6 +52,8 @@ export default {
 				onError: 'var(--on-error)',
 				errorContainer: 'var(--error-container)',
 				onErrorContainer: 'var(--on-error-container)',
+
+				black: '#141414',
 			},
 		},
 	},
