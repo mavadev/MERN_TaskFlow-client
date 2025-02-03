@@ -89,7 +89,7 @@ const SettingsFormContribution = ({ profile }: SettingsContributionProps) => {
 				type='submit'
 				disabled={!changes}
 				defaultChecked={contribution.collaborators}
-				className={`btn btn-primary w-full md:w-max disabled:opacity-75 disabled:cursor-default`}>
+				className={`btn-primary w-full md:w-max px-4 py-2 disabled:opacity-75 disabled:cursor-default`}>
 				{isPending ? 'Actualizando...' : 'Actualizar Contribución'}
 			</button>
 		</form>

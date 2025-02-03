@@ -3,7 +3,7 @@ import SettingsTheme from './SettingsTheme';
 
 const SettingsPreferences = () => {
 	return (
-		<main className='flex-1 p-5 bg-white space-y-10'>
+		<main className='flex-1 p-5 space-y-10'>
 			<section>
 				<h2 className='text-xl font-semibold border-b border-gray-300 pb-2 mb-3'>Color Principal</h2>
 				<p className='text-sm text-gray-500'>Elige el color principal de Task Flow.</p>

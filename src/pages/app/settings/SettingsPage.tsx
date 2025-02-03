@@ -27,18 +27,18 @@ const SettingsPage = () => {
 	return (
 		<ProfileContext.Provider value={{ profile, projects }}>
 			<div className='container flex flex-col md:flex-row flex-1'>
-				<aside className='w-full md:max-w-max flex flex-col gap-5 border-r-2 border-gray-300'>
+				<aside className='w-full md:max-w-max flex flex-col gap-5 border-r-2 border-primary'>
 					<ul>
-						<h3 className='p-4 text-sm font-semibold uppercase text-gray-700'>Configuración</h3>
+						<h3 className='p-4 pl-0 text-sm font-semibold uppercase text-gray-700'>Configuración</h3>
 						{tabs.map(tab => (
 							<NavLink
 								key={tab.title}
 								to={`/app/settings${tab.link}`}
 								className={({ isActive }) =>
-									`p-4 flex items-center justify-between ${
+									`p-4 flex items-center justify-between border-l-4 ${
 										isActive
-											? 'border-l-4 border-primary-700 text-primary-700 bg-primary-200'
-											: 'text-gray-500 hover:bg-gray-100'
+											? 'border-primary text-primary bg-inversePrimary'
+											: 'border-transparent text-gray-500 hover:opacity-80'
 									}`
 								}>
 								<h3 className='text-sm pr-20'>{tab.title}</h3>

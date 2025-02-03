@@ -6,6 +6,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateProfile } from '@/api/SettingsAPI';
 import type { User } from '@/interfaces/user.interface';
 import type { SettingsProfile } from '@/interfaces/settings.interface';
+import { ErrorMessage } from '@/components/ErrorMessage';
 
 interface SettingsFormProfileProps {
 	profile: User;
@@ -66,7 +67,7 @@ const SettingsFormProfile = ({ profile }: SettingsFormProfileProps) => {
 					id='name'
 					type='text'
 					defaultValue={profile.name}
-					className={`border border-gray-300 rounded text-sm p-2 ${isError && errors.name ? 'border-red-500' : ''}`}
+					className={`input-form text-sm rounded border border-outline ${isError && errors.name ? 'border-error' : ''}`}
 					{...register('name', {
 						required: 'El nombre es requerido',
 						minLength: {
@@ -80,7 +81,7 @@ const SettingsFormProfile = ({ profile }: SettingsFormProfileProps) => {
 					})}
 				/>
 				<span className='text-sm text-gray-500 mt-1'>Nombre que se mostrará en tu perfil público.</span>
-				{isError && errors.name && <span className='text-red-500 text-sm'>{errors.name.message}</span>}
+				{isError && errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
 			</div>
 			<div className='flex flex-col'>
 				<label
@@ -92,7 +93,9 @@ const SettingsFormProfile = ({ profile }: SettingsFormProfileProps) => {
 					id='email'
 					type='email'
 					defaultValue={profile.email}
-					className={`border border-gray-300 rounded text-sm p-2 ${isError && errors.email ? 'border-red-500' : ''}`}
+					className={`input-form text-sm rounded border border-outline ${
+						isError && errors.email ? 'border-red-500' : ''
+					}`}
 					{...register('email', {
 						required: 'El correo es requerido',
 						pattern: {
@@ -102,7 +105,7 @@ const SettingsFormProfile = ({ profile }: SettingsFormProfileProps) => {
 					})}
 				/>
 				<span className='text-sm text-gray-500 mt-1'>Correo electrónico que se mostrará en tu perfil público.</span>
-				{isError && errors.email && <span className='text-red-500 text-sm'>{errors.email.message}</span>}
+				{isError && errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
 			</div>
 			<div className='flex flex-col'>
 				<label
@@ -113,7 +116,7 @@ const SettingsFormProfile = ({ profile }: SettingsFormProfileProps) => {
 				<textarea
 					rows={3}
 					id='description'
-					className={`resize-none border border-gray-300 rounded text-sm p-2 ${
+					className={`resize-none input-form text-sm rounded border border-outline ${
 						isError && errors.description ? 'border-red-500' : ''
 					}`}
 					defaultValue={profile.description}
@@ -125,11 +128,11 @@ const SettingsFormProfile = ({ profile }: SettingsFormProfileProps) => {
 					})}
 				/>
 				<span className='text-sm text-gray-500 mt-1'>Descripción que se mostrará en tu perfil público.</span>
-				{isError && errors.description && <span className='text-red-500 text-sm'>{errors.description.message}</span>}
+				{isError && errors.description && <ErrorMessage>{errors.description.message}</ErrorMessage>}
 			</div>
 			<button
 				type='submit'
-				className='btn btn-primary w-full md:w-max'>
+				className='btn-primary w-full md:w-max px-4 py-2'>
 				{isPending ? 'Actualizando...' : 'Actualizar perfil'}
 			</button>
 		</form>

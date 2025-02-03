@@ -11,10 +11,13 @@ interface SettingsProjectItemProps {
 }
 
 const SettingsProjectItem = ({ project, type, handleDeleteClick }: SettingsProjectItemProps) => {
+	const leaveProject = () => {
+		handleDeleteClick({ type: 'team', projectId: project._id });
+	};
 	return (
 		<div
 			key={project._id}
-			className='p-3 border-b-2 border-gray-300 last:border-none flex items-center justify-between'>
+			className='p-3 border-b-2 border-secondaryContainer last:border-none flex items-center justify-between'>
 			<Link
 				to={`/app/projects/${project._id}`}
 				className='text-sm hover:underline line-clamp-1'>
@@ -22,8 +25,8 @@ const SettingsProjectItem = ({ project, type, handleDeleteClick }: SettingsProje
 			</Link>
 			{type === 'team' ? (
 				<button
-					onClick={() => handleDeleteClick({ type: 'team', projectId: project._id })}
-					className='font-semibold text-white text-xs !bg-red-500 hover:!bg-red-700 px-4 py-1 rounded'>
+					onClick={leaveProject}
+					className='font-semibold text-white text-xs !bg-error hover:!bg-onErrorContainer px-4 py-1 rounded'>
 					Salir
 				</button>
 			) : (

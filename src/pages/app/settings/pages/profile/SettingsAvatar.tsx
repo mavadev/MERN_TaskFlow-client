@@ -23,15 +23,15 @@ const SettingsAvatar = ({ avatar, username }: SettingsAvatarProps) => {
 						<ArrowUpTrayIcon className='size-6 text-white' />
 					</button>
 				</div>
-				<div className='flex-1 flex flex-col items-stretch justify-center gap-5'>
+				<div className='flex-1 flex flex-col items-center justify-end gap-5'>
 					<button
 						onClick={() => {}}
-						className='btn btn-secondary px-4 py-2 text-sm block md:hidden'>
+						className='btn-primary w-full md:w-max px-4 py-2 text-sm block md:hidden'>
 						Actualizar foto
 					</button>
 					<button
 						onClick={() => {}}
-						className='btn btn-secondary px-4 py-2 text-sm block'>
+						className='btn-primary w-full md:w-max px-4 py-2 text-sm block'>
 						Remover foto
 					</button>
 				</div>

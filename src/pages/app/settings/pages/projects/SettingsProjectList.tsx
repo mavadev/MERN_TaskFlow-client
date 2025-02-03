@@ -13,19 +13,20 @@ interface SettingsProjectListProps {
 
 const SettingsProjectList = ({ type = 'managed', manager, projects, handleDeleteClick }: SettingsProjectListProps) => {
 	return (
-		<div className='rounded-md border-2 border-gray-300'>
-			<header className='flex items-center justify-between p-3 border-b-2 border-gray-300'>
+		<div className='rounded-md border-2 border-secondaryContainer overflow-hidden'>
+			<header className='flex items-center justify-between p-3 border-b-2 border-secondaryContainer bg-secondaryContainer'>
 				<div className='flex items-center gap-2 text-sm font-semibold'>
-					<BookmarkSquareIcon className='size-5' />
-					<h3>{manager}</h3>
-					<p>( {projects.length} )</p>
+					<BookmarkSquareIcon className='size-5 text-onSecondaryContainer' />
+					<h3 className='text-onSecondaryContainer'>{manager}</h3>
+					<p className='text-onSecondaryContainer'>( {projects.length} )</p>
 				</div>
+
 				{type === 'managed' && (
 					<button
 						type='button'
 						className='text-xs text-red-500 hover:text-red-700'
 						onClick={() => handleDeleteClick({ type: 'all' })}>
-						<TrashIcon className='size-4' />
+						<TrashIcon className='size-5 text-onSecondaryContainer' />
 					</button>
 				)}
 			</header>

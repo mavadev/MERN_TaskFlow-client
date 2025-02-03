@@ -40,7 +40,7 @@ const SettingsFormChangePassword = () => {
 		<form
 			noValidate
 			onSubmit={handleSubmit(handleChangePassword)}
-			className='space-y-5 bg-white w-full max-w-md text-left'>
+			className='space-y-5 w-full max-w-md'>
 			<div className='flex flex-col gap-3'>
 				<label
 					htmlFor='current_password'
@@ -57,7 +57,7 @@ const SettingsFormChangePassword = () => {
 						required: 'La contraseña actual es obligatoria',
 					})}
 				/>
-				{errors.current_password?.message && <ErrorMessage error={errors.current_password.message} />}
+				{errors.current_password?.message && <ErrorMessage>{errors.current_password.message}</ErrorMessage>}
 			</div>
 
 			<div className='flex flex-col gap-3'>
@@ -80,7 +80,7 @@ const SettingsFormChangePassword = () => {
 						},
 					})}
 				/>
-				{errors.password?.message && <ErrorMessage error={errors.password.message} />}
+				{errors.password?.message && <ErrorMessage>{errors.password.message}</ErrorMessage>}
 			</div>
 
 			<div className='flex flex-col gap-3'>
@@ -100,7 +100,7 @@ const SettingsFormChangePassword = () => {
 						validate: value => value === watch('password') || 'Las contraseñas no coinciden',
 					})}
 				/>
-				{errors.password_confirmation && <ErrorMessage error={errors.password_confirmation.message as string} />}
+				{errors.password_confirmation && <ErrorMessage>{errors.password_confirmation.message}</ErrorMessage>}
 			</div>
 
 			<button

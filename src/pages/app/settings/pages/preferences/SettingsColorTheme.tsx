@@ -27,10 +27,6 @@ const SettingsColorTheme = () => {
 					/>
 				</button>
 			))}
-			{/* <ColorPicker
-				selectedColor={selectedColor}
-				setSelectedColor={handleSelectColor}
-			/> */}
 		</div>
 	);
 };

@@ -8,16 +8,16 @@ const ProfilePage = () => {
 	if (isProfileError || !profile) return <h2>Error</h2>;
 
 	return (
-		<main className='space-y-5 max-w-md mx-auto text-center'>
+		<main className='my-10 space-y-5 max-w-md mx-auto text-center'>
 			<img
 				alt={profile.username}
 				src={formatImage(profile.avatar)}
-				className='h-28 w-4h-28 rounded-full mx-auto'
+				className='size-24 rounded-full mx-auto'
 			/>
 			<div className='space-y-2'>
-				<h2 className='text-3xl font-light text-gray-600'>Perfil</h2>
-				<h1 className='text-4xl font-light text-balance'>{profile.name}</h1>
-				<p className='text-xl font-light text-gray-800'>( {profile.username} )</p>
+				<p className='text-xl font-semibold'>{profile.username}</p>
+				<h1 className='text-3xl font-light'>{profile.name}</h1>
+				<p className='text-lg font-light'>( {profile.email} )</p>
 			</div>
 			<p>{profile.description}</p>
 		</main>

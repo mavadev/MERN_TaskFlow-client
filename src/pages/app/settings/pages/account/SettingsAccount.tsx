@@ -16,7 +16,7 @@ const SettingsAccount = () => {
 	};
 
 	return (
-		<main className='flex-1 p-5 overflow-auto bg-white space-y-10'>
+		<main className='flex-1 p-5 space-y-10'>
 			<section>
 				<h2 className='text-xl font-semibold border-b border-gray-300 pb-2 mb-2'>Nombre de usuario</h2>
 				<p className='text-sm text-gray-500 my-3'>
@@ -24,7 +24,7 @@ const SettingsAccount = () => {
 				</p>
 				<button
 					onClick={openModalUsername}
-					className='btn btn-primary w-full md:w-max'>
+					className='btn-primary px-4 py-2 w-full md:w-max !bg-tertiary'>
 					Cambiar usuario
 				</button>
 			</section>
@@ -35,7 +35,7 @@ const SettingsAccount = () => {
 				</p>
 				<button
 					onClick={openModalDeleteAccount}
-					className='btn btn-primary !bg-danger w-full md:w-max'>
+					className='btn-primary px-4 py-2 w-full md:w-max !bg-error'>
 					Eliminar cuenta
 				</button>
 			</section>
