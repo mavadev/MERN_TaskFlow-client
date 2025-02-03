@@ -21,15 +21,20 @@ export const usePasswordConfirm = () => {
 		setIsOpen(false);
 	};
 
-	const handleClose = () => {
+	const handleError = () => {
 		if (rejectPromise) rejectPromise();
 		toast.success('Permiso Denegado');
+		setIsOpen(false);
+	};
+
+	const handleClose = () => {
 		setIsOpen(false);
 	};
 
 	const ModalAuth = (
 		<ModalValidateAuth
 			show={isOpen}
+			handleError={handleError}
 			handleClose={handleClose}
 			handleSuccess={handleSuccess}
 		/>

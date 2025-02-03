@@ -9,9 +9,10 @@ import { EyeIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outlin
 interface ProjectProps {
 	project: ProjectSimple;
 	type: 'managed' | 'team';
+	confirmAction?: () => Promise<void>;
 }
 
-export const ProjectItem = ({ project, type }: ProjectProps) => {
+export const ProjectItem = ({ project, type, confirmAction }: ProjectProps) => {
 	const queryClient = useQueryClient();
 
 	const { mutate: handleDelete } = useMutation({
@@ -25,8 +26,9 @@ export const ProjectItem = ({ project, type }: ProjectProps) => {
 		},
 	});
 
-	const handleDeleteProject = () => {
-		if (window.confirm('¿Estás seguro de que deseas eliminar este proyecto?')) {
+	const handleDeleteProject = async () => {
+		if (confirmAction) {
+			await confirmAction();
 			handleDelete({ projectId: project._id });
 		}
 	};
@@ -67,13 +69,12 @@ export const ProjectItem = ({ project, type }: ProjectProps) => {
 							className='block p-3 flex-1 bg-inversePrimary text-onPrimaryContainer border-t-2 border-transparent hover:border-primary'>
 							<PencilSquareIcon className='size-5 mx-auto' />
 						</Link>
-						<Link
-							to={`?security=true`}
+						<button
 							title='Eliminar proyecto'
-							// onClick={handleDeleteProject}
+							onClick={handleDeleteProject}
 							className='block p-3 flex-1 bg-errorContainer text-onErrorContainer border-t-2 border-transparent hover:border-onErrorContainer'>
 							<TrashIcon className='size-5 mx-auto' />
-						</Link>
+						</button>
 					</>
 				)}
 			</div>

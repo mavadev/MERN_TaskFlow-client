@@ -35,26 +35,26 @@ const SettingsProjectsManaged = ({ user, projects }: SettingsProjectList) => {
 	if (!projects.length) return <p className='text-sm text-gray-500 font-semibold'>No hay proyectos gestionados.</p>;
 
 	return (
-		<section className='rounded-md border-2 border-secondaryContainer overflow-hidden'>
-			<header className='flex items-center justify-between p-3 border-b-2 border-secondaryContainer bg-secondaryContainer'>
+		<section className='rounded-md border-2 border-secondary overflow-hidden'>
+			<header className='flex items-center justify-between p-3 border-b-2 border-secondary bg-secondary'>
 				<div className='flex items-center gap-2 text-sm font-semibold'>
-					<BookmarkSquareIcon className='size-5 text-onSecondaryContainer' />
-					<h3 className='text-onSecondaryContainer'>{user}</h3>
-					<p className='text-onSecondaryContainer'>( {projects.length} )</p>
+					<BookmarkSquareIcon className='size-5 text-onSecondary ' />
+					<h3 className='text-onSecondary'>{user}</h3>
+					<p className='text-onSecondary'>( {projects.length} )</p>
 				</div>
 
 				<button
 					type='button'
 					className='text-xs text-red-500 hover:text-red-700'
 					onClick={handleDeleteProjects}>
-					<TrashIcon className='size-5 text-onSecondaryContainer' />
+					<TrashIcon className='size-5 text-onSecondary' />
 				</button>
 			</header>
 			<main>
 				{projects.map(project => (
 					<div
 						key={project._id}
-						className='p-3 border-b-2 border-secondaryContainer last:border-none flex items-center justify-between'>
+						className='p-3 border-b-2 border-secondary last:border-none flex items-center justify-between'>
 						<Link
 							to={`/app/projects/${project._id}`}
 							className='text-sm hover:underline line-clamp-1'>

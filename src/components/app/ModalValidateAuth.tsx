@@ -8,16 +8,17 @@ import type { FormCheckPassword } from '@/interfaces/settings.interface';
 interface ModalSecurityProps {
 	show: boolean;
 	handleSuccess: () => void;
+	handleError: () => void;
 	handleClose: () => void;
 }
 
-const ModalValidateAuth = ({ show, handleSuccess, handleClose }: ModalSecurityProps) => {
+const ModalValidateAuth = ({ show, handleSuccess, handleClose, handleError }: ModalSecurityProps) => {
 	const { reset, register, handleSubmit } = useForm<FormCheckPassword>();
 
 	const { mutate } = useMutation({
 		mutationFn: checkPassword,
 		onMutate: () => reset(),
-		onError: () => handleClose(),
+		onError: () => handleError(),
 		onSuccess: () => handleSuccess(),
 	});
 
@@ -28,7 +29,7 @@ const ModalValidateAuth = ({ show, handleSuccess, handleClose }: ModalSecurityPr
 			show={show}
 			handleOnClose={handleClose}>
 			<main className='p-8 space-y-3'>
-				<h2 className='text-2xl font-semibold'>Confirmar acceso </h2>
+				<h2 className='text-2xl font-semibold'>Validar Acceso</h2>
 				<p className='text-gray-500 text-lg'>Para continuar, por favor ingresa tu contraseña.</p>
 				<form
 					className='flex flex-col gap-2'

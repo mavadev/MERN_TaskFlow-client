@@ -3,8 +3,10 @@ import { RectangleGroupIcon } from '@heroicons/react/24/outline';
 
 import { ProjectItem } from '@/components/app/projects/ProjectItem';
 import type { ProjectSimple } from '@/interfaces/project.interface';
+import { usePasswordConfirm } from '@/hooks/usePasswordConfirm';
 
 const ProjectsManaged = () => {
+	const { confirmPassword, ModalAuth } = usePasswordConfirm();
 	const { managedProjects }: { managedProjects: ProjectSimple[] } = useOutletContext();
 
 	if (!managedProjects.length)
@@ -22,17 +24,21 @@ const ProjectsManaged = () => {
 		);
 
 	return (
-		<ul
-			role='list'
-			className='mb-10 flex flex-wrap gap-5'>
-			{managedProjects.map(project => (
-				<ProjectItem
-					type='managed'
-					key={project._id}
-					project={project}
-				/>
-			))}
-		</ul>
+		<>
+			<ul
+				role='list'
+				className='mb-10 flex flex-wrap gap-5'>
+				{managedProjects.map(project => (
+					<ProjectItem
+						type='managed'
+						key={project._id}
+						project={project}
+						confirmAction={confirmPassword}
+					/>
+				))}
+			</ul>
+			{ModalAuth}
+		</>
 	);
 };
 

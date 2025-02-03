@@ -17,20 +17,17 @@ const ProjectsCollaborative = () => {
 		);
 
 	return (
-		<>
-			<h3 className='text-right mb-5 text-xl text-black'>Proyectos Colaborados: {teamProjects.length}</h3>
-			<ul
-				role='list'
-				className='mb-10 grid grid-cols-1 md:grid-cols-2 gap-5'>
-				{teamProjects.map(project => (
-					<ProjectItem
-						key={project._id}
-						project={project}
-						type='team'
-					/>
-				))}
-			</ul>
-		</>
+		<ul
+			role='list'
+			className='mb-10 flex flex-wrap gap-5'>
+			{teamProjects.map(project => (
+				<ProjectItem
+					type='team'
+					key={project._id}
+					project={project}
+				/>
+			))}
+		</ul>
 	);
 };
 

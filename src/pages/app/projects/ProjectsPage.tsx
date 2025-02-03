@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
-import { ProjectsResponse } from '@/interfaces/project.interface';
 import { Loading } from '@/components/Loading';
+import { ErrorScreen } from '@/components/ErrorScreen';
+import type { ProjectsResponse } from '@/interfaces/project.interface';
 
 interface ProjectsPageProps {
 	projects: ProjectsResponse;
@@ -10,7 +11,7 @@ interface ProjectsPageProps {
 
 const ProjectsPage = ({ projects, isLoading, isError }: ProjectsPageProps) => {
 	if (isLoading) return <Loading />;
-	if (isError) return <h2 className='text-xl text-center text-error py-10'>Hubo un error al obtener los proyectos</h2>;
+	if (isError) return <ErrorScreen />;
 
 	return <Outlet context={{ ...projects }} />;
 };
