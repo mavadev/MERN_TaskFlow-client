@@ -1,9 +1,10 @@
-import { useContext } from 'react';
-import { ProfileContext } from '../../SettingsContext';
+import { useOutletContext } from 'react-router-dom';
+
+import type { SettingsContext } from '../../SettingsSection';
 import { SettingsFormProfile, SettingsAvatar, SettingsFormContribution } from '../profile';
 
 const SettingsProfile = () => {
-	const { profile } = useContext(ProfileContext);
+	const { profile } = useOutletContext<SettingsContext>();
 
 	return (
 		<main className='flex-1 space-y-10 p-5'>

@@ -2,7 +2,6 @@ import api from '@/lib/axios';
 import { responseError } from './errors';
 import type { ResponseData } from '@/interfaces/api.interface';
 import type {
-	DeleteAccount,
 	FormChangePassword,
 	FormCheckPassword,
 	FormUsername,

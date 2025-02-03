@@ -19,7 +19,7 @@ import {
 } from '@/pages/auth';
 
 /* App Pages */
-import { ProjectsLayout, ProjectCreatePage, ProfilePage, SettingsPage, ProjectPage } from '@/pages/app';
+import { ProjectsLayout, ProjectCreatePage, ProfilePage, SettingsLayout, ProjectPage } from '@/pages/app';
 // Proyecto
 import { ProjectViewPage, ProjectEditPage, ProjectTeamPage } from '@/pages/app/project/pages';
 // Configuración
@@ -138,7 +138,7 @@ export default function AppRouter() {
 					/>
 					<Route
 						path='settings'
-						element={<SettingsPage />}>
+						element={<SettingsLayout />}>
 						<Route
 							index
 							element={

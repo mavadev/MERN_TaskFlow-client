@@ -20,7 +20,6 @@ export const projectsResponseSchema = z.object({
 });
 export interface ProjectsResponse extends z.infer<typeof projectsResponseSchema> {}
 
-
 // Proyecto Completo
 export const projectSchema = projectSchemaSimple.extend({
 	tasks: tasksSchemaSimple,

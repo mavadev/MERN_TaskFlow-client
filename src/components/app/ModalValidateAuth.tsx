@@ -1,6 +1,4 @@
-import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 
 import { Modal } from './modal/Modal';
@@ -10,32 +8,26 @@ import type { FormCheckPassword } from '@/interfaces/settings.interface';
 interface ModalSecurityProps {
 	show: boolean;
 	handleSuccess: () => void;
+	handleClose: () => void;
 }
 
-const ModalSecurity = ({ show, handleSuccess }: ModalSecurityProps) => {
-	const navigate = useNavigate();
-
+const ModalValidateAuth = ({ show, handleSuccess, handleClose }: ModalSecurityProps) => {
 	const { reset, register, handleSubmit } = useForm<FormCheckPassword>();
 
 	const { mutate } = useMutation({
 		mutationFn: checkPassword,
-		onSuccess: () => {
-			reset();
-			handleSuccess();
-		},
-		onError: error => {
-			toast.error(error.message);
-		},
+		onMutate: () => reset(),
+		onError: () => handleClose(),
+		onSuccess: () => handleSuccess(),
 	});
 
 	const handleCheckPassword = (formCheckPassword: FormCheckPassword) => mutate(formCheckPassword);
-	const handleOnClose = () => navigate(-1);
 
 	return (
 		<Modal
 			show={show}
-			handleOnClose={handleOnClose}>
-			<main className='p-4 space-y-3'>
+			handleOnClose={handleClose}>
+			<main className='p-8 space-y-3'>
 				<h2 className='text-2xl font-semibold'>Confirmar acceso </h2>
 				<p className='text-gray-500 text-lg'>Para continuar, por favor ingresa tu contraseña.</p>
 				<form
@@ -45,13 +37,14 @@ const ModalSecurity = ({ show, handleSuccess }: ModalSecurityProps) => {
 						id='password'
 						type='password'
 						className='input-form'
+						placeholder='Ingresa tu contraseña'
 						{...register('password', {
 							required: 'La contraseña es requerida',
 						})}
 					/>
 					<button
 						type='submit'
-						className='btn-primary'>
+						className='btn-primary px-4 py-2'>
 						Confirmar
 					</button>
 				</form>
@@ -60,4 +53,4 @@ const ModalSecurity = ({ show, handleSuccess }: ModalSecurityProps) => {
 	);
 };
 
-export default ModalSecurity;
+export default ModalValidateAuth;

@@ -1,10 +1,12 @@
+import { Loading } from '@/components/Loading';
 import { useProfile } from '@/hooks/useProfile';
 import { formatImage } from '@/utils';
 
 const ProfilePage = () => {
+	// Obtener usuario completo
 	const { profile, isProfileLoading, isProfileError } = useProfile();
 
-	if (isProfileLoading) return <h3>Cargando perfil...</h3>;
+	if (isProfileLoading) return <Loading />;
 	if (isProfileError || !profile) return <h2>Error</h2>;
 
 	return (

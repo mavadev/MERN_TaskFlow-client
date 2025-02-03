@@ -1,11 +1,11 @@
-import { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ProfileContext } from '../../SettingsContext';
+import { useNavigate, useOutletContext } from 'react-router-dom';
+
+import type { SettingsContext } from '../../SettingsSection';
 import { ModalSettingsUsername, ModalSettingsDeleteAccount } from '../account';
 
 const SettingsAccount = () => {
 	const navigate = useNavigate();
-	const { profile, projects } = useContext(ProfileContext);
+	const { profile, projects } = useOutletContext<SettingsContext>();
 
 	const openModalUsername = () => {
 		navigate('?change-username=true');

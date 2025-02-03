@@ -2,7 +2,6 @@ import { getProfile } from '@/api/UserAPI';
 import { useQuery } from '@tanstack/react-query';
 
 export const useProfile = () => {
-	// Obtener usuario completo
 	const {
 		data: profile,
 		isLoading,
@@ -13,7 +12,5 @@ export const useProfile = () => {
 		retry: false,
 	});
 
-	if (!profile) return { profile: null, projects: null, isProfileLoading: isLoading, isProfileError: isError };
-
-	return { profile: profile.user, projects: profile.projects, isProfileLoading: isLoading, isProfileError: isError };
+	return { profile, isProfileLoading: isLoading, isProfileError: isError };
 };
