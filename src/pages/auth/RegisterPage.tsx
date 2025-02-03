@@ -45,12 +45,12 @@ const RegisterPage = () => {
 			<h2 className='text-4xl font-normal text-center '>Registrar Cuenta</h2>
 			<form
 				noValidate
-				className='space-y-8 bg-white w-full max-w-md'
+				className='space-y-6 w-full max-w-md'
 				onSubmit={handleSubmit(handleRegister)}>
 				<div className='flex flex-col gap-3'>
 					<label
 						htmlFor='name'
-						className='font-normal text-2xl'>
+						className='label-form'>
 						Nombre
 					</label>
 
@@ -63,13 +63,13 @@ const RegisterPage = () => {
 							required: 'El Nombre es obligatorio',
 						})}
 					/>
-					{errors.name && <ErrorMessage error={errors.name.message as string}></ErrorMessage>}
+					{errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
 				</div>
 
 				<div className='flex flex-col gap-3'>
 					<label
 						htmlFor='email'
-						className='font-normal text-2xl'>
+						className='label-form'>
 						Email
 					</label>
 
@@ -86,13 +86,13 @@ const RegisterPage = () => {
 							},
 						})}
 					/>
-					{errors.email && <ErrorMessage error={errors.email.message as string}></ErrorMessage>}
+					{errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
 				</div>
 
 				<div className='flex flex-col gap-3'>
 					<label
 						htmlFor='password'
-						className='font-normal text-2xl'>
+						className='label-form'>
 						Contraseña
 					</label>
 
@@ -109,13 +109,13 @@ const RegisterPage = () => {
 							},
 						})}
 					/>
-					{errors.password && <ErrorMessage error={errors.password.message as string}></ErrorMessage>}
+					{errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
 				</div>
 
 				<div className='flex flex-col gap-3'>
 					<label
 						htmlFor='password_confirmation'
-						className='font-normal text-2xl'>
+						className='label-form'>
 						Confirmar Contraseña
 					</label>
 
@@ -129,23 +129,21 @@ const RegisterPage = () => {
 							validate: value => value === watch('password') || 'Los passwords no coinciden',
 						})}
 					/>
-					{errors.password_confirmation && (
-						<ErrorMessage error={errors.password_confirmation.message as string}></ErrorMessage>
-					)}
+					{errors.password_confirmation && <ErrorMessage>{errors.password_confirmation.message}</ErrorMessage>}
 				</div>
 
-				<input
+				<button
 					type='submit'
-					value='Registrar Cuenta'
-					className='bg-primary-600 hover:bg-primary-700 w-full p-3  text-white font-black  text-xl cursor-pointer'
-				/>
+					className='btn-primary w-full p-3 text-xl'>
+					Registrar Cuenta
+				</button>
 			</form>
 			<nav className='flex flex-col space-y-4'>
 				<p className='text-center'>
 					¿Ya tienes cuenta?{' '}
 					<Link
 						to='/auth/login'
-						className='text-primary-600 hover:text-primary-700 font-bold'>
+						className='text-secondary hover:opacity-90 font-bold '>
 						Iniciar Sesión
 					</Link>
 				</p>

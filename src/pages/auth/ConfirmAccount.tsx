@@ -42,22 +42,23 @@ const ConfirmAccount = () => {
 			<h2 className='text-4xl font-normal'>Verificar Cuenta</h2>
 			<p className='text-xl font-light mt-5'>
 				Ingresa el código que recibiste por correo a {''}
-				<span className='text-primary-600 font-bold'>{email}</span>
+				<span className='text-secondary font-bold'>{email}</span>
 			</p>
-			<form className='mt-10 px-5 py-5 rounded bg-primary-500 flex justify-stretch gap-3 h-24 md:h-28'>
+			<form className='mt-10 p-5 rounded flex justify-stretch gap-3 h-24 md:h-28'>
 				<PinInput
 					value={code}
+					placeholder='-'
 					onChange={setCode}
 					onComplete={handleComplete}>
 					<PinInputField
 						ref={pinFieldRef}
-						className='w-full h-full text-center text-2xl font-bold rounded border-gray-300'
+						className='pin-input-field'
 					/>
-					<PinInputField className='w-full h-full text-center text-2xl font-bold rounded border-gray-300' />
-					<PinInputField className='w-full h-full text-center text-2xl font-bold rounded border-gray-300' />
-					<PinInputField className='w-full h-full text-center text-2xl font-bold rounded border-gray-300' />
-					<PinInputField className='w-full h-full text-center text-2xl font-bold rounded border-gray-300' />
-					<PinInputField className='w-full h-full text-center text-2xl font-bold rounded border-gray-300' />
+					<PinInputField className='pin-input-field' />
+					<PinInputField className='pin-input-field' />
+					<PinInputField className='pin-input-field' />
+					<PinInputField className='pin-input-field' />
+					<PinInputField className='pin-input-field' />
 				</PinInput>
 			</form>
 
@@ -67,20 +68,20 @@ const ConfirmAccount = () => {
 					<Link
 						state={{ email }}
 						to='/auth/request-code'
-						className='font-bold text-primary-600 hover:text-primary-700 uppercase'>
+						className='font-bold text-secondary hover:opacity-90 uppercase'>
 						Solicitar código
 					</Link>
 				</p>
 				<div className='mt-10 flex justify-center gap-5'>
 					<Link
 						to='/auth/login'
-						className='btn btn-secondary px-5 py-3 uppercase text-lg'>
+						className='btn-primary px-5 py-3 uppercase'>
 						Iniciar Sesión
 					</Link>
 
 					<Link
 						to='/auth/register'
-						className='btn btn-secondary px-5 py-3 uppercase text-lg'>
+						className='btn-primary px-5 py-3 uppercase'>
 						Crear Cuenta
 					</Link>
 				</div>

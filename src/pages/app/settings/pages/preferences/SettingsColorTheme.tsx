@@ -1,55 +1,36 @@
 import { useState } from 'react';
-import ColorPicker from './ColorPicker';
-
-const colorsTheme = [
-	{ name: 'Azul', value: '#2F72FF' },
-	{ name: 'Rojo', value: '#FF495F' },
-	{ name: 'Verde', value: '#064E3B' },
-	{ name: 'Amarillo', value: '#FFCF40' },
-	{ name: 'Morado', value: '#8C70FF' },
-	{ name: 'Naranja', value: '#FF9C2A' },
-	{ name: 'Gris', value: '#000' },
-];
-
-const loadSelectedColor = () => {
-	const selectedColor = localStorage.getItem('COLOR_THEME');
-	if (selectedColor) return selectedColor;
-	return colorsTheme[0].value;
-};
-
-const loadColorPicker = () => {
-	const colorPicker = localStorage.getItem('COLOR_PICKER');
-	return colorPicker;
-};
+import { colorThemeList } from '@/data';
+import { getColorTheme, setTheme } from '@/utils';
+import type { ColorThemes } from '@/interfaces/settings.interface';
 
 const SettingsColorTheme = () => {
-	const [selectedColor, setSelectedColor] = useState(loadSelectedColor());
+	const [selectedColor, setSelectedColor] = useState(getColorTheme());
 
 	// Seleccionar color
-	const handleSelectColor = (color: string) => {
-		setSelectedColor(color);
+	const handleSelectColor = (color: ColorThemes) => {
 		localStorage.setItem('COLOR_THEME', color);
+		setSelectedColor(color);
+		setTheme();
 	};
 
 	return (
 		<div className='mt-5 flex gap-3 flex-wrap'>
-			{colorsTheme.map(color => (
+			{colorThemeList.map(color => (
 				<button
 					key={color.name}
 					onClick={() => handleSelectColor(color.value)}
 					className='w-12 h-12 rounded-full p-1 border-4'
-					style={{ borderColor: selectedColor === color.value ? color.value : '#ebebeb' }}>
+					style={{ borderColor: selectedColor === color.value ? color.color : '#ebebeb' }}>
 					<div
 						className='w-full h-full rounded-full'
-						style={{ backgroundColor: color.value }}
+						style={{ backgroundColor: color.color }}
 					/>
 				</button>
 			))}
-			<ColorPicker
+			{/* <ColorPicker
 				selectedColor={selectedColor}
-				colorDefault={loadColorPicker()}
 				setSelectedColor={handleSelectColor}
-			/>
+			/> */}
 		</div>
 	);
 };

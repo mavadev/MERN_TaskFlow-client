@@ -1,36 +1,22 @@
 import { useState } from 'react';
-
-interface Theme {
-	name: string;
-	value: 'system' | 'light' | 'dark';
-	color: string;
-}
-
-const themes: Theme[] = [
-	{ name: 'Sistema', value: 'system', color: '#FFB85C' },
-	{ name: 'Claro', value: 'light', color: '#f1f5f9' },
-	{ name: 'Oscuro', value: 'dark', color: '#141414' },
-];
-
-const loadTheme = (): Theme['value'] => {
-	const theme = localStorage.getItem('THEME') as Theme['value'];
-	if (theme) return theme;
-	return 'light';
-};
+import { themeList } from '@/data';
+import { getTheme, setTheme } from '@/utils';
+import type { Themes } from '@/interfaces/settings.interface';
 
 const SettingsTheme = () => {
-	const [selectedTheme, setSelectedTheme] = useState(loadTheme());
+	const [selectedTheme, setSelectedTheme] = useState(getTheme());
 
-	const handleThemeChange = (theme: Theme['value']) => {
-		setSelectedTheme(theme);
+	const handleThemeChange = (theme: Themes) => {
 		localStorage.setItem('THEME', theme);
+		setSelectedTheme(theme);
+		setTheme();
 	};
 
 	return (
 		<div className='mt-4 flex gap-5'>
-			{themes.map(theme => (
+			{themeList.map((theme, index) => (
 				<div
-					key={theme.value}
+					key={index}
 					style={{ borderColor: selectedTheme === theme.value ? '' : 'gray' }}
 					className='w-full max-w-xs rounded-lg border-2 border-primary-800 overflow-hidden'>
 					<label

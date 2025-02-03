@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import RequestCode from './RequestCode';
 import { requestNewPassword } from '@/api/AuthAPI';
 import type { ResendCodeForm } from '@/interfaces/auth.interface';
+import { LinksAuth } from '@/components/auth/LinksAuth';
 
 const RequestNewPassword = () => {
 	const navigate = useNavigate();

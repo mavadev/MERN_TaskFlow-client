@@ -1,24 +1,17 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { HexColorPicker } from 'react-colorful';
 import { PlusIcon } from '@heroicons/react/24/outline';
 
 interface ColorPickerProps {
-	colorDefault: string | null;
 	selectedColor: string;
 	setSelectedColor: (color: string) => void;
 }
-
-const ColorPicker = ({ colorDefault, selectedColor, setSelectedColor }: ColorPickerProps) => {
-	const [enableNewColor, setEnableNewColor] = useState(!!colorDefault);
+const ColorPicker = ({ selectedColor, setSelectedColor }: ColorPickerProps) => {
+	const [enableNewColor, setEnableNewColor] = useState(false);
 
 	const [isOpen, setIsOpen] = useState(false);
-	const [color, setColor] = useState(colorDefault || '#000');
-	const [lastColor, setLastColor] = useState(colorDefault || '#000');
-
-	// Guardar color seleccionado
-	const saveColorStorage = (color: string) => {
-		localStorage.setItem('COLOR_PICKER', color);
-	};
+	const [color, setColor] = useState('#000');
+	const [lastColor, setLastColor] = useState('#000');
 
 	// Mostrar o ocultar el color picker
 	const handleViewPicker = () => {
@@ -34,7 +27,6 @@ const ColorPicker = ({ colorDefault, selectedColor, setSelectedColor }: ColorPic
 	const handleSaveColor = () => {
 		if (lastColor !== color) {
 			setLastColor(color);
-			saveColorStorage(color);
 			setSelectedColor(color);
 			!enableNewColor && setEnableNewColor(true);
 		}

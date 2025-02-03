@@ -34,20 +34,21 @@ const NewPasswordToken = ({ email, token, setToken, setCodeCorrect }: NewPasswor
 
 	return (
 		<>
-			<form className='mt-10 px-5 py-5 rounded bg-primary-500 flex justify-stretch gap-3 h-24 md:h-28'>
+			<form className='mt-10 p-5 rounded flex justify-stretch gap-3 h-24 md:h-28'>
 				<PinInput
 					value={token}
+					placeholder='-'
 					onChange={setToken}
 					onComplete={handleValidateCode}>
 					<PinInputField
 						ref={pinFieldRef}
-						className='w-full h-full text-center text-2xl font-bold rounded border-gray-300'
+						className='pin-input-field'
 					/>
-					<PinInputField className='w-full h-full text-center text-2xl font-bold rounded border-gray-300' />
-					<PinInputField className='w-full h-full text-center text-2xl font-bold rounded border-gray-300' />
-					<PinInputField className='w-full h-full text-center text-2xl font-bold rounded border-gray-300' />
-					<PinInputField className='w-full h-full text-center text-2xl font-bold rounded border-gray-300' />
-					<PinInputField className='w-full h-full text-center text-2xl font-bold rounded border-gray-300' />
+					<PinInputField className='pin-input-field' />
+					<PinInputField className='pin-input-field' />
+					<PinInputField className='pin-input-field' />
+					<PinInputField className='pin-input-field' />
+					<PinInputField className='pin-input-field' />
 				</PinInput>
 			</form>
 			<p className='mt-5 text-right'>
@@ -55,7 +56,7 @@ const NewPasswordToken = ({ email, token, setToken, setCodeCorrect }: NewPasswor
 				<Link
 					state={{ email }}
 					to='/auth/request-new-password'
-					className='font-bold text-primary-600 hover:text-primary-700 uppercase'>
+					className='font-bold text-secondary hover:opacity-90 uppercase'>
 					Solicitar código
 				</Link>
 			</p>

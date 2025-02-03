@@ -19,33 +19,33 @@ const AppLayout = () => {
 		);
 
 	return (
-		<div className='flex flex-col min-h-screen'>
-			<header className='border-b border-gray-300'>
-				<div className='container mx-auto flex flex-row justify-between items-center px-4 py-6'>
+		<div className='flex flex-col min-h-screen bg-background'>
+			<header className='bg-surfaceContainer'>
+				<div className='container mx-auto flex justify-between py-6 px-3'>
 					<Logo />
 					<MenuUser name={user?.name!} />
 				</div>
 			</header>
-			<main className='container mx-auto flex-1 flex flex-col'>
+			<main className='px-3 container mx-auto flex-1 flex flex-col'>
 				<ToastContainer
 					draggable
 					closeOnClick
 				/>
 				<Outlet />
 			</main>
-			<footer className='bg-primary-900'>
-				<div className='container mx-auto p-5 pb-8 flex flex-col md:flex-row items-center justify-between text-gray-300'>
+			<footer className='bg-surfaceContainer'>
+				<div className='container mx-auto p-5 pb-8 flex flex-col md:flex-row items-center justify-between text-onSurface'>
 					<p>
 						Proyecto realizado por{' '}
 						<a
 							target='_blank'
-							className='text-primary-400'
 							rel='noopener noreferrer'
-							href='https://github.com/mavadev'>
+							href='https://github.com/mavadev'
+							className='text-primary font-semibold'>
 							mavadev
 						</a>
 					</p>
-					<p>Todos los derechos reservados &copy; {new Date().getFullYear()}</p>
+					<p>Todos los derechos reservados &copy;{new Date().getFullYear()}</p>
 				</div>
 			</footer>
 		</div>

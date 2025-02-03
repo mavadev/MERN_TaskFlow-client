@@ -20,8 +20,8 @@ export const MenuUser = ({ name }: MenuUserProps) => {
 
 	return (
 		<Popover className='md:relative'>
-			<PopoverButton className='leading-6 p-1 rounded bg-primary-600'>
-				<Bars3Icon className='w-8 h-8 text-white ' />
+			<PopoverButton className='block mt-auto'>
+				<Bars3Icon className='w-8 h-8 text-secondary ' />
 			</PopoverButton>
 
 			<Transition
@@ -32,31 +32,33 @@ export const MenuUser = ({ name }: MenuUserProps) => {
 				leave='transition ease-in duration-150'
 				leaveFrom='opacity-100 translate-y-0'
 				leaveTo='opacity-0 translate-y-1'>
-				<div className='fixed md:absolute max-md:inset-0 md:right-0 z-10 max-md:bg-black/50 p-5 md:pr-0 flex items-end'>
+				<div className='fixed md:absolute max-md:inset-0 md:right-0 z-10 max-md:bg-black/50 p-3 pb-5 md:pr-0 flex items-end'>
 					<PopoverPanel className='w-full'>
-						<div className='mt-auto p-4 md:w-56 shrink rounded bg-card text-sm font-semibold leading-6 text-gray-800 shadow-lg text-center'>
-							<p className='max-md:text-lg'>Bienvenido,</p>
-							<p className='max-md:text-xl font-bold text-primary-700 mb-3'>{name}</p>
-							<div className='text-left transition-colors max-md:text-lg font-medium'>
+						<div className='p-4 md:w-56 rounded-lg bg-surfaceContainerLow border-2 border-outline'>
+							<header className='px-2 pb-4 border-b-2 border-outline mb-4'>
+								<p className='text-lg md:text-sm'>Bienvenido,</p>
+								<p className='text-xl md:text-sm font-semibold text-primary'>{name}</p>
+							</header>
+							<div className='text-left md:text-xs font-semibold uppercase flex flex-col transition-colors'>
 								<Link
 									to='/app/profile'
-									className='block p-2 border-b-2 w-full hover:border-b-darken-500 '>
+									className='p-2 w-full  hover:text-secondary'>
 									Mi Perfil
 								</Link>
 								<Link
 									to='/app/projects'
-									className='block p-2 border-b-2 w-full hover:border-b-darken-500'>
+									className='p-2 w-full hover:text-secondary'>
 									Mis Proyectos
 								</Link>
 								<Link
 									to='/app/settings'
-									className='block p-2 border-b-2 w-full hover:border-b-darken-500'>
+									className='p-2 w-full hover:text-secondary'>
 									Configuración
 								</Link>
 								<button
 									type='button'
 									onClick={logout}
-									className='block p-2 border-b-2 w-full hover:border-b-darken-500 text-left'>
+									className='p-2 w-max md:text-xs font-semibold uppercase hover:text-secondary'>
 									Cerrar Sesión
 								</button>
 							</div>

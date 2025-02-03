@@ -42,12 +42,12 @@ const LoginPage = () => {
 			<h2 className='text-4xl font-normal text-center '>Iniciar Sesión</h2>
 			<form
 				noValidate
-				className='space-y-8 bg-white w-full max-w-md'
+				className='space-y-6 w-full max-w-md'
 				onSubmit={handleSubmit(handleLogin)}>
 				<div className='flex flex-col gap-3'>
 					<label
 						htmlFor='email'
-						className='font-normal text-2xl'>
+						className='label-form'>
 						Email
 					</label>
 
@@ -64,13 +64,13 @@ const LoginPage = () => {
 							},
 						})}
 					/>
-					{errors.email && <ErrorMessage error={errors.email.message as string}></ErrorMessage>}
+					{errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
 				</div>
 
 				<div className='flex flex-col gap-3'>
 					<label
 						htmlFor='password'
-						className='font-normal text-2xl'>
+						className='label-form'>
 						Contraseña
 					</label>
 
@@ -83,18 +83,13 @@ const LoginPage = () => {
 							required: 'El Password es obligatorio',
 						})}
 					/>
-					{errors.password && <ErrorMessage error={errors.password.message as string}></ErrorMessage>}
-					<Link
-						to='/auth/request-new-password'
-						className='text-primary-600 hover:text-primary-700 font-bold text-right'>
-						¿Olvidaste tu contraseña?
-					</Link>
+					{errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
 				</div>
 
 				<input
 					type='submit'
 					value='Iniciar Sesión'
-					className='bg-primary-600 hover:bg-primary-700 w-full p-3 text-white font-bold text-xl cursor-pointer'
+					className='btn-primary w-full p-3 text-xl'
 				/>
 			</form>
 
@@ -103,7 +98,7 @@ const LoginPage = () => {
 					¿No tienes cuenta?{' '}
 					<Link
 						to='/auth/register'
-						className='text-primary-600 hover:text-primary-700 font-bold'>
+						className='text-secondary hover:opacity-90 font-bold'>
 						Crear cuenta
 					</Link>
 				</p>
@@ -111,7 +106,7 @@ const LoginPage = () => {
 					¿Olvidaste tu contraseña?{' '}
 					<Link
 						to='/auth/request-new-password'
-						className='text-primary-600 hover:text-primary-700 font-bold'>
+						className='text-secondary hover:opacity-90 font-bold'>
 						Recuperar contraseña
 					</Link>
 				</p>

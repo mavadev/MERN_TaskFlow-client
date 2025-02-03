@@ -2,24 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+h1,
+h2,
+h3,
+p,
+a,
+label,
+span,
+button {
+	@apply text-onSurface;
+}
+
 .btn {
-	@apply text-white rounded font-bold inline-block transition-colors cursor-pointer;
+	@apply rounded font-bold inline-block transition-colors cursor-pointer;
 }
 
 .btn-primary {
-	@apply btn bg-primary-500 hover:bg-primary-700 py-2 px-4;
-}
-
-.btn-secondary {
-	@apply btn bg-black/90 hover:bg-black uppercase;
-}
-
-.title {
-	@apply text-3xl font-bold;
-}
-
-.subtitle {
-	@apply text-2xl font-light mt-2;
+	@apply btn bg-secondary hover:opacity-90 text-onSecondary;
 }
 
 /* Formulario */
@@ -27,16 +26,23 @@
 	@apply mt-10 bg-white shadow-lg rounded-lg w-full max-w-xl;
 }
 .label-form {
-	@apply font-bold text-black text-xl;
+	@apply font-semibold text-xl;
 }
 .input-form {
-	@apply w-full p-3 border-slate-400 border;
+	@apply w-full p-3 bg-surfaceContainerHigh outline-none placeholder:text-onSurfaceVariant text-onSurface;
+}
+.pin-input-field {
+	@apply w-full h-full text-center text-2xl font-bold rounded bg-white caret-black;
 }
 
 /* Toastify Notification */
 .Toastify__toast-icon > svg {
-	@apply fill-primary-600 !important;
+	@apply fill-primary !important;
 }
 .Toastify__progress-bar--success {
-	@apply bg-primary-800 !important;
+	@apply bg-primary !important;
+}
+
+body {
+	@apply caret-primary;
 }

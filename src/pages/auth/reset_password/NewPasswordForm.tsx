@@ -47,11 +47,11 @@ const NewPasswordForm = ({ email, token }: NewPasswordFormProps) => {
 		<form
 			noValidate
 			onSubmit={handleSubmit(handleNewPassword)}
-			className='space-y-8 bg-white w-full max-w-md text-left mt-10'>
+			className='space-y-8 w-full max-w-md text-left mt-10'>
 			<div className='flex flex-col gap-3'>
 				<label
 					htmlFor='password'
-					className='font-normal text-2xl'>
+					className='label-form'>
 					Nueva Contraseña
 				</label>
 
@@ -68,13 +68,13 @@ const NewPasswordForm = ({ email, token }: NewPasswordFormProps) => {
 						},
 					})}
 				/>
-				{errors.password && <ErrorMessage error={errors.password.message as string} />}
+				{errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
 			</div>
 
 			<div className='flex flex-col gap-3'>
 				<label
 					htmlFor='password_confirmation'
-					className='font-normal text-2xl'>
+					className='label-form'>
 					Confirmar Contraseña
 				</label>
 
@@ -88,13 +88,13 @@ const NewPasswordForm = ({ email, token }: NewPasswordFormProps) => {
 						validate: value => value === watch('password') || 'Las contraseñas no coinciden',
 					})}
 				/>
-				{errors.password_confirmation && <ErrorMessage error={errors.password_confirmation.message as string} />}
+				{errors.password_confirmation && <ErrorMessage>{errors.password_confirmation.message}</ErrorMessage>}
 			</div>
 
 			<input
 				type='submit'
 				value='Reestablecer Contraseña'
-				className='bg-primary-600 hover:bg-primary-700 w-full p-3  text-white font-black  text-xl cursor-pointer'
+				className='btn-primary w-full p-3 text-xl'
 			/>
 		</form>
 	);

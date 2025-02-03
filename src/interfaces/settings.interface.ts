@@ -34,6 +34,22 @@ export interface DeleteAccount {
 	user_id: User['_id'];
 }
 
+// Cambiar color de tema
+export type ColorThemes = 'red' | 'cyan' | 'orange' | 'blue' | 'purple' | 'green';
+export interface ColorTheme {
+	name: string;
+	color: string;
+	value: ColorThemes;
+}
+
+// Modo de Tema - Claro / Oscuro
+export type Themes = 'light' | 'dark' | 'system';
+export interface Theme {
+	name: string;
+	color: string;
+	value: Themes;
+}
+
 // Cambiar Contraseña
 export const formChangePasswordSchema = z.object({
 	current_password: z.string(),
