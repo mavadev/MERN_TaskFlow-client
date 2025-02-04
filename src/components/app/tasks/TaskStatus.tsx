@@ -17,14 +17,14 @@ type TaskStatusProps = {
 
 export const TaskStatus = ({ status, isManager }: TaskStatusProps) => {
 	const navigate = useNavigate();
-	const handleNavigate = () => navigate(location.pathname + `?mode=create&status=${status}`);
+	const handleCreateTask = () => navigate(location.pathname + `?mode=create&status=${status}`);
 
 	return (
 		<div
 			className={`flex items-center justify-between w-full select-none p-3 rounded-t border-b-8 ${statusStyles[status]} opacity-80`}>
 			<h3 className='capitalize font-bold'>{statusTranslate[status]}</h3>
 			{isManager && (
-				<button onClick={handleNavigate}>
+				<button onClick={handleCreateTask}>
 					<PlusCircleIcon width={25} />
 				</button>
 			)}

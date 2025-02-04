@@ -32,12 +32,12 @@ export const NoteItem = ({ projectId, taskId, note }: NoteItemProps) => {
 	const handleDeleteNote = () => mutate({ projectId, taskId, noteId: note._id });
 
 	return (
-		<li className='p-3 bg-amber-200 rounded relative flex flex-col justify-between gap-2 w-48 min-w-48'>
-			<p className='text-sm'>{note.content}</p>
-			<p className='text-xs text-slate-500'>{formatDate(note.createdAt)}</p>
+		<li className='p-3 bg-tertiaryContainer rounded relative flex flex-col justify-between gap-2 w-48 min-w-48'>
+			<p className='text-sm text-onTertiaryContainer'>{note.content}</p>
+			<p className='text-xs text-white'>{formatDate(note.createdAt)}</p>
 			<button
 				onClick={handleDeleteNote}
-				className='absolute bottom-2 right-2 rounded-full p-1 text-red-600 hover:bg-red-600 hover:text-white transition-colors'>
+				className='absolute bottom-2 right-2 rounded-full p-1 bg-red-600 text-white hover:opacity-90'>
 				<TrashIcon className='w-5 h-5' />
 			</button>
 		</li>

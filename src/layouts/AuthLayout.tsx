@@ -11,7 +11,7 @@ const AuthLayout = () => {
 		return (
 			<Navigate
 				replace
-				to='/app/projects/managed'
+				to='/app'
 			/>
 		);
 

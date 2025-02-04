@@ -74,8 +74,8 @@ export const TaskModal = ({ team }: TaskModalProps) => {
 		const status = searchParams.get('status') as TaskStatus;
 		const mode = searchParams.get('mode') as 'create' | 'edit' | 'view';
 
-		if (mode === 'create' && status) {
-			openModal('create', status);
+		if (mode === 'create') {
+			openModal('create', status || 'pending');
 		} else if ((mode === 'edit' || mode === 'view') && taskId) {
 			if (task) openModal(mode, task);
 			else

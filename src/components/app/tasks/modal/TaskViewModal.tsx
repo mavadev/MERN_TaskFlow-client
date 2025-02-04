@@ -53,16 +53,16 @@ export default function TaskViewModal({ task, team }: TaskViewModalProps) {
 	return (
 		<div className='py-5'>
 			<header className='px-10 py-5 space-y-5'>
-				<span className={`px-2 py-1 rounded border-2 text-sm font-semibold ${statusStyles[task.status]} uppercase`}>
+				<span className={`px-2 py-1 rounded border-2 text-xs font-semibold ${statusStyles[task.status]} uppercase`}>
 					{statusTranslate[task.status]}
 				</span>
-				<h2 className='font-bold text-3xl text-slate-700'>{task.name}</h2>
+				<h2 className='font-bold text-2xl text-slate-700 line-clamp-2'>{task.name}</h2>
 			</header>
 			<main className='px-10 space-y-5'>
 				{/* Descripción */}
-				<section className='bg-blue-200 p-2 text-slate-700 space-y-2'>
-					<p className='font-semibold'>Descripción:</p>
-					<p className='pl-3 text-sm '>{task.description}</p>
+				<section className='rounded bg-secondaryContainer p-4 text-slate-700 space-y-2'>
+					<p className='font-semibold text-onSecondaryContainer'>Descripción:</p>
+					<p className='pl-3 text-sm text-onSecondaryContainer'>{task.description}</p>
 				</section>
 
 				{/* Notas */}
@@ -76,7 +76,7 @@ export default function TaskViewModal({ task, team }: TaskViewModalProps) {
 				</section>
 
 				{/* Estado y Asignado a */}
-				<section className='flex gap-2'>
+				<section className='flex flex-col md:flex-row gap-5'>
 					<div className='flex flex-col flex-1 space-y-2'>
 						<label
 							htmlFor='status'
@@ -126,13 +126,7 @@ export default function TaskViewModal({ task, team }: TaskViewModalProps) {
 				</section>
 			</main>
 			<footer className='px-10 py-5 flex items-end justify-between gap-5'>
-				<div className=''>
-					{task.assignedTo ? (
-						<UserItem user={task.assignedTo} />
-					) : (
-						<p className='text-slate-600 uppercase font-semibold'>Sin asignar</p>
-					)}
-				</div>
+				<div className=''>{task.assignedTo && <UserItem user={task.assignedTo} />}</div>
 				<p className='text-sm text-slate-600'>
 					Creado el: <span className='font-semibold'>{formatDate(task.createdAt)}</span>
 				</p>

@@ -1,6 +1,5 @@
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
-import { DialogTitle } from '@headlessui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
@@ -53,8 +52,8 @@ export default function TaskAddModal({ team, status }: TaskAddModalProps) {
 	const handleCreateTask = (formData: TaskDraft) => mutate({ projectId, formData });
 
 	return (
-		<div className='py-10 space-y-5'>
-			<header className='space-y-2 px-10'>
+		<div className='p-5 md:p-10 space-y-5'>
+			<header className='space-y-2'>
 				<h3 className='font-bold text-3xl '>Nueva Tarea</h3>
 				<p className='text-xl '>
 					Llena el formulario y crea <span className='text-yellow-600 font-bold'>una tarea</span>
@@ -62,7 +61,7 @@ export default function TaskAddModal({ team, status }: TaskAddModalProps) {
 			</header>
 			<form
 				noValidate
-				className='space-y-5 px-10'
+				className='space-y-5'
 				onSubmit={handleSubmit(handleCreateTask)}>
 				<TaskForm
 					teamData={team}
@@ -72,7 +71,7 @@ export default function TaskAddModal({ team, status }: TaskAddModalProps) {
 				<input
 					type='submit'
 					value='Añadir Tarea'
-					className='btn-secondary p-4 w-full'
+					className='btn-primary p-4 uppercase w-full'
 				/>
 			</form>
 		</div>

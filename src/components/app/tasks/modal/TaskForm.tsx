@@ -17,10 +17,10 @@ export default function TaskForm<T extends { name: string; description: string; 
 }: TaskFormProps<T>) {
 	return (
 		<>
-			<div className='flex flex-col'>
+			<div className='flex flex-col gap-2'>
 				<label
 					htmlFor='name'
-					className='label-form mb-3'>
+					className='label-form'>
 					Nombre
 				</label>
 				<input
@@ -30,29 +30,30 @@ export default function TaskForm<T extends { name: string; description: string; 
 					placeholder='Nombre de la tarea'
 					{...register('name' as Path<T>, { required: 'El nombre de la tarea es obligatorio' })}
 				/>
-				{errors.name?.message && <ErrorMessage error={String(errors.name.message)} />}
+				{errors.name?.message && <ErrorMessage>{errors.name.message.toString()}</ErrorMessage>}
 			</div>
 
-			<div className='flex flex-col '>
+			<div className='flex flex-col gap-2 '>
 				<label
 					htmlFor='description'
-					className='label-form mb-3'>
+					className='label-form'>
 					Descripción
 				</label>
 				<textarea
+					rows={3}
 					id='description'
-					className='input-form'
+					className='input-form resize-none'
 					placeholder='Descripción de la tarea'
 					{...register('description' as Path<T>, {
 						required: 'La descripción de la tarea es obligatoria',
 					})}
 				/>
-				{errors.description?.message && <ErrorMessage error={String(errors.description.message)} />}
+				{errors.description?.message && <ErrorMessage>{errors.description.message.toString()}</ErrorMessage>}
 			</div>
-			<div className='flex flex-col'>
+			<div className='flex flex-col gap-2'>
 				<label
 					htmlFor='assignedTo'
-					className='label-form mb-3'>
+					className='label-form'>
 					Asignado a
 				</label>
 				<select
@@ -73,12 +74,12 @@ export default function TaskForm<T extends { name: string; description: string; 
 						</option>
 					))}
 				</select>
-				{errors.status?.message && <ErrorMessage error={String(errors.status.message)} />}
+				{errors.status?.message && <ErrorMessage>{errors.status.message.toString()}</ErrorMessage>}
 			</div>
-			<div className='flex flex-col'>
+			<div className='flex flex-col gap-2'>
 				<label
 					htmlFor='status'
-					className='label-form mb-3'>
+					className='label-form'>
 					Estado de la Tarea
 				</label>
 				<select
@@ -93,7 +94,7 @@ export default function TaskForm<T extends { name: string; description: string; 
 						</option>
 					))}
 				</select>
-				{errors.status?.message && <ErrorMessage error={String(errors.status.message)} />}
+				{errors.status?.message && <ErrorMessage>{errors.status.message.toString()}</ErrorMessage>}
 			</div>
 		</>
 	);

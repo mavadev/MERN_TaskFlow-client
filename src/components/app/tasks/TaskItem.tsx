@@ -31,8 +31,7 @@ export const TaskItem = ({ task, isManager }: TaskItemProps) => {
 	const handleNavigate = (mode: string) => navigate(location.pathname + `?taskId=${task._id}&mode=${mode}`);
 
 	const handleDeleteTask = () => {
-		window.confirm('¿Estás seguro de querer eliminar esta tarea?') &&
-			mutate({ projectId: task.project, taskId: task._id });
+		mutate({ projectId: task.project, taskId: task._id });
 	};
 
 	return (

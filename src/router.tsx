@@ -21,7 +21,7 @@ import {
 /* App Pages */
 import { ProjectsLayout, ProjectCreatePage, ProfilePage, SettingsLayout, ProjectLayout } from '@/pages/app';
 // Proyecto
-import { ProjectViewPage, ProjectEditPage, ProjectTeamPage } from '@/pages/app/project/pages';
+import { ProjectTasksPage, ProjectEditPage, ProjectTeamPage } from '@/pages/app/project/pages';
 // Configuración
 import {
 	SettingsProfile,
@@ -129,7 +129,7 @@ export default function AppRouter() {
 						/>
 						<Route
 							path='tasks'
-							element={<ProjectViewPage />}
+							element={<ProjectTasksPage />}
 						/>
 						<Route
 							path='team'
