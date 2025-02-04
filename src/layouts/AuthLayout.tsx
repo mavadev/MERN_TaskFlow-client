@@ -4,10 +4,10 @@ import { useAuth } from '@/hooks/useAuth';
 import { Logo } from '@/components/LogoApp';
 
 const AuthLayout = () => {
-	const { isLoading, isError } = useAuth();
+	const { isUserError, isUserLoading } = useAuth();
 
-	if (isLoading) return <div>Cargando...</div>;
-	if (!isError)
+	if (isUserLoading) return <div>Cargando...</div>;
+	if (!isUserError)
 		return (
 			<Navigate
 				replace

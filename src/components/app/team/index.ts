@@ -1,2 +1,2 @@
 export { TeamList } from './TeamList';
-export { AddMemberModal } from './search/AddMemberModal';
+export { ModalAddMember as AddMemberModal } from './search/ModalAddMember';

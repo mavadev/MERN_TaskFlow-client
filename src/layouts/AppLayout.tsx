@@ -7,10 +7,10 @@ import { Logo } from '@/components/LogoApp';
 import { MenuUser } from '@/components/app/MenuUser';
 
 const AppLayout = () => {
-	const { user, isLoading, isError } = useAuth();
+	const { user, isUserLoading, isUserError } = useAuth();
 
-	if (isLoading) return <div>Cargando...</div>;
-	if (isError)
+	if (isUserLoading) return <div>Cargando...</div>;
+	if (isUserError)
 		return (
 			<Navigate
 				replace
@@ -19,14 +19,14 @@ const AppLayout = () => {
 		);
 
 	return (
-		<div className='flex flex-col min-h-screen bg-background'>
+		<div className='flex flex-col min-h-screen h-screen bg-background'>
 			<header className='border-b-2 border-secondary'>
 				<div className='container mx-auto flex justify-between py-6 px-3'>
 					<Logo />
 					<MenuUser name={user?.name!} />
 				</div>
 			</header>
-			<main className='px-3 container mx-auto flex-1 flex flex-col'>
+			<main className='mx-auto w-full flex-1 flex flex-col'>
 				<ToastContainer
 					draggable
 					closeOnClick

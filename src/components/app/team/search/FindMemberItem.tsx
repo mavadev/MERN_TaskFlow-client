@@ -1,12 +1,27 @@
-import { useState } from 'react';
 import { toast } from 'react-toastify';
+import { BeatLoader } from 'react-spinners';
+import { ReactNode, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { CheckCircleIcon, PlusCircleIcon, XCircleIcon } from '@heroicons/react/24/outline';
 
-import { formatImage } from '@/utils';
+import { UserItem } from '../../user/UserItem';
 import { addMemberToProject } from '@/api/TeamProjectAPI';
 import type { Project } from '@/interfaces/project.interface';
 import type { UserSimple } from '@/interfaces/user.interface';
+
+type StatusAddMember = 'idle' | 'loading' | 'success' | 'error';
+const statusAdd: Record<StatusAddMember, ReactNode> = {
+	idle: <PlusCircleIcon className='size-6' />,
+	error: <XCircleIcon className='size-6' />,
+	success: <CheckCircleIcon className='size-6' />,
+	loading: (
+		<BeatLoader
+			size={6}
+			color='white'
+		/>
+	),
+};
 
 interface FindMemberItemProps {
 	user: UserSimple;
@@ -14,9 +29,11 @@ interface FindMemberItemProps {
 
 export const FindMemberItem = ({ user }: FindMemberItemProps) => {
 	const queryClient = useQueryClient();
-	const [statusAddMember, setStatusAddMember] = useState('idle');
 	const { projectId } = useParams() as { projectId: Project['_id'] };
 
+	const [statusAddMember, setStatusAddMember] = useState<StatusAddMember>('idle');
+
+	// Añadir nuevo usuario
 	const { mutate: addMember } = useMutation({
 		mutationFn: addMemberToProject,
 		onSuccess: message => {
@@ -37,22 +54,12 @@ export const FindMemberItem = ({ user }: FindMemberItemProps) => {
 
 	return (
 		<div className='flex items-center justify-between'>
-			<div className='flex items-center gap-4'>
-				<img
-					alt={user.name}
-					src={formatImage(user.avatar)}
-					className='w-12 h-12 rounded-full'
-				/>
-				<div>
-					<h3 className='text-lg font-bold'>{user.name} </h3>
-					<p className='text-sm text-gray-500'>{user.username}</p>
-				</div>
-			</div>
+			<UserItem user={user} />
 			<button
 				onClick={handleAddMember}
 				disabled={statusAddMember !== 'idle'}
-				className='btn bg-black/90 px-4 py-3 disabled:opacity-50 disabled:cursor-default'>
-				{statusAddMember === 'idle' ? 'Añadir' : statusAddMember === 'loading' ? 'Añadiendo...' : 'Añadido'}
+				className='btn bg-primaryContainer px-4 py-2 disabled:opacity-50 disabled:cursor-default text-white'>
+				{statusAdd[statusAddMember]}
 			</button>
 		</div>
 	);

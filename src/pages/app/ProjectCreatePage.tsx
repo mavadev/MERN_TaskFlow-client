@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { createProject } from '@/api/ProjectAPI';
 import ProjectForm from '@/components/app/projects/ProjectForm';
@@ -35,7 +35,7 @@ const CreateProjectPage = () => {
 	});
 	const handleForm = (formData: ProjectDraft) => mutate({ formData });
 	return (
-		<>
+		<div className='px-3 container mx-auto'>
 			<header className='py-10 flex flex-col max-md:items-center'>
 				<div className='max-md:text-center'>
 					<h1 className='text-3xl font-bold'>Crear Proyecto</h1>
@@ -47,8 +47,8 @@ const CreateProjectPage = () => {
 
 			<form
 				noValidate
-				className='w-full max-w-xl space-y-8 mt-5 mb-10'
-				onSubmit={handleSubmit(handleForm)}>
+				onSubmit={handleSubmit(handleForm)}
+				className='w-full max-w-xl space-y-8 mt-5 mb-10'>
 				<ProjectForm
 					register={register}
 					errors={errors}
@@ -59,7 +59,7 @@ const CreateProjectPage = () => {
 					className='btn-primary p-4 uppercase w-full'
 				/>
 			</form>
-		</>
+		</div>
 	);
 };
 

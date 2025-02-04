@@ -21,7 +21,7 @@ const SettingsLayout = () => {
 	const isError = isProfileError || isProjectsError;
 
 	return (
-		<main className='container flex flex-col md:flex-row flex-1'>
+		<main className='flex flex-col md:flex-row container mx-auto'>
 			<SettingsAside />
 			<SettingsSection
 				profile={profile!}

@@ -19,7 +19,7 @@ import {
 } from '@/pages/auth';
 
 /* App Pages */
-import { ProjectsLayout, ProjectCreatePage, ProfilePage, SettingsLayout, ProjectPage } from '@/pages/app';
+import { ProjectsLayout, ProjectCreatePage, ProfilePage, SettingsLayout, ProjectLayout } from '@/pages/app';
 // Proyecto
 import { ProjectViewPage, ProjectEditPage, ProjectTeamPage } from '@/pages/app/project/pages';
 // Configuración
@@ -31,7 +31,7 @@ import {
 	SettingsProjects,
 } from '@/pages/app/settings/pages';
 // Proyectos
-import { ProjectsCollaborative, ProjectsManaged } from './pages/app/projects';
+import { ProjectsCollaborative, ProjectsManaged } from './pages/app/projects/pages';
 
 export default function AppRouter() {
 	useEffect(() => setTheme(), []);
@@ -117,9 +117,18 @@ export default function AppRouter() {
 					/>
 					<Route
 						path='projects/:projectId'
-						element={<ProjectPage />}>
+						element={<ProjectLayout />}>
 						<Route
 							index
+							element={
+								<Navigate
+									replace
+									to='tasks'
+								/>
+							}
+						/>
+						<Route
+							path='tasks'
 							element={<ProjectViewPage />}
 						/>
 						<Route

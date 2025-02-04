@@ -1,30 +1,30 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 
-import { useProject } from '../ProjectContext';
+import { ProjectContextProps } from '../ProjectSection';
 import { TeamList, AddMemberModal } from '@/components/app/team';
 
 const ProjectTeamPage = () => {
-	const { team } = useProject();
 	const navigate = useNavigate();
+	const { team } = useOutletContext<ProjectContextProps>();
 
 	const handleAddMember = () => navigate(location.pathname + '?addMember=true', { replace: true });
 
 	return (
-		<div>
-			<div className='mb-3'>
-				<h2 className='uppercase font-bold text-gray-600'>Colaboradores</h2>
+		<>
+			<header className='mb-5'>
+				<h2 className='uppercase font-bold text-outline'>Colaboradores</h2>
 				<h1 className='font-bold text-2xl md:text-3xl'>Administrar Equipo</h1>
-			</div>
-			<p className='text-lg text-gray-900 text-balance mb-5'>Administra los colaboradores del proyecto</p>
+				<p className='text-xl text-black text-balance mt-2'>Administra los colaboradores del proyecto</p>
+			</header>
 			<button
-				className='btn btn-primary mb-10'
-				onClick={handleAddMember}>
+				onClick={handleAddMember}
+				className='btn btn-primary px-4 py-2 mb-10'>
 				Añadir colaborador
 			</button>
-			<TeamList team={team} />
 
+			<TeamList team={team} />
 			<AddMemberModal />
-		</div>
+		</>
 	);
 };
 

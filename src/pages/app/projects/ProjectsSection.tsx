@@ -9,11 +9,11 @@ interface ProjectsPageProps {
 	isError: boolean;
 }
 
-const ProjectsPage = ({ projects, isLoading, isError }: ProjectsPageProps) => {
+const ProjectsSection = ({ projects, isLoading, isError }: ProjectsPageProps) => {
 	if (isLoading) return <Loading />;
 	if (isError) return <ErrorScreen />;
 
 	return <Outlet context={{ ...projects }} />;
 };
 
-export default ProjectsPage;
+export default ProjectsSection;

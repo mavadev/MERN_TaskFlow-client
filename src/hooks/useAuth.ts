@@ -15,5 +15,5 @@ export const useAuth = () => {
 
 	if (isError) localStorage.removeItem('AUTH_TOKEN');
 
-	return { user, isLoading, isError };
+	return { user, isUserLoading: isLoading, isUserError: isError };
 };

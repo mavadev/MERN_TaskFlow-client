@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Link, NavLink } from 'react-router-dom';
 
 import { getProjects } from '@/api/ProjectAPI';
-import ProjectsPage from './projects/ProjectsPage';
+import ProjectsSection from './projects/ProjectsSection';
 
 const tabs = [
 	{ title: 'Personales', link: '/app/projects/managed' },
@@ -20,7 +20,7 @@ const ProjectsLayout = () => {
 	});
 
 	return (
-		<>
+		<div className='px-3 container mx-auto'>
 			<header className='py-10 space-y-5 flex flex-col md:flex-row md:items-end justify-between'>
 				<div className='max-md:text-center'>
 					<h1 className='text-3xl font-bold'>Mis Proyectos</h1>
@@ -51,14 +51,14 @@ const ProjectsLayout = () => {
 					))}
 				</div>
 				<section className='px-4 py-10 flex-1 flex flex-col'>
-					<ProjectsPage
+					<ProjectsSection
 						isError={isError}
 						projects={projects!}
 						isLoading={isLoading}
 					/>
 				</section>
 			</main>
-		</>
+		</div>
 	);
 };
 

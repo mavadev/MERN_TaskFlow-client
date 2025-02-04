@@ -30,33 +30,31 @@ export const TaskList = ({ tasks, isManager }: TaskListProps) => {
 	);
 
 	return (
-		<main className='overflow-auto'>
-			<section className='flex gap-3 w-max'>
-				{Object.entries(groupedTasks).map(([status, statusTasks]) => (
-					<article
+		<section className='flex flex-col md:flex-row gap-3 w-max'>
+			{Object.entries(groupedTasks).map(([status, statusTasks]) => (
+				<article
+					key={status}
+					className='flex flex-col gap-3 w-60 md:w-60'>
+					<TaskStatus
 						key={status}
-						className='flex flex-col gap-3 w-60 md:w-60 pb-32'>
-						<TaskStatus
-							key={status}
-							status={status}
-							isManager={isManager}
-						/>
-						<ul className='w-full space-y-2'>
-							{statusTasks.length ? (
-								statusTasks.map(task => (
-									<TaskItem
-										task={task}
-										key={task._id}
-										isManager={isManager}
-									/>
-								))
-							) : (
-								<h3 className='p-4 text-center text-slate-500'>No hay tareas</h3>
-							)}
-						</ul>
-					</article>
-				))}
-			</section>
-		</main>
+						status={status}
+						isManager={isManager}
+					/>
+					<ul className='w-full space-y-2'>
+						{statusTasks.length ? (
+							statusTasks.map(task => (
+								<TaskItem
+									task={task}
+									key={task._id}
+									isManager={isManager}
+								/>
+							))
+						) : (
+							<h3 className='p-4 text-center text-slate-500'>No hay tareas</h3>
+						)}
+					</ul>
+				</article>
+			))}
+		</section>
 	);
 };

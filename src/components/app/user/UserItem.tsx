@@ -11,10 +11,10 @@ export const UserItem = ({ user }: UserItemProps) => {
 			<img
 				alt={user.name}
 				src={formatImage(user.avatar)}
-				className='w-10 h-10 rounded-full'
+				className='w-12 h-12 rounded-full'
 			/>
 			<div>
-				<h3 className='text-sm font-semibold'>{user.name} </h3>
+				<h3 className='font-semibold'>{user.name} </h3>
 				<p className='text-sm text-gray-500'>{user.username}</p>
 			</div>
 		</div>
