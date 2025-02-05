@@ -23,7 +23,7 @@ const ProjectSection = ({ isManager, project, isProjectLoading }: ProjectSection
 
 	if (isProjectLoading)
 		return (
-			<div className='min-h-40 flex'>
+			<div className='min-h-40 flex-1 flex'>
 				<Loading />
 			</div>
 		);

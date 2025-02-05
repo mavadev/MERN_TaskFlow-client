@@ -16,10 +16,12 @@ export const ModalAddMember = () => {
 	const {
 		isIdle,
 		data: users,
+		error,
 		isError: usersError,
 		isPending: usersLoading,
 		mutate: getUsers,
 	} = useMutation({
+		retry: false,
 		mutationFn: getUsersByUsername,
 	});
 
@@ -32,10 +34,11 @@ export const ModalAddMember = () => {
 			<div className='p-10 space-y-10'>
 				<FormAddMember fetchUsers={getUsers} />
 				<FindMemberList
-					disabled={isIdle}
 					users={users!}
-					usersError={usersError}
+					disabled={isIdle}
 					usersLoading={usersLoading}
+					usersError={usersError}
+					errorMessage={error?.message}
 				/>
 			</div>
 		</Modal>

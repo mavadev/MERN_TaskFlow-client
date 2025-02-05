@@ -5,7 +5,7 @@ import { TeamList, AddMemberModal } from '@/components/app/team';
 
 const ProjectTeamPage = () => {
 	const navigate = useNavigate();
-	const { team } = useOutletContext<ProjectContextProps>();
+	const { team, isManager } = useOutletContext<ProjectContextProps>();
 
 	const handleAddMember = () => navigate(location.pathname + '?addMember=true', { replace: true });
 
@@ -16,13 +16,17 @@ const ProjectTeamPage = () => {
 				<h1 className='font-bold text-2xl md:text-3xl'>Administrar Equipo</h1>
 				<p className='text-xl text-black text-balance mt-2'>Administra los colaboradores del proyecto</p>
 			</header>
-			<button
-				onClick={handleAddMember}
-				className='btn btn-primary px-4 py-2 mb-10'>
-				Añadir colaborador
-			</button>
-
-			<TeamList team={team} />
+			{isManager && (
+				<button
+					onClick={handleAddMember}
+					className='btn btn-primary px-4 py-2'>
+					Añadir colaborador
+				</button>
+			)}
+			<TeamList
+				team={team}
+				isManager={isManager}
+			/>
 			<AddMemberModal />
 		</>
 	);

@@ -5,18 +5,20 @@ import { usePasswordConfirm } from '@/hooks/usePasswordConfirm';
 
 interface TeamListProps {
 	team: TeamResponse;
+	isManager: boolean;
 }
 
-export const TeamList = ({ team: { manager, team } }: TeamListProps) => {
+export const TeamList = ({ team: { manager, team }, isManager }: TeamListProps) => {
 	const { confirmPassword, ModalAuth } = usePasswordConfirm();
 
 	return (
-		<div className='flex flex-wrap gap-5'>
+		<div className='flex flex-wrap gap-5 mt-10'>
 			<TeamMemberManager member={manager} />
 			{team?.map(member => (
 				<TeamMemberTeam
-					key={member._id}
 					member={member}
+					key={member._id}
+					isManager={isManager}
 					confirmPassword={confirmPassword}
 				/>
 			))}

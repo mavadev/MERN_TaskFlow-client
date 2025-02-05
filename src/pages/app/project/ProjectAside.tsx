@@ -1,6 +1,4 @@
 import { Link } from 'react-router-dom';
-import { Loading } from '@/components/Loading';
-import { ErrorScreen } from '@/components/ErrorScreen';
 import { RectangleStackIcon, UserGroupIcon } from '@heroicons/react/24/outline';
 
 import LoadingSkeletonAside from './LoadingSkeletonAside';
@@ -8,12 +6,11 @@ import { UserItem } from '@/components/app/user/UserItem';
 import type { Project } from '@/interfaces/project.interface';
 
 interface ProjectAsideProps {
-	isManager: boolean;
 	project: Project;
 	isProjectLoading: boolean;
 }
 
-const ProjectAside = ({ isManager, project, isProjectLoading }: ProjectAsideProps) => {
+const ProjectAside = ({ project, isProjectLoading }: ProjectAsideProps) => {
 	if (isProjectLoading) return <LoadingSkeletonAside />;
 
 	return (
@@ -24,13 +21,11 @@ const ProjectAside = ({ isManager, project, isProjectLoading }: ProjectAsideProp
 					className='btn-primary text-sm uppercase !bg-secondary w-full p-3'>
 					Tareas
 				</Link>
-				{isManager && (
-					<Link
-						to='team'
-						className='btn-primary text-sm uppercase !bg-tertiary w-full p-3'>
-						Colaboradores
-					</Link>
-				)}
+				<Link
+					to='team'
+					className='btn-primary text-sm uppercase !bg-tertiary w-full p-3'>
+					Colaboradores
+				</Link>
 			</nav>
 			<header>
 				<h2 className='uppercase font-bold text-outline'>Proyecto</h2>

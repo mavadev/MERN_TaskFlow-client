@@ -12,10 +12,9 @@ export const statusStyles: { [key: string]: string } = {
 
 type TaskStatusProps = {
 	status: string;
-	isManager: boolean;
 };
 
-export const TaskStatus = ({ status, isManager }: TaskStatusProps) => {
+export const TaskStatus = ({ status }: TaskStatusProps) => {
 	const navigate = useNavigate();
 	const handleCreateTask = () => navigate(location.pathname + `?mode=create&status=${status}`);
 
@@ -23,11 +22,9 @@ export const TaskStatus = ({ status, isManager }: TaskStatusProps) => {
 		<div
 			className={`flex items-center justify-between w-full select-none p-3 rounded-t border-b-8 ${statusStyles[status]} opacity-80`}>
 			<h3 className='capitalize font-bold'>{statusTranslate[status]}</h3>
-			{isManager && (
-				<button onClick={handleCreateTask}>
-					<PlusCircleIcon width={25} />
-				</button>
-			)}
+			<button onClick={handleCreateTask}>
+				<PlusCircleIcon width={25} />
+			</button>
 		</div>
 	);
 };

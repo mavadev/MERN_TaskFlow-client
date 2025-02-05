@@ -12,9 +12,10 @@ import { UserItem } from '../user/UserItem';
 interface TeamMemberTeamProps {
 	member: TeamMember;
 	confirmPassword: () => Promise<void>;
+	isManager: boolean;
 }
 
-export const TeamMemberTeam = ({ member, confirmPassword }: TeamMemberTeamProps) => {
+export const TeamMemberTeam = ({ member, confirmPassword, isManager }: TeamMemberTeamProps) => {
 	const queryClient = useQueryClient();
 	const { projectId } = useParams() as { projectId: Project['_id'] };
 
@@ -40,14 +41,16 @@ export const TeamMemberTeam = ({ member, confirmPassword }: TeamMemberTeamProps)
 				<UserItem user={member} />
 				<div className='flex items-center gap-2'></div>
 			</div>
-			<footer className='mt-5 flex justify-between items-end'>
+			<footer className='mt-5 flex justify-end items-end'>
 				<p className='text-white font-bold uppercase text-xs px-4 py-2 rounded bg-secondary'>colaborador</p>
-				<button
-					disabled={!isIdle}
-					onClick={handleDeleteMember}
-					className='bg-error text-white p-2 rounded hover:opacity-90 disabled:opacity-50 disabled:cursor-default'>
-					<TrashIcon className='size-5' />
-				</button>
+				{isManager && (
+					<button
+						disabled={!isIdle}
+						onClick={handleDeleteMember}
+						className='ml-auto bg-error text-white p-2 rounded hover:opacity-90 disabled:opacity-50 disabled:cursor-default'>
+						<TrashIcon className='size-5' />
+					</button>
+				)}
 			</footer>
 		</div>
 	);

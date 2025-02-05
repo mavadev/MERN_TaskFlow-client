@@ -5,17 +5,14 @@ import { TaskList } from '@/components/app/tasks/TaskList';
 import { TaskModal } from '@/components/app/tasks/TaskModal';
 
 const ProjectViewPage = () => {
-	const { project, isManager } = useOutletContext<ProjectContextProps>();
+	const { project } = useOutletContext<ProjectContextProps>();
 	const team = {
 		manager: project.manager,
 		team: project.team,
 	};
 	return (
 		<>
-			<TaskList
-				isManager={isManager}
-				tasks={project.tasks}
-			/>
+			<TaskList tasks={project.tasks} />
 			<TaskModal team={team} />
 		</>
 	);

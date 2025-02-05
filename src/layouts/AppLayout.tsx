@@ -19,7 +19,7 @@ const AppLayout = () => {
 		);
 
 	return (
-		<div className='flex flex-col min-h-screen h-screen bg-background'>
+		<div className='flex flex-col min-h-screen bg-background'>
 			<header className='border-b-2 border-secondary'>
 				<div className='container mx-auto flex justify-between py-6 px-3'>
 					<Logo />

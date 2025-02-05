@@ -28,7 +28,6 @@ const ProjectLayout = () => {
 	return (
 		<div className='flex-1 flex flex-col md:flex-row'>
 			<ProjectAside
-				isManager={isManager}
 				project={project!}
 				isProjectLoading={isProjectLoading}
 			/>

@@ -10,10 +10,9 @@ import type { TaskSimple } from '@/interfaces/task.interface';
 
 type TaskItemProps = {
 	task: TaskSimple;
-	isManager: boolean;
 };
 
-export const TaskItem = ({ task, isManager }: TaskItemProps) => {
+export const TaskItem = ({ task }: TaskItemProps) => {
 	const navigate = useNavigate();
 
 	const queryClient = useQueryClient();
@@ -65,26 +64,22 @@ export const TaskItem = ({ task, isManager }: TaskItemProps) => {
 						Ver Tarea
 					</button>
 				</MenuItem>
-				{isManager && (
-					<>
-						<MenuItem>
-							<button
-								type='button'
-								onClick={() => handleNavigate('edit')}
-								className='block px-3 py-2 text-sm font-medium leading-6 text-gray-700 w-full hover:bg-gray-50'>
-								Editar Tarea
-							</button>
-						</MenuItem>
-						<MenuItem>
-							<button
-								type='button'
-								onClick={handleDeleteTask}
-								className='block px-3 py-2 text-sm font-medium leading-6 bg-red-500 w-full hover:bg-red-600 text-white'>
-								Eliminar Tarea
-							</button>
-						</MenuItem>
-					</>
-				)}
+				<MenuItem>
+					<button
+						type='button'
+						onClick={() => handleNavigate('edit')}
+						className='block px-3 py-2 text-sm font-medium leading-6 text-gray-700 w-full hover:bg-gray-50'>
+						Editar Tarea
+					</button>
+				</MenuItem>
+				<MenuItem>
+					<button
+						type='button'
+						onClick={handleDeleteTask}
+						className='block px-3 py-2 text-sm font-medium leading-6 bg-red-500 w-full hover:bg-red-600 text-white'>
+						Eliminar Tarea
+					</button>
+				</MenuItem>
 			</OptionsItem>
 		</li>
 	);

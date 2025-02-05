@@ -6,8 +6,9 @@ import type { UserSimple } from '@/interfaces/user.interface';
 interface FindMemberListProps {
 	disabled: boolean;
 	users: UserSimple[];
-	usersError: boolean;
 	usersLoading: boolean;
+	usersError: boolean;
+	errorMessage?: string;
 }
 
 const LoadingUsers = () => (
@@ -17,10 +18,10 @@ const LoadingUsers = () => (
 	/>
 );
 
-const ErrorUsers = () => (
+const ErrorUsers = ({ message }: { message?: string }) => (
 	<div className='flex items-center gap-5'>
 		<ExclamationCircleIcon className='size-10 text-error' />
-		<h3 className='font-semibold text-error'>Hubo un error al obtener los usuarios</h3>
+		<h3 className='font-semibold text-error'>{message ? message : 'Hubo un error al obtener los usuarios'}</h3>
 	</div>
 );
 
@@ -37,11 +38,11 @@ const NotFoundUsers = () => (
 	</div>
 );
 
-export const FindMemberList = ({ disabled, users, usersError, usersLoading }: FindMemberListProps) => {
+export const FindMemberList = ({ disabled, errorMessage, users, usersError, usersLoading }: FindMemberListProps) => {
 	if (disabled) return <></>;
 
 	if (usersLoading) return <LoadingUsers />;
-	if (usersError) return <ErrorUsers />;
+	if (usersError) return <ErrorUsers message={errorMessage} />;
 
 	if (!users?.length) return <NotFoundUsers />;
 

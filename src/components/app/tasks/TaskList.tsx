@@ -5,7 +5,6 @@ import type { TaskSimple } from '@/interfaces/task.interface';
 
 interface TaskListProps {
 	tasks: TaskSimple[];
-	isManager: boolean;
 }
 interface GroupTasks {
 	[key: string]: TaskSimple[];
@@ -18,7 +17,7 @@ const initialStatusTasks: GroupTasks = {
 	completed: [],
 };
 
-export const TaskList = ({ tasks, isManager }: TaskListProps) => {
+export const TaskList = ({ tasks }: TaskListProps) => {
 	const groupedTasks = useMemo(
 		() =>
 			tasks.reduce((prev, curr) => {
@@ -38,7 +37,6 @@ export const TaskList = ({ tasks, isManager }: TaskListProps) => {
 					<TaskStatus
 						key={status}
 						status={status}
-						isManager={isManager}
 					/>
 					<ul className='w-full space-y-2'>
 						{statusTasks.length ? (
@@ -46,7 +44,6 @@ export const TaskList = ({ tasks, isManager }: TaskListProps) => {
 								<TaskItem
 									task={task}
 									key={task._id}
-									isManager={isManager}
 								/>
 							))
 						) : (

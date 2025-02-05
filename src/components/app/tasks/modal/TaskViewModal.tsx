@@ -27,8 +27,7 @@ export default function TaskViewModal({ task, team }: TaskViewModalProps) {
 	const taskId = searchParams.get('taskId')!;
 	const { projectId } = useParams() as { projectId: Project['_id'] };
 
-	const successChange = (message: string) => {
-		toast.success(message);
+	const successChange = () => {
 		queryClient.invalidateQueries({ queryKey: ['task', taskId] });
 		queryClient.invalidateQueries({ queryKey: ['project', projectId] });
 	};
