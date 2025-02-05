@@ -1,13 +1,14 @@
+import { formatImage } from '@/utils';
 import { Loading } from '@/components/Loading';
 import { useProfile } from '@/hooks/useProfile';
-import { formatImage } from '@/utils';
+import { ErrorScreen } from '@/components/ErrorScreen';
 
 const ProfilePage = () => {
 	// Obtener usuario completo
 	const { profile, isProfileLoading, isProfileError } = useProfile();
 
 	if (isProfileLoading) return <Loading />;
-	if (isProfileError || !profile) return <h2>Error</h2>;
+	if (isProfileError || !profile) return <ErrorScreen />;
 
 	return (
 		<main className='my-10 space-y-5 max-w-md mx-auto text-center'>

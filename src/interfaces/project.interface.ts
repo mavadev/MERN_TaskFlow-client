@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { tasksSchemaSimple } from './task.interface';
 import { teamMemberSchema } from './team.interface';
+import { userSimpleSchema } from './user.interface';
 
 // Proyecto Simple ( Listado de proyectos )
 export const projectSchemaSimple = z.object({
@@ -8,7 +9,8 @@ export const projectSchemaSimple = z.object({
 	clientName: z.string(),
 	projectName: z.string(),
 	description: z.string(),
-	team: z.array(z.string()),
+	team: z.array(userSimpleSchema),
+	manager: userSimpleSchema,
 });
 export const projectsSchema = z.array(projectSchemaSimple);
 export interface ProjectSimple extends z.infer<typeof projectSchemaSimple> {}
