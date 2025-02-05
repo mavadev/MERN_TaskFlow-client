@@ -34,7 +34,7 @@ export const TaskItem = ({ task }: TaskItemProps) => {
 	};
 
 	return (
-		<li className='p-4 bg-white border border-slate-400 flex justify-between gap-3 rounded cursor-pointer'>
+		<li className='p-4 bg-white border border-outline flex justify-between gap-3 rounded cursor-pointer w-60 min-w-60'>
 			<div className='flex flex-col gap-y-2'>
 				<p
 					onClick={() => handleNavigate('view')}

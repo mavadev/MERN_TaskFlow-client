@@ -20,7 +20,7 @@ export const TaskStatus = ({ status }: TaskStatusProps) => {
 
 	return (
 		<div
-			className={`flex items-center justify-between w-full select-none p-3 rounded-t border-b-8 ${statusStyles[status]} opacity-80`}>
+			className={`flex items-center justify-between w-full select-none p-3 rounded-t border-b-8 ${statusStyles[status]} opacity-80 min-w-60`}>
 			<h3 className='capitalize font-bold'>{statusTranslate[status]}</h3>
 			<button onClick={handleCreateTask}>
 				<PlusCircleIcon width={25} />

@@ -37,10 +37,8 @@ const ProjectSection = ({ isManager, project, isProjectLoading }: ProjectSection
 	const handleFindMember = () => navigate(location.pathname + '?addMember=true');
 
 	return (
-		<main className='relative flex-1 flex overflow-auto'>
-			<section className='flex-1 overflow-auto p-4'>
-				<Outlet context={{ project, team, isManager }} />
-			</section>
+		<main className='relative flex-1 flex overflow-scroll'>
+			<Outlet context={{ project, team, isManager }} />
 			<div className='absolute right-10 bottom-10 flex gap-3 max-md:hidden'>
 				{location.pathname.includes('/tasks') && (
 					<button

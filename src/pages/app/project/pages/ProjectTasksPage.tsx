@@ -11,10 +11,10 @@ const ProjectViewPage = () => {
 		team: project.team,
 	};
 	return (
-		<>
+		<section className='flex-1 overflow-auto'>
 			<TaskList tasks={project.tasks} />
 			<TaskModal team={team} />
-		</>
+		</section>
 	);
 };
 
